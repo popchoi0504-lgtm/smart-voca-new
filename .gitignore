@@ -1,0 +1,29 @@
+# 비밀정보 (CLAUDE.md 코드 작성 규칙 5번): .env 는 커밋하지 않고 .env.example 만 커밋한다
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node / React
+node_modules/
+dist/
+build/
+
+# 로컬 DB·데이터 (용량 큰 원본, 개인정보 포함 가능)
+*.sqlite3
+*.db
+data/raw/
+
+# 에디터·OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Claude Code 로컬 설정
+.claude/settings.local.json
