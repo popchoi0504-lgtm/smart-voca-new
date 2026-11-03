@@ -1,0 +1,29 @@
+/* 2026-11-03 - smart-voca - 디자인 토큰: 색·간격·글자 크기를 한곳에 모아 둔다 (바꾸면 전체 화면에 반영) */
+/* 파일 위치: src/frontend/src/styles/tokens.css */
+:root {
+  /* 색 */
+  --color-bg: #f6f7fb;
+  --color-surface: #ffffff;
+  --color-text: #1f2430;
+  --color-text-muted: #667085;
+  --color-primary: #3b5bdb;
+  --color-success: #2f9e44;
+  --color-danger: #e03131;
+  --color-border: #e3e6ee;
+
+  /* 간격 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+
+  /* 모서리, 그림자 */
+  --radius: 12px;
+  --shadow: 0 2px 8px rgba(31, 36, 48, 0.08);
+
+  /* 글자 */
+  --font-family: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', system-ui, sans-serif;
+  --font-size-base: 16px;
+  --font-size-title: 28px;
+}
