@@ -72,7 +72,7 @@ smart-voca_new/
 │   ├── backend/
 │   │   ├── app/
 │   │   │   ├── main.py            # FastAPI 앱 생성, 라우터 등록, 오류 처리 등록
-│   │   │   ├── core/              # config.py(설정), security.py(해시·토큰), logging.py, errors.py
+│   │   │   ├── core/              # config.py(설정), database.py(DB 연결·세션), security.py(해시·토큰), logging.py, errors.py
 │   │   │   ├── models/            # user.py, word.py, user_word.py, review_log.py, payment.py
 │   │   │   ├── schemas/           # auth.py, study.py, quiz.py, progress.py, payment.py
 │   │   │   ├── routers/           # auth.py, study.py, quiz.py, progress.py, subscription.py, health.py
@@ -191,8 +191,8 @@ sequenceDiagram
 |---|---|---|---|
 | AD-1 | React 화면과 FastAPI 서버를 **분리**하고 JSON 으로 통신 (ADR-001 재확인) | 서버가 화면까지 만드는 방식 | 역할이 명확하고 설명하기 쉬움. 대표 결정으로 확정된 사항 |
 | AD-2 | 로그인 토큰(JWT)을 **HttpOnly 쿠키**에 보관, 단일 액세스 토큰, 만료는 7일(제안) `[설계 확정]` | 토큰을 브라우저 저장소(localStorage)에 보관 / 서버 세션 | HttpOnly 쿠키는 화면 스크립트가 읽을 수 없어 탈취 위험이 낮다. 쿠키는 자동 전송이라 `SameSite=Lax` 로 다른 사이트의 요청을 막는다. 갱신 토큰은 범위 밖 |
-| AD-3 | 비밀번호 해시는 **Argon2id** 우선, 설치가 안 되면 bcrypt `[설치 시 확인: Python 3.14 지원]` | bcrypt, 직접 구현(금지) | 일반적으로 권장되는 방식이나 이 문서에서는 공식 자료로 재확인하지 않았다. 어느 쪽이든 검증된 라이브러리를 쓰고 직접 만들지 않는다 |
-| AD-4 | DB 접근은 **SQLAlchemy 2.x 동기 방식** + psycopg2 `[설치 시 확인]` | 비동기 방식, 순수 SQL | 동기가 코드 흐름이 단순해 설명하기 쉽다. 사용자 수가 적어 성능 차이가 의미 없음. psycopg2 는 변경 내역에서 Python 3.14 지원이 확인됨 |
+| AD-3 | 비밀번호 해시는 **Argon2id** 사용. Python 3.14.3 에서 argon2-cffi 25.1.0 설치와 해시 생성이 확인됨(2026-11-03). bcrypt 대체는 불필요 | bcrypt, 직접 구현(금지) | 일반적으로 권장되는 방식이나 이 문서에서는 공식 자료로 재확인하지 않았다. 어느 쪽이든 검증된 라이브러리를 쓰고 직접 만들지 않는다 |
+| AD-4 | DB 접근은 **SQLAlchemy 동기 방식**(설치된 버전 2.1.6) + psycopg2-binary 2.9.13. Python 3.14.3 에서 설치와 DB 접속이 확인됨(2026-11-03) | 비동기 방식, 순수 SQL | 동기가 코드 흐름이 단순해 설명하기 쉽다. 사용자 수가 적어 성능 차이가 의미 없음. psycopg2 는 변경 내역에서 Python 3.14 지원이 확인됨 |
 | AD-5 | 표 생성·변경은 **Alembic**(마이그레이션)으로 관리 | `create_all` 한 번에 생성 / SQL 파일 수동 관리 | 세로 방식은 기능마다 표가 하나씩 추가되므로 변경 이력이 필요하다. 학습 부담이 있어 막히면 `create_all` 로 대체 |
 | AD-6 | SM-2, 힌트 같은 **순수 계산은 별도 폴더**(`core_logic/`)로 분리 | 서비스 안에 섞어 쓰기 | DB 없이 테스트 가능. 계산 규칙을 바꿔도 다른 곳에 영향이 적음 |
 | AD-7 | 퀴즈 문제에 **정답 영단어를 보내지 않음**(힌트 3단계 전까지) | 정답을 보내고 화면에서 가림 | 브라우저에 있으면 개발자 도구로 볼 수 있다. 정답 판정도 서버가 한다 |
@@ -220,10 +220,10 @@ sequenceDiagram
 
 | 항목 | 값 |
 |---|---|
-| 서버 | Python 3.14.3 (설치됨). 가상환경(venv) 사용. 호환 문제가 있으면 다른 Python 버전으로 가상환경 구성 `[설치 시 확인]` |
+| 서버 | Python 3.14.3. 가상환경(venv) 사용. 계획한 서버 패키지(FastAPI 0.162, SQLAlchemy 2.1.6, psycopg2-binary, Alembic, argon2-cffi, PyJWT 등)가 모두 3.14.3 에서 설치·동작 확인됨(2026-11-03). 정확한 버전은 `requirements.txt` |
 | 화면 | Node.js v24.15.0, npm 11.12.1 (설치됨) |
 | DB | PostgreSQL 17.11, localhost:5432 (설치·접속 확인됨). 서비스 전용 DB·사용자는 구현 시작 때 생성 |
-| 포트 | 화면 5173, 서버 8000, DB 5432 |
+| 포트 | 화면 5173, 서버 8000, DB 5432. 화면 서버(Vite)는 IPv6 로 대기하므로 브라우저는 `localhost:5173` 으로 접속하고, 프록시는 `127.0.0.1:8000` 으로 전달한다 (VS-0 에서 발견) |
 | 실행 방법 | 운영 문서에 단계별로 작성 (FR-SYS-04) |
 
 ## 11. 추적 매트릭스 (요구사항 → 구성 요소)
@@ -268,8 +268,8 @@ sequenceDiagram
 |---|---|---|
 | 1 | JWT 만료 7일, 쿠키 속성 | `[설계 확정]` |
 | 2 | 힌트 단계 순서 검증 방식 | `[설계 확정]` |
-| 3 | Argon2id 설치 가능 여부 (Python 3.14) | `[설치 시 확인]` |
-| 4 | psycopg2 설치 가능 여부 (Python 3.14) | `[설치 시 확인]` |
+| 3 | ~~Argon2id 설치 가능 여부 (Python 3.14)~~ → 확인됨 (11-03) | 완료 |
+| 4 | ~~psycopg2 설치 가능 여부 (Python 3.14)~~ → 확인됨 (11-03) | 완료 |
 | 5 | 토스 승인 API 주소·인증 방식 | `[구현 시 공식 문서 재확인]` |
 | 6 | 라이브러리 정확한 버전 | 설치 시 고정 |
 

@@ -66,6 +66,7 @@
 | `PAYMENT_FAILED` | 402 | 결제사가 승인을 거절 | 실패 사유 표시, 다시 시도 |
 | `PAYMENT_PROVIDER_ERROR` | 502 | 결제사와 통신 실패 | 잠시 후 다시 시도 안내 |
 | `NOT_FOUND` | 404 | 없는 주소 | - |
+| `METHOD_NOT_ALLOWED` | 405 | 허용되지 않는 요청 방식 (예: 조회 전용 주소에 POST). VS-0 구현 중 추가 | - |
 | `INTERNAL_ERROR` | 500 | 서버 내부 오류 (상세는 로그에만) | "문제가 생겼어요" 안내 |
 
 ## 4. API 상세
