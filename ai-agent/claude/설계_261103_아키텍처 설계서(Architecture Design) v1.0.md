@@ -72,7 +72,7 @@ smart-voca_new/
 │   ├── backend/
 │   │   ├── app/
 │   │   │   ├── main.py            # FastAPI 앱 생성, 라우터 등록, 오류 처리 등록
-│   │   │   ├── core/              # config.py(설정), database.py(DB 연결·세션), security.py(해시·토큰), logging.py, errors.py
+│   │   │   ├── core/              # config.py(설정), database.py(DB 연결·세션), security.py(해시·토큰·쿠키), dependencies.py(로그인 검사), timeutil.py(한국 시간), logging.py, errors.py
 │   │   │   ├── models/            # user.py, word.py, user_word.py, review_log.py, payment.py
 │   │   │   ├── schemas/           # auth.py, study.py, quiz.py, progress.py, payment.py
 │   │   │   ├── routers/           # auth.py, study.py, quiz.py, progress.py, subscription.py, health.py
@@ -184,6 +184,8 @@ sequenceDiagram
 | 결제 조작 | 금액을 서버가 정하고 결제사에 다시 확인 | FR-SUB-03 |
 | 비밀정보 노출 | `.env` 분리, `.gitignore`, 오류 화면에 내부 정보 숨김 | NFR-SEC-03, FR-SYS-01 |
 | 로그인 무차별 대입 | 이번 범위에서는 **제외**(발표에서 다음 단계로 언급). 로컬 시연이라 위험이 낮음 | - |
+| 로그아웃 후 증표 재사용 | 로그아웃은 쿠키만 지운다. 증표를 서버에서 무효화하는 목록은 만들지 않았다(유효기간 7일, VS-1 구현 중 확인한 한계). 이미 유출된 증표는 만료까지 쓸 수 있어 상용 출시 전 보완 필요 | - |
+| 로그인 응답으로 가입 여부 추측 | 틀린 이메일/비밀번호를 같은 응답으로 돌려주고, 없는 이메일일 때도 가짜 해시를 계산해 응답 시간을 맞춘다. 단, 회원가입 API 는 "이미 가입된 이메일"을 알려주므로 이 경로로는 가입 여부가 드러난다(허용한 절충) | FR-AUTH-02 |
 
 ## 7. 기술 선택과 결정 기록 (ADR 성격)
 

@@ -35,6 +35,12 @@ copy .env.example .env
 
 DB(`smart_voca`, `smart_voca_test`)와 전용 사용자는 PostgreSQL 관리자 계정으로 한 번 만들어야 한다.
 
+```powershell
+# 4) DB 표 만들기: DB 와 .env 가 준비된 뒤 한 번 (그리고 새 변경 파일이 생길 때마다)
+cd src\backend
+.\.venv\Scripts\python.exe -m alembic upgrade head
+```
+
 ## 실행 (터미널 2개)
 
 ```powershell
