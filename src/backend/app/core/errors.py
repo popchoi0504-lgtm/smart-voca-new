@@ -30,6 +30,24 @@ def error_response(status_code: int, code: str, message: str, fields: list[dict]
     return JSONResponse(status_code=status_code, content={"error": body})
 
 
+def _korean_message(error: dict) -> str:
+    """Pydantic 이 만든 영어 오류 문장을 사용자에게 보여줄 한국어로 바꾼다.
+
+    우리가 검사 규칙에서 직접 쓴 한국어 문장(ValueError)은 앞의 "Value error, " 만 떼고 그대로 쓴다.
+    """
+    error_type = error.get("type", "")
+    message = error.get("msg", "")
+    if error_type == "value_error":
+        return message.removeprefix("Value error, ")
+    if error_type == "missing":
+        return "필수 입력입니다."
+    if error_type in ("string_type", "string_parsing"):
+        return "문자로 입력해 주세요."
+    if error_type in ("json_invalid", "model_attributes_type", "dict_type"):
+        return "요청 형식이 올바르지 않습니다."
+    return "입력값이 올바르지 않습니다."
+
+
 def register_exception_handlers(app: FastAPI) -> None:
     """앱에 오류 처리기를 등록한다. 어떤 오류가 나도 응답 모양이 같아지고, 내부 정보는 화면에 나가지 않는다."""
 
@@ -41,7 +59,7 @@ def register_exception_handlers(app: FastAPI) -> None:
     async def handle_validation_error(request: Request, exc: RequestValidationError) -> JSONResponse:
         fields = [
             # loc 의 첫 항목은 "body" 같은 위치 표시라서 빼고, 나머지를 칸 이름으로 쓴다
-            {"field": ".".join(str(part) for part in error["loc"][1:]), "message": error["msg"]}
+            {"field": ".".join(str(part) for part in error["loc"][1:]), "message": _korean_message(error)}
             for error in exc.errors()
         ]
         return error_response(422, "VALIDATION_ERROR", "입력값을 확인해 주세요.", fields)

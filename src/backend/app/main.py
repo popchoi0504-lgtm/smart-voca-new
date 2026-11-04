@@ -8,7 +8,7 @@ from fastapi import FastAPI, Request
 
 from app.core.errors import register_exception_handlers
 from app.core.logging import setup_logging
-from app.routers import health
+from app.routers import auth, health
 
 request_logger = logging.getLogger("smart_voca.request")
 
@@ -38,6 +38,7 @@ def create_app() -> FastAPI:
 
     # 모든 API 는 /api 로 시작한다 (인터페이스 정의서 2장)
     app.include_router(health.router, prefix="/api", tags=["시스템"])
+    app.include_router(auth.router, prefix="/api")
     return app
 
 

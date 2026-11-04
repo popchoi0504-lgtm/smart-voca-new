@@ -11,8 +11,8 @@ from alembic import context
 from app.core.config import get_settings
 from app.models.base import Base
 
-# 새 모델(표)을 만들면 여기에서 불러와야 Alembic 이 그 표를 알게 된다. (VS-1 부터 추가)
-# 예: from app.models import user  # noqa: F401
+# 새 모델(표)을 만들면 여기에서 불러와야 Alembic 이 그 표를 알게 된다.
+from app.models import user  # noqa: F401  (users 표, VS-1)
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -25,7 +25,8 @@ if not config.get_main_option("sqlalchemy.url"):
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+    # disable_existing_loggers=False: 이미 설정된 서버 로그를 Alembic 이 꺼 버리지 않게 한다
+    fileConfig(config.config_file_name, disable_existing_loggers=False)
 
 # autogenerate(모델과 DB 를 비교해 변경 파일 자동 작성)가 참고하는 모델 정보
 target_metadata = Base.metadata
