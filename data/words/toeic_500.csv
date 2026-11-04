@@ -1,0 +1,501 @@
+frequency_rank,headword,part_of_speech,meaning_ko,example_en,example_ko
+1,vacation,n.,"휴가, 방학",All employees must request vacation at least two weeks in advance.,모든 직원은 최소 2주 전에 휴가를 신청해야 합니다.
+2,client,n.,"고객, 의뢰인",Our sales team will meet the client on Monday morning.,우리 영업팀은 월요일 아침에 고객을 만날 것입니다.
+3,e-book,n.,전자책,The publisher plans to release the e-book next month.,출판사는 다음 달에 전자책을 출시할 계획입니다.
+4,airport,n.,공항,The shuttle bus runs between the hotel and the airport every hour.,셔틀버스는 호텔과 공항 사이를 매시간 운행합니다.
+5,memo,n.,"메모, 회람",Please read the memo before attending tomorrow's meeting.,내일 회의에 참석하기 전에 메모를 읽어 주세요.
+6,reservation,n.,"예약, 보류",I would like to confirm my reservation for the conference room.,회의실 예약을 확인하고 싶습니다.
+7,logical,adj.,"논리적인, 타당한",The manager gave a logical explanation for the sudden change in schedule.,관리자는 갑작스러운 일정 변경에 대해 논리적인 설명을 했습니다.
+8,fax,n.,"팩스, 팩스 문서",Please send the signed contract by fax before noon.,서명된 계약서를 정오 전에 팩스로 보내 주세요.
+9,sincerely,adv.,"진심으로, 올림(편지 맺음말)",We sincerely apologize for the delay in delivering your order.,주문품 배송이 늦어진 점 진심으로 사과드립니다.
+10,sometime,adv.,"언젠가, 어느 때",Let's schedule a meeting sometime next week to discuss the budget.,다음 주 중에 예산을 논의할 회의 일정을 잡읍시다.
+11,supervisor,n.,"감독관, 상사",Please ask your supervisor to approve the vacation request.,휴가 신청을 승인해 달라고 상사에게 요청하세요.
+12,refund,n.,"환불, 환불금",Customers may request a full refund within thirty days of purchase.,고객은 구매 후 30일 이내에 전액 환불을 요청할 수 있습니다.
+13,goods,n.,"상품, 물품",The store sells a wide range of household goods at low prices.,그 가게는 다양한 가정용품을 저렴한 가격에 판매합니다.
+14,workshop,n.,"워크숍, 작업장",All new employees are required to attend the training workshop on Friday.,모든 신입 직원은 금요일 교육 워크숍에 참석해야 합니다.
+15,downtown,adv.,"도심에, 시내에",The company plans to move its headquarters downtown next year.,회사는 내년에 본사를 도심으로 옮길 계획입니다.
+16,deadline,n.,"마감 기한, 기일",The deadline for submitting the report has been extended to Friday.,보고서 제출 마감 기한이 금요일로 연장되었습니다.
+17,invoice,n.,"송장, 청구서",Please check the invoice carefully before making the payment.,결제하기 전에 청구서를 꼼꼼히 확인해 주세요.
+18,brochure,n.,"안내 책자, 팸플릿",The travel agency mailed a brochure to every customer on its list.,여행사는 명단에 있는 모든 고객에게 안내 책자를 우편으로 보냈습니다.
+19,noon,n.,"정오, 낮 12시",The package must be delivered by noon tomorrow.,그 소포는 내일 정오까지 배달되어야 합니다.
+20,accountant,n.,회계사,The accountant will review the financial statements next week.,회계사가 다음 주에 재무제표를 검토할 것입니다.
+21,clerk,n.,"사무원, 점원",The clerk at the front desk helped me fill out the form.,접수처 직원이 제가 양식을 작성하는 것을 도와주었습니다.
+22,lobby,n.,"로비, 현관 홀",Visitors should wait in the lobby until someone comes to meet them.,방문객은 누군가 마중 나올 때까지 로비에서 기다려야 합니다.
+23,publish,v.,"출판하다, 발표하다",The magazine will publish the survey results in its next issue.,그 잡지는 다음 호에 설문 조사 결과를 실을 것입니다.
+24,enclose,v.,"동봉하다, 둘러싸다",Please enclose a copy of your receipt with the application form.,신청서에 영수증 사본을 동봉해 주세요.
+25,applicant,n.,"지원자, 신청자",Each applicant must submit a résumé and two letters of reference.,각 지원자는 이력서와 추천서 두 통을 제출해야 합니다.
+26,seminar,n.,"세미나, 연수회",The company will hold a seminar on customer service next Tuesday.,회사는 다음 주 화요일에 고객 서비스 세미나를 열 것입니다.
+27,technician,n.,"기술자, 기사",A technician is coming this afternoon to repair the photocopier.,기술자가 오늘 오후에 복사기를 수리하러 올 예정입니다.
+28,cloth,n.,"천, 옷감",Please wipe the screen with a soft cloth to avoid scratches.,흠집이 생기지 않도록 부드러운 천으로 화면을 닦아 주세요.
+29,fare,n.,"운임, 요금",The bus fare will increase by ten percent starting next month.,버스 요금이 다음 달부터 10퍼센트 인상됩니다.
+30,receipt,n.,"영수증, 수령",You must show the receipt if you want to return the item.,물건을 반품하려면 영수증을 제시해야 합니다.
+31,traveler,n.,여행자,Every traveler should arrive at the airport two hours before departure.,모든 여행객은 출발 두 시간 전에 공항에 도착해야 합니다.
+32,caller,n.,전화를 건 사람,The receptionist asked the caller to leave a message.,접수 담당자는 전화를 건 사람에게 메시지를 남겨 달라고 요청했습니다.
+33,subway,n.,지하철,Many employees take the subway to work to avoid heavy traffic.,많은 직원이 교통 체증을 피하려고 지하철로 출근합니다.
+34,luggage,n.,"짐, 수하물",Passengers may bring one piece of luggage on board free of charge.,승객은 무료로 수하물 한 개를 기내에 가지고 탈 수 있습니다.
+35,shipment,n.,"배송, 선적물",The shipment of office supplies arrived two days late.,사무용품 배송이 이틀 늦게 도착했습니다.
+36,infer,v.,"추론하다, 추측하다",We can infer from the sales figures that customers prefer cheaper products.,매출 수치로 보아 고객이 더 저렴한 제품을 선호한다고 추론할 수 있습니다.
+37,waiter,n.,"웨이터, 종업원",The waiter brought the menu and explained today's special.,종업원이 메뉴를 가져와 오늘의 특별 요리를 설명했습니다.
+38,rental,n.,"임대, 대여",The rental of the meeting room includes free use of a projector.,회의실 대여에는 프로젝터 무료 사용이 포함됩니다.
+39,warranty,n.,"품질 보증, 보증서",The warranty covers repairs for one year after the purchase date.,보증서는 구매일로부터 1년간 수리를 보장합니다.
+40,cafeteria,n.,"구내식당, 카페테리아",The cafeteria on the second floor serves lunch from noon to two.,2층 구내식당은 정오부터 2시까지 점심을 제공합니다.
+41,chef,n.,"요리사, 주방장",The head chef will create a new menu for the opening of the restaurant.,주방장이 식당 개업을 위해 새 메뉴를 만들 것입니다.
+42,elevator,n.,승강기,The elevator is out of order so please use the stairs.,승강기가 고장 났으니 계단을 이용해 주세요.
+43,reception,n.,"접수처, 환영 연회",The reception will be held in the hotel ballroom after the ceremony.,환영 연회는 행사 후 호텔 연회장에서 열릴 것입니다.
+44,correctly,adv.,"올바르게, 정확하게",Please make sure the form is filled out correctly before you submit it.,제출하기 전에 양식이 올바르게 작성되었는지 확인해 주세요.
+45,lease,n.,"임대차 계약, 임대 기간",The lease for the new office expires at the end of December.,새 사무실의 임대 계약은 12월 말에 만료됩니다.
+46,bicycle,n.,자전거,Employees who ride a bicycle to work can use the secure parking area.,자전거로 출근하는 직원은 안전한 주차 구역을 이용할 수 있습니다.
+47,notify,v.,"통지하다, 알리다",Please notify the manager as soon as the equipment arrives.,장비가 도착하는 대로 관리자에게 알려 주세요.
+48,preview,n.,"미리 보기, 시사회",Members are invited to a special preview of the new exhibition.,회원들은 새 전시회의 특별 미리 보기에 초대됩니다.
+49,attendant,n.,"안내원, 승무원",A flight attendant will serve beverages shortly after takeoff.,승무원이 이륙 직후 음료를 제공할 것입니다.
+50,subscription,n.,"구독, 가입",You can cancel your subscription at any time on our website.,저희 웹사이트에서 언제든지 구독을 취소할 수 있습니다.
+51,convenient,adj.,"편리한, 가까운",The new store is in a convenient location near the train station.,새 매장은 기차역 근처의 편리한 곳에 있습니다.
+52,manual,n.,"설명서, 안내서",Refer to the user manual for instructions on installing the software.,소프트웨어 설치 방법은 사용 설명서를 참조하세요.
+53,clue,n.,"단서, 실마리",The survey results gave us a clue about what customers really want.,설문 조사 결과는 고객이 진짜 원하는 것에 대한 단서를 주었습니다.
+54,garage,n.,"차고, 주차장",Visitors may park in the garage behind the main building.,방문객은 본관 뒤에 있는 주차장에 주차할 수 있습니다.
+55,obtain,v.,"얻다, 획득하다",Applicants must obtain a permit before they open a business.,신청자는 사업을 시작하기 전에 허가를 받아야 합니다.
+56,oval,adj.,타원형의,The conference room has a large oval table in the center.,회의실 중앙에는 큰 타원형 탁자가 놓여 있습니다.
+57,inventory,n.,"재고, 재고 목록",The staff will count the inventory in the warehouse this weekend.,직원들은 이번 주말에 창고의 재고를 셀 것입니다.
+58,outdoor,adj.,"야외의, 옥외의",The company picnic will be held at an outdoor event space.,회사 야유회는 야외 행사장에서 열릴 것입니다.
+59,suitcase,n.,여행 가방,Please keep your suitcase with you at all times in the terminal.,터미널에서는 항상 여행 가방을 몸에서 떼지 마세요.
+60,destination,n.,"목적지, 행선지",The tour group reached its destination ahead of schedule.,관광 단체는 예정보다 일찍 목적지에 도착했습니다.
+61,occupation,n.,"직업, 점유",Please write your name and occupation in the space below.,아래 칸에 성함과 직업을 적어 주세요.
+62,postpone,v.,"연기하다, 미루다",We have to postpone the product launch until next quarter.,우리는 제품 출시를 다음 분기로 연기해야 합니다.
+63,contradict,v.,"모순되다, 반박하다",The new report seems to contradict the earlier findings.,새 보고서는 이전 조사 결과와 모순되는 것으로 보입니다.
+64,umbrella,n.,우산,Please leave your umbrella in the stand beside the entrance.,우산은 입구 옆 거치대에 두세요.
+65,inference,n.,"추론, 추정",His inference was based on data from last year's survey.,그의 추론은 작년 설문 조사 자료에 근거했습니다.
+66,cellphone,n.,휴대전화,Please turn off your cellphone before the presentation begins.,발표가 시작되기 전에 휴대전화를 꺼 주세요.
+67,compact,adj.,"소형의, 간편한",This compact printer fits easily on a small desk.,이 소형 프린터는 작은 책상에도 쉽게 들어갑니다.
+68,merchandise,n.,"상품, 물품",All merchandise in the store is thirty percent off this weekend.,이번 주말에는 매장의 모든 상품이 30퍼센트 할인됩니다.
+69,receptionist,n.,접수 담당자,The receptionist greets every visitor and records their names.,접수 담당자는 모든 방문객을 맞이하고 이름을 기록합니다.
+70,dentist,n.,치과 의사,I have to reschedule my appointment with the dentist for next week.,저는 치과 예약을 다음 주로 다시 잡아야 합니다.
+71,identification,n.,"신분증, 신원 확인",Visitors must show identification at the security desk.,방문객은 보안 데스크에서 신분증을 제시해야 합니다.
+72,coupon,n.,"쿠폰, 할인권",Customers can use this coupon to get ten percent off any purchase.,고객은 이 쿠폰으로 모든 구매에서 10퍼센트 할인을 받을 수 있습니다.
+73,depart,v.,"출발하다, 떠나다",The train will depart from platform three at nine o'clock.,열차는 3번 승강장에서 9시에 출발할 것입니다.
+74,reschedule,v.,"일정을 변경하다, 다시 잡다",Could we reschedule the interview for Thursday afternoon?,면접을 목요일 오후로 다시 잡을 수 있을까요?
+75,tactic,n.,"전술, 방책",The marketing team discussed a new tactic to attract younger customers.,마케팅 팀은 젊은 고객을 끌어들일 새로운 전술을 논의했습니다.
+76,renovation,n.,"개조, 보수 공사",The renovation of the main lobby will be completed by the end of May.,중앙 로비 보수 공사는 5월 말까지 끝날 것입니다.
+77,upgrade,v.,"업그레이드하다, 승급시키다",We plan to upgrade our computer system early next year.,우리는 내년 초에 컴퓨터 시스템을 업그레이드할 계획입니다.
+78,precede,v.,"앞서다, 선행하다",A brief introduction will precede the keynote speech.,간단한 소개가 기조연설에 앞서 진행될 것입니다.
+79,replacement,n.,"교체품, 대체",We will send a replacement for the damaged item free of charge.,파손된 물품의 교체품을 무료로 보내 드리겠습니다.
+80,dine,v.,"식사하다, 정찬을 들다",Guests can dine on the terrace when the weather is nice.,날씨가 좋으면 손님들은 테라스에서 식사할 수 있습니다.
+81,passport,n.,여권,Please bring your passport to the check-in counter.,체크인 카운터에 여권을 가져오세요.
+82,coworker,n.,"동료, 직장 동료",My coworker offered to cover my shift on Saturday.,제 동료가 토요일 근무를 대신해 주겠다고 했습니다.
+83,upcoming,adj.,"다가오는, 곧 있을",Details about the upcoming conference will be posted on our website.,다가오는 학회에 대한 자세한 내용은 웹사이트에 게시될 것입니다.
+84,cabinet,n.,"보관함, 캐비닛",All files are stored in the locked cabinet near the printer.,모든 파일은 프린터 옆의 잠긴 캐비닛에 보관됩니다.
+85,appliance,n.,"가전제품, 기기",This store specializes in kitchen appliance repair and installation.,이 가게는 주방 가전제품 수리와 설치를 전문으로 합니다.
+86,explanatory,adj.,"설명하는, 해설의",An explanatory note is attached to the back of the form.,양식 뒷면에 설명 안내문이 첨부되어 있습니다.
+87,instructor,n.,"강사, 교관",The instructor will hand out the course materials on the first day.,강사는 첫날에 강의 자료를 나눠 줄 것입니다.
+88,keyboard,n.,"키보드, 자판",The technician replaced the broken keyboard with a new one.,기술자는 고장 난 키보드를 새것으로 교체했습니다.
+89,media,n.,"매체, 언론",Several media companies attended the press conference on Monday.,여러 언론사가 월요일 기자 회견에 참석했습니다.
+90,supermarket,n.,슈퍼마켓,The new supermarket opens at eight every morning.,새 슈퍼마켓은 매일 아침 8시에 문을 엽니다.
+91,valid,adj.,"유효한, 타당한",Your passport must be valid for at least six months.,여권은 최소 6개월간 유효해야 합니다.
+92,admission,n.,"입장, 입장료",Admission to the museum is free for children under twelve.,12세 미만 어린이는 박물관 입장이 무료입니다.
+93,laptop,n.,노트북 컴퓨터,Employees may take a laptop home if they get approval from a manager.,직원은 관리자의 승인을 받으면 노트북을 집에 가져갈 수 있습니다.
+94,underline,v.,"밑줄을 긋다, 강조하다",Please underline the key points in the document before the meeting.,회의 전에 문서의 핵심 사항에 밑줄을 그어 주세요.
+95,electrical,adj.,"전기의, 전기 관련의",An electrical problem caused the power outage in the building.,전기 문제로 건물에 정전이 발생했습니다.
+96,airplane,n.,비행기,Passengers must turn off their phones once the airplane starts moving.,승객은 비행기가 움직이기 시작하면 휴대전화를 꺼야 합니다.
+97,assignment,n.,"과제, 업무 배정",Each team member received a new assignment on Monday morning.,각 팀원은 월요일 아침에 새 업무를 배정받았습니다.
+98,exit,n.,"출구, 퇴장",Please use the nearest exit in case of an emergency.,비상시에는 가장 가까운 출구를 이용해 주세요.
+99,attendee,n.,"참석자, 참가자",Each attendee will receive a name tag and a conference program.,각 참석자는 이름표와 학회 일정표를 받게 됩니다.
+100,cruise,n.,"유람선 여행, 크루즈",The company offered a week-long cruise as a prize for the top salesperson.,회사는 최고 영업 사원에게 상으로 일주일간의 크루즈 여행을 제공했습니다.
+101,birthday,n.,생일,The staff organized a surprise party for the manager's birthday.,직원들은 관리자의 생일을 맞아 깜짝 파티를 준비했습니다.
+102,comprehension,n.,"이해, 이해력",The test measures reading comprehension and listening skills.,그 시험은 독해력과 듣기 능력을 평가합니다.
+103,mall,n.,쇼핑몰,The new shopping mall will open near the train station in March.,새 쇼핑몰이 3월에 기차역 근처에 문을 엽니다.
+104,medication,n.,"약, 약물 치료",Employees who take medication should inform the nurse on duty.,약을 복용하는 직원은 근무 중인 간호사에게 알려야 합니다.
+105,recycle,v.,"재활용하다, 재생하다",Please recycle all paper and plastic in the bins provided.,모든 종이와 플라스틱은 비치된 수거함에 재활용해 주세요.
+106,renew,v.,"갱신하다, 연장하다",You can renew your membership online before it expires.,회원 자격이 만료되기 전에 온라인으로 갱신할 수 있습니다.
+107,tenant,n.,"세입자, 임차인",Each tenant must pay the monthly rent by the fifth day.,모든 세입자는 매월 5일까지 월세를 내야 합니다.
+108,sandwich,n.,샌드위치,The café offers a free drink with every sandwich ordered at lunch.,그 카페는 점심에 샌드위치를 주문하면 음료를 무료로 제공합니다.
+109,departure,n.,"출발, 떠남",The departure of flight 305 has been delayed by two hours.,305편의 출발이 두 시간 지연되었습니다.
+110,fitness,n.,"신체 단련, 건강",The company offers a free fitness class for employees every Wednesday.,회사는 매주 수요일 직원들에게 무료 운동 수업을 제공합니다.
+111,inconvenience,n.,"불편, 불편한 점",We apologize for any inconvenience caused by the construction work.,공사로 인해 불편을 끼친 점 사과드립니다.
+112,banquet,n.,"연회, 만찬",The annual banquet will take place at the Grand Hotel on Friday.,연례 만찬은 금요일에 그랜드 호텔에서 열립니다.
+113,closet,n.,"벽장, 수납장",Coats and umbrellas can be stored in the closet near the entrance.,외투와 우산은 입구 근처 수납장에 보관할 수 있습니다.
+114,expire,v.,"만료되다, 끝나다",Your coupon will expire at the end of this month.,쿠폰은 이달 말에 만료됩니다.
+115,folder,n.,"폴더, 서류철",Please put the signed forms in the blue folder on my desk.,서명된 서류를 제 책상 위의 파란 폴더에 넣어 주세요.
+116,photocopy,v.,복사하다,Could you photocopy these documents before the meeting starts?,회의가 시작되기 전에 이 서류들을 복사해 주시겠어요?
+117,renovate,v.,"개조하다, 보수하다",The hotel plans to renovate all of its guest rooms this winter.,그 호텔은 올겨울에 모든 객실을 개조할 계획입니다.
+118,sunny,adj.,"화창한, 햇살 밝은",It will be sunny all weekend so the outdoor event will go ahead.,주말 내내 화창할 예정이어서 야외 행사는 예정대로 진행됩니다.
+119,calendar,n.,"달력, 일정표",Please mark the deadline on your calendar so you do not forget it.,잊지 않도록 마감일을 달력에 표시해 두세요.
+120,donation,n.,"기부, 기부금",The museum welcomes each donation to help pay for new exhibits.,박물관은 새 전시 비용에 보태기 위한 모든 기부를 환영합니다.
+121,feedback,n.,"의견, 피드백",We value your feedback and use it to improve our service.,저희는 고객님의 의견을 소중히 여기며 서비스 개선에 활용합니다.
+122,shortly,adv.,"곧, 얼마 안 되어",The flight will be departing shortly so please take your seats.,비행기가 곧 출발하오니 자리에 앉아 주시기 바랍니다.
+123,snack,n.,"간식, 가벼운 식사",A light snack and coffee will be available during the break.,휴식 시간 동안 가벼운 간식과 커피가 제공될 것입니다.
+124,warehouse,n.,창고,The goods are stored in a warehouse near the harbor.,상품은 항구 근처 창고에 보관되어 있습니다.
+125,copier,n.,복사기,The copier on the third floor is out of paper again.,3층 복사기에 또 종이가 떨어졌습니다.
+126,provider,n.,"제공자, 공급업체",We are looking for a new Internet provider with faster service.,저희는 더 빠른 서비스를 제공하는 새 인터넷 업체를 찾고 있습니다.
+127,beverage,n.,음료,A free beverage is included with every lunch set.,모든 점심 세트에는 무료 음료가 포함됩니다.
+128,hungry,adj.,배고픈,The guests were hungry after the long meeting so lunch was served early.,긴 회의 후 손님들이 배고파해서 점심이 일찍 제공되었습니다.
+129,inspection,n.,"점검, 검사",The annual safety inspection will be conducted next Tuesday.,연례 안전 점검이 다음 주 화요일에 실시됩니다.
+130,recipient,n.,"수령인, 받는 사람",The recipient must sign for the package upon delivery.,수령인은 배송 시 소포에 서명해야 합니다.
+131,aisle,n.,"통로, 복도",Please do not leave your bags in the aisle during the flight.,비행 중에는 통로에 가방을 두지 마세요.
+132,inspect,v.,"점검하다, 검사하다",An officer will inspect the building before it opens to the public.,담당관이 건물을 일반에 개방하기 전에 점검할 것입니다.
+133,mechanic,n.,"정비사, 기계공",The mechanic said the car would be ready by Thursday afternoon.,정비사는 차가 목요일 오후까지 준비될 것이라고 말했습니다.
+134,merger,n.,"합병, 통합",The merger of the two firms was announced at yesterday's meeting.,두 회사의 합병이 어제 회의에서 발표되었습니다.
+135,soccer,n.,축구,Our company sponsors a local soccer team every year.,우리 회사는 매년 지역 축구팀을 후원합니다.
+136,sweater,n.,스웨터,I left my sweater in the conference room after the meeting.,저는 회의 후에 회의실에 스웨터를 두고 왔습니다.
+137,ingredient,n.,"재료, 구성 요소",Every fresh ingredient is delivered to the kitchen each morning.,신선한 재료는 모두 매일 아침 주방으로 배달됩니다.
+138,rewrite,v.,"다시 쓰다, 고쳐 쓰다",You will need to rewrite the proposal before sending it to the client.,고객에게 보내기 전에 제안서를 다시 써야 합니다.
+139,itinerary,n.,"여행 일정, 여정",The itinerary includes a city tour and a visit to the museum.,여행 일정에는 시내 관광과 박물관 방문이 포함되어 있습니다.
+140,workplace,n.,"직장, 일터",The new policy aims to make the workplace safer for everyone.,새 정책은 모든 사람에게 직장을 더 안전하게 만드는 것을 목표로 합니다.
+141,architect,n.,건축가,The architect presented the design for the new library to the board.,건축가는 새 도서관 설계안을 이사회에 발표했습니다.
+142,convenience,n.,"편의, 편리",For your convenience we offer free parking for all customers.,고객님의 편의를 위해 모든 고객에게 무료 주차를 제공합니다.
+143,eligible,adj.,"자격이 있는, 적격의",Only full-time employees are eligible for the health insurance plan.,정규직 직원만 건강 보험에 가입할 자격이 있습니다.
+144,indoor,adj.,"실내의, 옥내의",The company is building an indoor pool for its employees.,회사는 직원들을 위한 실내 수영장을 짓고 있습니다.
+145,baggage,n.,"수하물, 짐",Please pick up your baggage at carousel number four.,4번 수하물 수취대에서 짐을 찾아가 주세요.
+146,dial,v.,"전화를 걸다, 다이얼을 돌리다",To reach the operator please dial zero from any office phone.,교환원과 연결하려면 사무실 전화에서 0번을 누르세요.
+147,container,n.,"용기, 컨테이너",Store the leftover food in a sealed container in the refrigerator.,남은 음식은 밀폐 용기에 담아 냉장고에 보관하세요.
+148,drawer,n.,서랍,The spare keys are in the top drawer of my desk.,여분의 열쇠는 제 책상 맨 위 서랍에 있습니다.
+149,lab,n.,"실험실, 연구실",Only authorized staff may enter the lab without an escort.,승인된 직원만 안내 없이 실험실에 들어갈 수 있습니다.
+150,submission,n.,"제출, 제출물",The deadline for submission of applications is the end of this month.,지원서 제출 마감은 이달 말입니다.
+151,bulletin,n.,"게시, 공고",A bulletin about the schedule change was posted on the notice board.,일정 변경에 관한 공고가 게시판에 붙었습니다.
+152,certificate,n.,"증명서, 수료증",Participants will receive a certificate at the end of the workshop.,참가자는 워크숍이 끝나면 수료증을 받게 됩니다.
+153,gym,n.,"체육관, 헬스장",Employees can use the gym on the ground floor for free.,직원은 1층 체육관을 무료로 이용할 수 있습니다.
+154,highway,n.,"고속도로, 간선 도로",The highway to the airport will be closed for repairs on Sunday.,공항으로 가는 고속도로는 일요일에 보수 공사로 폐쇄됩니다.
+155,respondent,n.,"응답자, 답변자",Each respondent was asked to rate the new service.,각 응답자는 새 서비스를 평가해 달라는 요청을 받았습니다.
+156,jewelry,n.,보석류,The shop sells handmade jewelry made by local artists.,그 가게는 지역 예술가들이 만든 수제 보석류를 판매합니다.
+157,overtime,n.,"초과 근무, 시간 외 근무",Employees will be paid extra for overtime on holidays.,직원들은 휴일 초과 근무에 대해 추가 수당을 받게 됩니다.
+158,battery,n.,"배터리, 건전지",The battery in my laptop needs to be replaced soon.,제 노트북 배터리를 곧 교체해야 합니다.
+159,donate,v.,"기부하다, 기증하다",The firm decided to donate part of its profits to local schools.,회사는 이익의 일부를 지역 학교에 기부하기로 결정했습니다.
+160,outstanding,adj.,"뛰어난, 미납의",She received an award for her outstanding performance this year.,그녀는 올해 뛰어난 실적으로 상을 받았습니다.
+161,skim,v.,"대충 훑어보다, 걷어내다",Managers often skim the reports before reading them in detail.,관리자들은 보고서를 자세히 읽기 전에 대충 훑어보는 경우가 많습니다.
+162,briefcase,n.,서류 가방,He left his briefcase on the train this morning.,그는 오늘 아침 기차에 서류 가방을 두고 내렸습니다.
+163,dessert,n.,후식,The set menu includes a salad and a dessert of your choice.,세트 메뉴에는 샐러드와 원하는 후식이 포함됩니다.
+164,impact,n.,"영향, 충격",The new tax will have a major impact on small businesses.,새 세금은 소규모 사업체에 큰 영향을 미칠 것입니다.
+165,innovative,adj.,"혁신적인, 획기적인",The firm is known for its innovative approach to product design.,그 회사는 제품 디자인에 대한 혁신적인 접근법으로 유명합니다.
+166,inquire,v.,"문의하다, 묻다",Customers may inquire about the order status by phone or e-mail.,고객은 전화나 이메일로 주문 상태를 문의할 수 있습니다.
+167,overnight,adv.,"하룻밤 사이에, 밤새",The package will arrive overnight if you choose express shipping.,빠른 배송을 선택하시면 소포가 하룻밤 사이에 도착합니다.
+168,venue,n.,"장소, 개최지",The venue for the awards ceremony has not been decided yet.,시상식 장소는 아직 정해지지 않았습니다.
+169,commuter,n.,통근자,Every commuter can buy a monthly pass at a discount.,모든 통근자는 월간 승차권을 할인된 가격에 살 수 있습니다.
+170,logo,n.,"로고, 상징 도안",The designer created a new logo for the company's website.,디자이너가 회사 웹사이트를 위한 새 로고를 만들었습니다.
+171,newsletter,n.,소식지,Subscribe to our newsletter to receive updates on new products.,신제품 소식을 받으시려면 소식지를 구독하세요.
+172,advisor,n.,"고문, 조언자",A financial advisor will help you plan your retirement savings.,재무 고문이 퇴직 저축 계획을 세우는 것을 도와드릴 것입니다.
+173,cartridge,n.,"카트리지, 교체용 용기",The printer needs a new ink cartridge.,프린터에 새 잉크 카트리지가 필요합니다.
+174,cloudy,adj.,"흐린, 구름 낀",Tomorrow will be cloudy with a chance of rain in the afternoon.,내일은 흐리고 오후에 비가 올 가능성이 있습니다.
+175,photographer,n.,사진작가,The photographer will take pictures of the team before the event.,사진작가가 행사 전에 팀 사진을 찍을 것입니다.
+176,shopper,n.,쇼핑객,Each early shopper will receive a free gift bag while supplies last.,일찍 온 쇼핑객에게는 재고가 있는 동안 무료 선물 가방을 드립니다.
+177,tag,n.,"꼬리표, 가격표",The price tag is attached to the sleeve of the jacket.,가격표가 재킷 소매에 붙어 있습니다.
+178,announcer,n.,"아나운서, 방송 진행자",The announcer will read the names of the winners at the end.,진행자가 마지막에 수상자의 이름을 읽을 것입니다.
+179,aspect,n.,"측면, 양상",We reviewed every aspect of the plan before the final decision.,최종 결정 전에 계획의 모든 측면을 검토했습니다.
+180,audit,n.,"회계 감사, 감사",The annual audit of the accounts will begin next week.,회계 장부의 연례 감사가 다음 주에 시작됩니다.
+181,contractor,n.,"계약업자, 도급업자",The contractor promised to finish the work before the end of June.,계약업자는 6월 말 전에 공사를 끝내겠다고 약속했습니다.
+182,download,v.,"내려받다, 다운로드하다",You can download the full report from our website for free.,전체 보고서는 저희 웹사이트에서 무료로 내려받을 수 있습니다.
+183,password,n.,비밀번호,Please change your password every three months for security.,보안을 위해 석 달마다 비밀번호를 바꿔 주세요.
+184,prohibit,v.,"금지하다, 막다",Company rules prohibit employees from sharing confidential data.,회사 규정은 직원이 기밀 자료를 공유하는 것을 금지합니다.
+185,stadium,n.,경기장,The concert will be held at the city stadium on Saturday night.,콘서트는 토요일 밤 시립 경기장에서 열립니다.
+186,terminal,n.,"터미널, 종착역",The bus will stop at the airport terminal every thirty minutes.,버스는 30분마다 공항 터미널에 정차합니다.
+187,weekday,n.,평일,The library is open from nine to six on every weekday.,도서관은 평일마다 9시부터 6시까지 문을 엽니다.
+188,bonus,n.,"상여금, 보너스",All employees will receive a bonus at the end of the year.,모든 직원은 연말에 상여금을 받게 됩니다.
+189,cart,n.,"카트, 장바구니",Items in your cart will be saved for up to seven days.,장바구니에 담은 상품은 최대 7일간 저장됩니다.
+190,delicious,adj.,맛있는,Customers praised the restaurant for its delicious food and friendly staff.,고객들은 그 식당의 맛있는 음식과 친절한 직원들을 칭찬했습니다.
+191,ink,n.,잉크,Please order more ink before the printer runs out.,프린터의 잉크가 떨어지기 전에 더 주문해 주세요.
+192,supervise,v.,"감독하다, 지도하다",A senior engineer will supervise the installation of the new equipment.,선임 기술자가 새 장비의 설치를 감독할 것입니다.
+193,waitress,n.,여종업원,The waitress recommended the fish dish and a glass of white wine.,여종업원은 생선 요리와 백포도주 한 잔을 추천했습니다.
+194,cleaner,n.,"청소부, 세제",The office cleaner comes every evening after the staff leave.,사무실 청소부는 직원이 퇴근한 후 매일 저녁 옵니다.
+195,developer,n.,"개발자, 개발업자",The software developer fixed the problem within an hour.,소프트웨어 개발자가 한 시간 안에 문제를 해결했습니다.
+196,shuttle,n.,"셔틀버스, 왕복 운행",A free shuttle runs between the hotel and the convention center.,무료 셔틀이 호텔과 컨벤션 센터 사이를 운행합니다.
+197,stationery,n.,문구류,We purchase office stationery from a local supplier every month.,저희는 매달 지역 공급업체에서 사무용 문구류를 구입합니다.
+198,subscribe,v.,"구독하다, 가입하다",You may subscribe to the magazine at a discounted rate for one year.,일 년 동안 할인된 가격으로 잡지를 구독하실 수 있습니다.
+199,alike,adj.,"비슷한, 닮은",The two product designs are very much alike.,두 제품 디자인은 매우 비슷합니다.
+200,flavor,n.,"맛, 풍미",Customers can choose any flavor of ice cream for the same price.,고객은 같은 가격에 어떤 맛의 아이스크림이든 고를 수 있습니다.
+201,picnic,n.,"소풍, 야유회",The annual company picnic will be held in the park on Saturday.,연례 회사 야유회는 토요일에 공원에서 열립니다.
+202,recipe,n.,"조리법, 요리법",The chef shared the recipe for his famous tomato soup.,주방장은 자신의 유명한 토마토 수프 조리법을 공개했습니다.
+203,refreshment,n.,"다과, 가벼운 음식",Each refreshment on the table is free for conference participants.,탁자 위의 모든 다과는 학회 참가자에게 무료입니다.
+204,administrative,adj.,"행정의, 관리의",She is responsible for all administrative tasks in the main office.,그녀는 본사의 모든 행정 업무를 담당합니다.
+205,authorize,v.,"승인하다, 권한을 주다",Only the director can authorize payments over one thousand dollars.,이사만이 천 달러가 넘는 지급을 승인할 수 있습니다.
+206,commonly,adv.,"흔히, 일반적으로",This software is commonly used by small companies for accounting.,이 소프트웨어는 소규모 회사에서 회계용으로 흔히 쓰입니다.
+207,distribution,n.,"유통, 배포",The distribution of the new product will begin in early June.,신제품 유통은 6월 초에 시작됩니다.
+208,sofa,n.,소파,Please wait on the sofa in the lobby until your name is called.,이름이 불릴 때까지 로비의 소파에서 기다려 주세요.
+209,accommodate,v.,"수용하다, 편의를 봐주다",The hotel can accommodate up to three hundred guests for the event.,그 호텔은 행사에 최대 300명의 손님을 수용할 수 있습니다.
+210,affordable,adj.,"가격이 적당한, 알맞은",The company offers affordable housing for its new employees.,회사는 신입 직원에게 알맞은 가격의 주거지를 제공합니다.
+211,annoy,v.,"짜증나게 하다, 귀찮게 하다",Loud phone calls in the office can annoy your coworkers.,사무실에서 큰 소리로 전화하면 동료들이 짜증날 수 있습니다.
+212,commute,v.,통근하다,Many employees commute to work by subway every day.,많은 직원이 매일 지하철로 통근합니다.
+213,coordinate,v.,"조정하다, 조율하다",Our team will coordinate the schedules of all the speakers.,우리 팀이 모든 연사의 일정을 조율할 것입니다.
+214,paperwork,n.,"서류 작업, 문서 업무",Please finish the paperwork before you start your first day of work.,첫 출근 전에 서류 작업을 끝내 주세요.
+215,quit,v.,"그만두다, 사직하다",Several workers decided to quit after the company changed its policy.,회사가 정책을 바꾼 뒤 몇몇 직원이 그만두기로 했습니다.
+216,authority,n.,"권한, 당국",Only the manager has the authority to approve overtime requests.,관리자만이 초과 근무 신청을 승인할 권한이 있습니다.
+217,flu,n.,독감,Many employees stayed home with the flu last week.,지난주에 많은 직원이 독감으로 집에 있었습니다.
+218,captain,n.,"기장, 선장",The captain announced that the flight would land ten minutes early.,기장은 비행기가 10분 일찍 착륙할 것이라고 안내했습니다.
+219,installation,n.,"설치, 설비",The installation of the new software will take about two hours.,새 소프트웨어 설치는 약 두 시간이 걸릴 것입니다.
+220,trainer,n.,"교육 담당자, 트레이너",The trainer will demonstrate how to use the new machine.,교육 담당자가 새 기계 사용법을 시연할 것입니다.
+221,availability,n.,"이용 가능성, 재고 유무",Please check the availability of the meeting room before you book it.,예약하기 전에 회의실 이용 가능 여부를 확인해 주세요.
+222,bargain,n.,"싼 물건, 할인 상품",These winter jackets are a real bargain at half the usual price.,이 겨울 재킷은 평소 가격의 절반이라 정말 싼 물건입니다.
+223,complimentary,adj.,"무료의, 칭찬하는",Complimentary breakfast is served to all hotel guests every morning.,모든 투숙객에게 매일 아침 무료 조식이 제공됩니다.
+224,hike,n.,"도보 여행, 하이킹",The team enjoyed a long hike in the mountains after the workshop.,팀은 워크숍이 끝난 뒤 산에서 긴 하이킹을 즐겼습니다.
+225,midnight,n.,"자정, 한밤중",The online store will be closed for maintenance until midnight.,온라인 상점은 자정까지 점검을 위해 문을 닫습니다.
+226,productivity,n.,생산성,The new schedule is expected to increase productivity in the factory.,새 일정은 공장의 생산성을 높일 것으로 기대됩니다.
+227,rainy,adj.,비가 오는,The outdoor concert was moved indoors because of the rainy weather.,야외 콘서트는 비 오는 날씨 때문에 실내로 옮겨졌습니다.
+228,relocate,v.,"이전하다, 이주하다",The firm will relocate its main office to a larger building next spring.,회사는 내년 봄에 본사를 더 큰 건물로 이전할 것입니다.
+229,trainee,n.,"교육생, 수습 사원",Each trainee will be assigned to an experienced mentor.,교육생은 모두 경험 많은 멘토에게 배정됩니다.
+230,transaction,n.,"거래, 처리",Every transaction is recorded in the company's accounting system.,모든 거래는 회사의 회계 시스템에 기록됩니다.
+231,unhappy,adj.,"불만스러운, 불행한",Several customers were unhappy with the long wait at the counter.,몇몇 고객은 창구에서 오래 기다린 것에 불만스러워했습니다.
+232,verify,v.,"확인하다, 입증하다",Please verify your e-mail address before you complete the registration.,등록을 마치기 전에 이메일 주소를 확인해 주세요.
+233,automobile,n.,자동차,The automobile industry is expected to grow steadily next year.,자동차 산업은 내년에 꾸준히 성장할 것으로 예상됩니다.
+234,courier,n.,"택배 기사, 배달원",A courier will pick up the documents from your office this afternoon.,택배 기사가 오늘 오후에 사무실에서 서류를 가져갈 것입니다.
+235,incomplete,adj.,"불완전한, 미완성의",Incomplete applications will not be considered by the committee.,미비한 신청서는 위원회에서 검토되지 않습니다.
+236,questionnaire,n.,"설문지, 질문서",Please fill out the questionnaire and return it to the front desk.,설문지를 작성하여 접수처에 제출해 주세요.
+237,baseball,n.,야구,Our department will play a baseball game against the sales team.,우리 부서는 영업팀과 야구 경기를 할 것입니다.
+238,dock,n.,"부두, 하역장",The truck arrived at the loading dock early in the morning.,트럭은 아침 일찍 하역장에 도착했습니다.
+239,lamp,n.,"램프, 조명",The desk lamp in the reading room needs a new bulb.,독서실의 책상 조명은 새 전구가 필요합니다.
+240,lately,adv.,"최근에, 요즘",Sales of our online products have increased significantly lately.,최근 우리 온라인 제품의 매출이 크게 늘었습니다.
+241,machinery,n.,기계류,The factory purchased new machinery to increase its output.,공장은 생산량을 늘리기 위해 새 기계류를 구입했습니다.
+242,presenter,n.,"발표자, 진행자",The presenter will answer questions at the end of the session.,발표자는 세션이 끝날 때 질문에 답할 것입니다.
+243,seldom,adv.,"좀처럼 ~않는, 드물게",Our manager seldom works from home unless there is a special reason.,우리 관리자는 특별한 이유가 없으면 좀처럼 재택근무를 하지 않습니다.
+244,signature,n.,"서명, 특징",Your signature is required at the bottom of the contract.,계약서 하단에 서명이 필요합니다.
+245,worldwide,adv.,"전 세계적으로",The company ships its products worldwide within five business days.,회사는 영업일 기준 5일 이내에 전 세계로 제품을 배송합니다.
+246,carrier,n.,"운송업체, 통신사",The carrier will deliver the package directly to your front door.,운송업체가 소포를 집 현관까지 직접 배달해 드립니다.
+247,designate,v.,"지정하다, 임명하다",We will designate one room as a quiet area for employees.,우리는 직원을 위한 조용한 구역으로 방 하나를 지정할 것입니다.
+248,exclusive,adj.,"독점적인, 전용의",The shop offers an exclusive discount to members of the loyalty program.,그 매장은 멤버십 회원에게 전용 할인을 제공합니다.
+249,grocery,n.,"식료품, 식료품점",The grocery store on the corner is open twenty-four hours a day.,모퉁이에 있는 식료품점은 하루 24시간 영업합니다.
+250,homework,n.,숙제,Students must finish their homework before attending the evening workshop.,학생들은 저녁 워크숍에 참석하기 전에 숙제를 끝내야 합니다.
+251,memorandum,n.,"각서, 회람",The manager sent a memorandum to all staff about the new policy.,관리자는 새 정책에 관한 회람을 전 직원에게 보냈습니다.
+252,photocopier,n.,복사기,The photocopier in the copy room is being repaired today.,복사실의 복사기는 오늘 수리 중입니다.
+253,suite,n.,"스위트룸, 한 벌",The company booked a suite for the visiting executives.,회사는 방문하는 임원들을 위해 스위트룸을 예약했습니다.
+254,thorough,adj.,"철저한, 완벽한",The inspector carried out a thorough check of the factory equipment.,검사관은 공장 설비를 철저히 점검했습니다.
+255,bookstore,n.,서점,The bookstore on Main Street hosts a reading event every Friday.,중앙로의 서점은 매주 금요일 낭독 행사를 엽니다.
+256,cater,v.,"음식을 공급하다, 맞추다",Our company can cater for any event with up to five hundred guests.,저희 회사는 손님 500명까지의 어떤 행사에도 음식을 공급할 수 있습니다.
+257,dental,adj.,치과의,The health plan includes dental care for all full-time employees.,그 건강 보험은 모든 정규직 직원의 치과 진료를 포함합니다.
+258,duration,n.,"기간, 지속 시간",The duration of the training program is three weeks.,교육 프로그램의 기간은 3주입니다.
+259,lounge,n.,"휴게실, 라운지",Employees can relax in the lounge on the fifth floor.,직원들은 5층 휴게실에서 쉴 수 있습니다.
+260,painter,n.,"화가, 도장공",The painter will finish the walls of the new office by Friday.,도장공이 금요일까지 새 사무실의 벽을 마칠 것입니다.
+261,patron,n.,"고객, 후원자",The restaurant gives every patron a free dessert on their birthday.,그 식당은 생일을 맞은 모든 고객에게 무료 후식을 줍니다.
+262,prescription,n.,처방전,You need a prescription from a doctor to buy this medicine.,이 약을 사려면 의사의 처방전이 필요합니다.
+263,productive,adj.,"생산적인, 효율적인",It was a productive meeting and we settled all the open issues.,생산적인 회의였고 미해결 사안을 모두 정리했습니다.
+264,salad,n.,샐러드,A fresh salad is served with every main dish at lunch.,점심에는 모든 주요리와 함께 신선한 샐러드가 나옵니다.
+265,stack,n.,"더미, 무더기",Please put the stack of files on the shelf behind my desk.,서류 더미를 제 책상 뒤 선반에 놓아 주세요.
+266,delegate,n.,"대표, 대의원",Each delegate will receive a welcome package upon arrival at the conference.,각 대표는 학회 도착 시 환영 자료집을 받게 됩니다.
+267,salesperson,n.,영업 사원,The salesperson explained the features of the new laptop to the customer.,영업 사원은 고객에게 새 노트북의 특징을 설명했습니다.
+268,calculator,n.,계산기,You may use a calculator during the accounting exam.,회계 시험 중에는 계산기를 사용해도 됩니다.
+269,completion,n.,"완료, 완성",The completion of the new bridge is scheduled for next spring.,새 다리의 완공은 내년 봄으로 예정되어 있습니다.
+270,defect,n.,"결함, 하자",The customer reported a defect in the screen of his new phone.,고객은 새 휴대전화 화면의 결함을 신고했습니다.
+271,garbage,n.,"쓰레기, 폐기물",Please put all garbage in the bins outside the building.,모든 쓰레기는 건물 밖의 수거함에 넣어 주세요.
+272,omit,v.,"생략하다, 빠뜨리다",Please do not omit any details when you fill out the report.,보고서를 작성할 때 세부 사항을 빠뜨리지 마세요.
+273,spite,phr.,"~에도 불구하고 (in spite of)",The project was finished on time in spite of the heavy snow.,프로젝트는 폭설에도 불구하고 제때 끝났습니다.
+274,bathroom,n.,"화장실, 욕실",The bathroom on the second floor is closed for cleaning.,2층 화장실은 청소 때문에 폐쇄되었습니다.
+275,cab,n.,택시,I took a cab to the airport because I was late.,저는 늦어서 공항까지 택시를 탔습니다.
+276,correspondence,n.,"서신, 연락",All correspondence with clients must be saved in the shared folder.,고객과의 모든 서신은 공유 폴더에 저장해야 합니다.
+277,ladder,n.,사다리,The maintenance worker climbed a ladder to fix the ceiling light.,시설 관리 직원이 사다리를 올라 천장 조명을 고쳤습니다.
+278,photography,n.,사진 촬영,Photography is not allowed inside the museum without a permit.,허가 없이 박물관 안에서 사진 촬영은 허용되지 않습니다.
+279,sculpture,n.,조각품,A large sculpture stands in front of the main entrance.,커다란 조각품이 정문 앞에 서 있습니다.
+280,anniversary,n.,기념일,The company will celebrate its twentieth anniversary with a party next month.,회사는 다음 달 파티로 창립 20주년을 기념할 것입니다.
+281,buffet,n.,뷔페,A buffet lunch will be served in the main hall after the meeting.,회의가 끝나면 대강당에서 뷔페 점심이 제공될 것입니다.
+282,defective,adj.,"결함이 있는, 불량의",Customers can return any defective item within thirty days.,고객은 결함 있는 상품을 30일 이내에 반품할 수 있습니다.
+283,ice cream,n.,아이스크림,The café sells homemade ice cream during the summer months.,그 카페는 여름 동안 직접 만든 아이스크림을 판매합니다.
+284,leak,n.,"누수, 누출",A water leak in the ceiling forced the office to close early.,천장의 누수로 사무실이 일찍 문을 닫아야 했습니다.
+285,occupancy,n.,"점유, 입주율",Hotel occupancy is highest during the summer holiday season.,호텔 객실 점유율은 여름 휴가철에 가장 높습니다.
+286,proficiency,n.,"숙달, 능숙도",The job requires proficiency in at least two foreign languages.,그 직무는 최소 두 개 외국어에 능숙해야 합니다.
+287,renewal,n.,"갱신, 연장",The renewal of your membership is due at the end of June.,회원 자격 갱신 기한은 6월 말입니다.
+288,urgent,adj.,"긴급한, 시급한",I have an urgent message for the director from our client.,고객으로부터 이사님께 전할 긴급한 메시지가 있습니다.
+289,annually,adv.,"매년, 연 1회",The conference is held annually in the city of Busan.,그 학회는 부산에서 매년 열립니다.
+290,basketball,n.,농구,Employees can join the basketball club that meets every Thursday evening.,직원들은 매주 목요일 저녁에 모이는 농구 동호회에 가입할 수 있습니다.
+291,delete,v.,"삭제하다, 지우다",Please delete the old files from the shared drive before Friday.,금요일 전에 공유 드라이브에서 오래된 파일을 삭제해 주세요.
+292,pet,n.,반려동물,Guests are welcome to bring a small pet to the hotel.,손님은 작은 반려동물을 호텔에 데려오셔도 됩니다.
+293,textbook,n.,교과서,The new textbook will be available at the university bookstore next week.,새 교과서는 다음 주에 대학 서점에서 구할 수 있습니다.
+294,accurately,adv.,"정확하게, 정밀하게",Please record the data accurately so that the results are reliable.,결과를 믿을 수 있도록 자료를 정확하게 기록해 주세요.
+295,cabin,n.,"객실, 오두막",Passengers must stay seated in the cabin until the plane stops.,승객은 비행기가 멈출 때까지 객실에서 자리에 앉아 있어야 합니다.
+296,conductor,n.,"지휘자, 차장",The train conductor checked the tickets before the train left.,열차 차장은 열차가 출발하기 전에 표를 확인했습니다.
+297,inspector,n.,"검사관, 조사관",A building inspector will visit the construction site on Monday.,건축 검사관이 월요일에 공사 현장을 방문할 것입니다.
+298,intern,n.,"인턴, 수련생",The company hired an intern to help with the summer project.,회사는 여름 프로젝트를 돕기 위해 인턴을 한 명 채용했습니다.
+299,semester,n.,학기,Registration for the spring semester begins on the first of March.,봄 학기 등록은 3월 1일에 시작됩니다.
+300,confirmation,n.,"확인, 확인서",You will receive a confirmation by e-mail within one hour.,한 시간 안에 이메일로 확인서를 받으실 것입니다.
+301,expertise,n.,"전문 지식, 전문성",We are looking for a manager with expertise in international marketing.,저희는 국제 마케팅 전문 지식을 갖춘 관리자를 찾고 있습니다.
+302,graph,n.,"그래프, 도표",The graph shows a steady rise in sales over the past year.,그래프는 지난 1년간 매출이 꾸준히 오른 것을 보여 줍니다.
+303,utility,n.,"공공요금, 유용성",The monthly rent includes the cost of every utility except the telephone.,월세에는 전화를 제외한 모든 공공요금이 포함되어 있습니다.
+304,voucher,n.,"상품권, 쿠폰",Each guest will receive a dinner voucher at the front desk.,투숙객은 모두 프런트에서 저녁 식사 쿠폰을 받게 됩니다.
+305,banker,n.,은행원,The banker explained the terms of the loan to the new customer.,은행원은 신규 고객에게 대출 조건을 설명했습니다.
+306,behalf,phr.,"~을 대신하여 (on behalf of)",I would like to thank you on behalf of the entire staff.,전 직원을 대표하여 감사의 말씀을 드립니다.
+307,minimize,v.,"최소화하다, 줄이다",We should minimize costs without lowering the quality of our service.,서비스 품질을 낮추지 않으면서 비용을 최소화해야 합니다.
+308,optional,adj.,"선택적인, 임의의",Attendance at the evening dinner is optional for all participants.,저녁 만찬 참석은 모든 참가자에게 선택 사항입니다.
+309,paycheck,n.,"급여, 급료 지불 수표",Your paycheck will be deposited into your bank account every second Friday.,급여는 격주 금요일마다 은행 계좌로 입금됩니다.
+310,polite,adj.,"예의 바른, 공손한",The clerk was polite and answered all of our questions.,점원은 공손했고 우리의 모든 질문에 답해 주었습니다.
+311,protective,adj.,"보호하는, 방호용의",Workers must wear protective glasses inside the factory at all times.,작업자는 공장 안에서 항상 보호 안경을 착용해야 합니다.
+312,seller,n.,"판매자, 판매업체",The seller will ship the item within two days of receiving payment.,판매자는 결제를 받은 후 이틀 안에 물건을 발송할 것입니다.
+313,sidewalk,n.,인도,Please do not park your bicycle on the sidewalk in front of the store.,가게 앞 인도에 자전거를 세워 두지 마세요.
+314,soup,n.,수프,Today's soup comes with a basket of bread at no extra charge.,오늘의 수프는 추가 요금 없이 빵 한 바구니와 함께 나옵니다.
+315,transit,n.,"운송, 대중교통",The package was damaged while it was in transit to our warehouse.,소포는 우리 창고로 운송되는 중에 손상되었습니다.
+316,wallet,n.,지갑,I think I left my wallet in the taxi this morning.,오늘 아침 택시에 지갑을 두고 내린 것 같습니다.
+317,cashier,n.,"계산원, 출납원",The cashier gave me a receipt and my change.,계산원이 영수증과 거스름돈을 주었습니다.
+318,casual,adj.,"평상복의, 격식 없는",Employees may wear casual clothes to work on Fridays.,직원들은 금요일에는 평상복으로 출근해도 됩니다.
+319,drill,n.,"훈련, 드릴",A fire drill will be conducted in the building this afternoon.,오늘 오후 건물에서 소방 훈련이 실시됩니다.
+320,fountain,n.,분수,Visitors enjoy resting near the fountain in the center of the plaza.,방문객들은 광장 중앙의 분수 근처에서 쉬는 것을 즐깁니다.
+321,juice,n.,주스,Fresh orange juice is served with breakfast in the hotel restaurant.,호텔 식당에서는 아침 식사와 함께 신선한 오렌지 주스가 나옵니다.
+322,lane,n.,"차선, 좁은 길",The right lane will be closed on the bridge for road repairs.,교량의 오른쪽 차선이 도로 보수를 위해 폐쇄됩니다.
+323,popularity,n.,인기,The popularity of online shopping has grown rapidly in recent years.,온라인 쇼핑의 인기는 최근 몇 년간 빠르게 높아졌습니다.
+324,poster,n.,"포스터, 벽보",Please put the poster for the job fair on the main notice board.,취업 박람회 포스터를 주 게시판에 붙여 주세요.
+325,promptly,adv.,"즉시, 신속하게",Please respond promptly to every customer inquiry received by e-mail.,이메일로 받은 모든 고객 문의에 신속히 답변해 주세요.
+326,retailer,n.,소매업자,The retailer has opened five new stores across the country this year.,그 소매업체는 올해 전국에 새 매장 다섯 곳을 열었습니다.
+327,vacancy,n.,"빈 방, 결원",The hotel has no vacancy this weekend because of the festival.,호텔은 축제 때문에 이번 주말에 빈 방이 없습니다.
+328,bench,n.,벤치,Visitors can rest on the bench outside the museum entrance.,방문객은 박물관 입구 밖 벤치에서 쉴 수 있습니다.
+329,cumulative,adj.,"누적되는, 누계의",The cumulative sales for the first quarter reached two million dollars.,1분기 누적 매출은 2백만 달러에 달했습니다.
+330,directory,n.,"안내 책자, 명부",The staff directory lists the phone number of every department.,직원 명부에는 모든 부서의 전화번호가 나와 있습니다.
+331,disposal,n.,"처리, 폐기",Proper disposal of chemical waste is required by law.,화학 폐기물의 적절한 처리는 법으로 요구됩니다.
+332,housekeeper,n.,"객실 관리 직원, 가정부",The housekeeper cleans each guest room before two in the afternoon.,객실 관리 직원은 오후 2시 전에 모든 객실을 청소합니다.
+333,internship,n.,"인턴 과정, 실습",She completed a three-month internship at a large advertising agency.,그녀는 대형 광고 회사에서 3개월간 인턴 과정을 마쳤습니다.
+334,knowledgeable,adj.,"아는 것이 많은, 박식한",Our staff members are friendly and knowledgeable about all our products.,저희 직원들은 친절하며 모든 제품에 대해 잘 알고 있습니다.
+335,organizer,n.,"주최자, 정리 도구",The organizer of the event thanked everyone for coming.,행사 주최자는 와 주신 모든 분께 감사를 전했습니다.
+336,overdue,adj.,"기한이 지난, 연체된",Your library book is overdue so please return it as soon as possible.,도서관 책이 연체되었으니 가능한 한 빨리 반납해 주세요.
+337,prediction,n.,"예측, 예상",The weather prediction for tomorrow says it will rain all day.,내일 일기 예보는 하루 종일 비가 올 것이라고 합니다.
+338,subscriber,n.,구독자,Every subscriber receives a free gift on the anniversary of joining.,모든 구독자는 가입 기념일에 무료 선물을 받습니다.
+339,booklet,n.,소책자,A booklet explaining the safety rules is given to all new workers.,안전 수칙을 설명한 소책자가 모든 신입 직원에게 지급됩니다.
+340,enroll,v.,"등록하다, 입학하다",You can enroll in the language course online until the end of May.,5월 말까지 온라인으로 어학 과정에 등록할 수 있습니다.
+341,frustrate,v.,"좌절시키다, 불만스럽게 하다",Long delays at the airport can frustrate even the most patient traveler.,공항에서의 긴 지연은 가장 참을성 있는 여행자도 좌절시킬 수 있습니다.
+342,garment,n.,의류,Each garment is checked for quality before it leaves the factory.,모든 의류는 공장을 떠나기 전에 품질 검사를 받습니다.
+343,orientation,n.,"오리엔테이션, 예비 교육",New employees must attend the orientation session on their first morning.,신입 직원은 첫날 아침 오리엔테이션에 참석해야 합니다.
+344,outlet,n.,"할인 매장, 콘센트",The mall has a new outlet that sells famous brands at low prices.,그 쇼핑몰에는 유명 브랜드를 저렴하게 파는 새 할인 매장이 있습니다.
+345,packet,n.,"소포, 한 묶음",Each participant will receive an information packet at the registration desk.,참가자는 모두 등록 데스크에서 안내 자료집을 받게 됩니다.
+346,plumber,n.,배관공,A plumber is coming tomorrow to repair the pipe in the kitchen.,내일 배관공이 와서 주방 배관을 수리할 것입니다.
+347,specification,n.,"사양, 명세서",Please check the product specification before placing your order.,주문하시기 전에 제품 사양을 확인해 주세요.
+348,decorate,v.,"장식하다, 꾸미다",Volunteers will decorate the main hall before the opening ceremony.,자원봉사자들이 개막식 전에 대강당을 장식할 것입니다.
+349,deduction,n.,"공제, 차감",A tax deduction is available for donations made before the end of the year.,연말 전에 한 기부에 대해서는 세금 공제를 받을 수 있습니다.
+350,definite,adj.,"확실한, 분명한",We have not made a definite decision about the new office location yet.,새 사무실 위치에 대해서는 아직 확정된 결정이 없습니다.
+351,economical,adj.,"경제적인, 알뜰한",This model is an economical choice for small businesses.,이 모델은 소규모 사업체에 경제적인 선택입니다.
+352,efficiently,adv.,"효율적으로, 능률적으로",The new system helps staff handle customer orders more efficiently.,새 시스템은 직원이 고객 주문을 더 효율적으로 처리하도록 돕습니다.
+353,flyer,n.,"전단지, 비행기 승객",The restaurant handed out a flyer to everyone passing by the station.,식당은 역 앞을 지나는 모든 사람에게 전단지를 나눠 주었습니다.
+354,franchise,n.,"가맹점, 프랜차이즈",He plans to open a coffee franchise near the university.,그는 대학교 근처에 커피 가맹점을 열 계획입니다.
+355,generous,adj.,"후한, 관대한",The company offers a generous benefits package to full-time workers.,회사는 정규직 직원에게 후한 복리후생 혜택을 제공합니다.
+356,interrupt,v.,"방해하다, 중단시키다",Please do not interrupt the speaker until the question period begins.,질의응답 시간이 시작될 때까지 연사의 말을 끊지 마세요.
+357,oven,n.,오븐,The bakery installed a larger oven to meet the growing demand.,제과점은 늘어나는 수요를 맞추기 위해 더 큰 오븐을 설치했습니다.
+358,profitable,adj.,"수익성이 있는, 이득이 되는",The new product line has become very profitable for the company.,새 제품군은 회사에 매우 수익성 있는 사업이 되었습니다.
+359,refrigerator,n.,냉장고,Please store your lunch in the refrigerator in the staff room.,점심은 직원 휴게실 냉장고에 보관해 주세요.
+360,reimburse,v.,"변제하다, 상환하다",The firm will reimburse you for all travel expenses within two weeks.,회사는 2주 안에 모든 출장 경비를 상환해 드릴 것입니다.
+361,showroom,n.,"전시실, 쇼룸",The new car showroom opens to the public next Saturday.,새 자동차 전시장이 다음 토요일에 일반에 개장합니다.
+362,vegetarian,n.,채식주의자,The restaurant offers a special menu for each vegetarian.,그 식당은 채식주의자를 위한 특별 메뉴를 제공합니다.
+363,administrator,n.,"관리자, 행정관",The system administrator reset my password this morning.,시스템 관리자가 오늘 아침 제 비밀번호를 초기화했습니다.
+364,broker,n.,"중개인, 브로커",The real estate broker showed us three apartments near the station.,부동산 중개인이 역 근처 아파트 세 곳을 보여 주었습니다.
+365,cancellation,n.,"취소, 해약",A cancellation fee applies if you cancel less than a day before.,하루도 안 남기고 취소하시면 취소 수수료가 부과됩니다.
+366,confidential,adj.,"기밀의, 비밀의",All the documents in this folder are strictly confidential.,이 폴더에 있는 모든 문서는 철저히 기밀입니다.
+367,jet,n.,제트기,The company bought a private jet for its senior executives.,회사는 고위 임원을 위해 전용 제트기를 구입했습니다.
+368,realistic,adj.,"현실적인, 실현 가능한",We need to set a realistic goal for next quarter's sales.,우리는 다음 분기 매출에 대해 현실적인 목표를 세워야 합니다.
+369,thoroughly,adv.,"철저히, 완전히",Please read the contract thoroughly before you sign it.,서명하기 전에 계약서를 꼼꼼히 읽어 보세요.
+370,trash,n.,쓰레기,Please take the trash out to the bins behind the building.,쓰레기는 건물 뒤의 수거함에 내놓아 주세요.
+371,usage,n.,"사용량, 사용법",Monthly data usage is shown at the top of your bill.,월별 데이터 사용량은 청구서 맨 위에 표시됩니다.
+372,windy,adj.,바람이 센,The ferry was canceled because the weather was windy and rough.,바람이 세고 날씨가 거칠어 여객선 운항이 취소되었습니다.
+373,automate,v.,자동화하다,The company plans to automate the process of sorting packages.,회사는 소포 분류 과정을 자동화할 계획입니다.
+374,ferry,n.,여객선,The ferry to the island leaves every hour from the harbor.,섬으로 가는 여객선은 항구에서 매시간 출발합니다.
+375,finalize,v.,"마무리하다, 확정하다",We need to finalize the budget before the end of the week.,우리는 이번 주말 전에 예산을 확정해야 합니다.
+376,incur,v.,"초래하다, 발생시키다",Late payments may incur additional charges on your account.,납부가 늦어지면 계정에 추가 요금이 발생할 수 있습니다.
+377,instruct,v.,"지시하다, 가르치다",The manager will instruct new staff on how to use the system.,관리자가 신입 직원에게 시스템 사용법을 가르칠 것입니다.
+378,loyal,adj.,"충실한, 단골의",We offer special discounts to our loyal customers every holiday season.,저희는 명절 때마다 단골 고객에게 특별 할인을 제공합니다.
+379,luncheon,n.,오찬,The awards luncheon will be held at the hotel next Thursday.,시상 오찬이 다음 주 목요일 호텔에서 열립니다.
+380,microphone,n.,마이크,Please speak into the microphone so everyone in the room can hear you.,방 안의 모든 사람이 들을 수 있도록 마이크에 대고 말씀해 주세요.
+381,overview,n.,"개요, 개관",The first slide gives an overview of the project's main goals.,첫 슬라이드는 프로젝트의 주요 목표에 대한 개요를 제공합니다.
+382,projector,n.,프로젝터,The projector in the meeting room is not working properly.,회의실 프로젝터가 제대로 작동하지 않습니다.
+383,shortage,n.,"부족, 결핍",A shortage of skilled workers is slowing down the construction project.,숙련 노동자 부족이 건설 사업을 지연시키고 있습니다.
+384,spacious,adj.,"널찍한, 넓은",The hotel offers spacious rooms with a view of the ocean.,그 호텔은 바다가 보이는 넓은 객실을 제공합니다.
+385,accomplishment,n.,"성취, 업적",Winning the national award was a great accomplishment for our small team.,전국 규모 상을 받은 것은 우리 작은 팀에게 큰 성과였습니다.
+386,clinic,n.,"진료소, 병원",The dental clinic is open from nine to five on weekdays.,치과 병원은 평일 9시부터 5시까지 진료합니다.
+387,desktop,n.,"데스크톱 컴퓨터, 바탕화면",Each employee will receive a new desktop by the end of the month.,모든 직원은 월말까지 새 데스크톱 컴퓨터를 받게 됩니다.
+388,jog,v.,조깅하다,Many employees jog in the park near the office during lunch.,많은 직원이 점심시간에 사무실 근처 공원에서 조깅을 합니다.
+389,leisure,n.,"여가, 한가한 시간",The resort offers many leisure activities for the whole family.,그 리조트는 온 가족을 위한 다양한 여가 활동을 제공합니다.
+390,nap,n.,낮잠,A short nap after lunch can improve your afternoon productivity.,점심 후 짧은 낮잠은 오후 생산성을 높일 수 있습니다.
+391,reinforce,v.,"강화하다, 보강하다",The training aims to reinforce the skills employees have already learned.,그 교육은 직원들이 이미 배운 기술을 강화하는 것을 목표로 합니다.
+392,sender,n.,"보낸 사람, 발송인",Please write the name of the sender on the back of the envelope.,봉투 뒷면에 보낸 사람의 이름을 적어 주세요.
+393,vacuum,n.,"진공청소기, 진공",The cleaner uses a vacuum to clean the carpet in the hallway.,청소부는 진공청소기로 복도의 카펫을 청소합니다.
+394,wireless,adj.,무선의,Wireless Internet access is available throughout the hotel free of charge.,호텔 전체에서 무선 인터넷을 무료로 이용할 수 있습니다.
+395,yearly,adj.,"연간의, 매년의",The yearly report will be sent to all shareholders in March.,연간 보고서는 3월에 모든 주주에게 발송될 것입니다.
+396,appreciation,n.,"감사, 인정",Please accept this gift as a token of our appreciation.,이 선물을 저희의 감사의 표시로 받아 주세요.
+397,cargo,n.,"화물, 적하",The cargo will be loaded onto the ship early tomorrow morning.,화물은 내일 이른 아침에 배에 실릴 것입니다.
+398,cooperate,v.,"협력하다, 협조하다",Both departments agreed to cooperate on the new advertising campaign.,두 부서는 새 광고 캠페인에서 협력하기로 합의했습니다.
+399,distract,v.,"산만하게 하다, 주의를 흩뜨리다",Loud music in the office can distract workers from their tasks.,사무실의 큰 음악 소리는 직원들이 업무에 집중하지 못하게 할 수 있습니다.
+400,dividend,n.,"배당금, 배당",Shareholders will receive a dividend at the end of the third quarter.,주주들은 3분기 말에 배당금을 받게 됩니다.
+401,exemption,n.,"면제, 면세",Nonprofit groups may apply for an exemption from the registration fee.,비영리 단체는 등록비 면제를 신청할 수 있습니다.
+402,furnish,v.,"제공하다, 가구를 갖추다",The hotel will furnish each guest room with a desk and a lamp.,호텔은 각 객실에 책상과 램프를 갖출 것입니다.
+403,hourly,adj.,"시간당의, 매시간의",Part-time workers receive an hourly wage of twelve dollars.,시간제 직원은 시급 12달러를 받습니다.
+404,laundry,n.,"세탁물, 세탁소",The hotel offers a free laundry service for guests staying a week.,호텔은 일주일 이상 머무는 투숙객에게 무료 세탁 서비스를 제공합니다.
+405,mandatory,adj.,"의무적인, 필수의",Attendance at the safety training session is mandatory for all staff.,안전 교육 참석은 전 직원에게 의무입니다.
+406,mechanical,adj.,"기계의, 기계적인",A mechanical problem forced the airline to cancel the morning flight.,기계적 결함 때문에 항공사는 아침 비행편을 취소해야 했습니다.
+407,pharmacy,n.,약국,You can pick up your medicine at the pharmacy next to the clinic.,진료소 옆 약국에서 약을 받아 가실 수 있습니다.
+408,promotional,adj.,"홍보의, 판촉의",The company will distribute promotional items at the trade show.,회사는 무역 박람회에서 홍보용 물품을 나눠 줄 것입니다.
+409,quarterly,adj.,"분기별의, 연 4회의",The quarterly report is due to the board by the end of the month.,분기 보고서는 이달 말까지 이사회에 제출되어야 합니다.
+410,residential,adj.,"주거의, 주택의",The city plans to build a new residential area near the river.,시는 강 근처에 새 주거 지역을 조성할 계획입니다.
+411,scholarship,n.,장학금,She received a scholarship to study business at a foreign university.,그녀는 외국 대학에서 경영학을 공부할 수 있는 장학금을 받았습니다.
+412,temporarily,adv.,"일시적으로, 임시로",The main entrance will be temporarily closed during the repair work.,수리 작업 중에는 정문이 일시적으로 폐쇄됩니다.
+413,towel,n.,수건,A clean towel is provided to every guest at the swimming pool.,수영장에서는 모든 이용객에게 깨끗한 수건이 제공됩니다.
+414,unattended,adj.,"방치된, 주인 없는",Please do not leave your luggage unattended in the terminal.,터미널에서 짐을 방치하지 마세요.
+415,accessible,adj.,"접근 가능한, 이용하기 쉬운",The new library is easily accessible by bus and subway.,새 도서관은 버스와 지하철로 쉽게 갈 수 있습니다.
+416,afterward,adv.,"나중에, 그 후에",We will have a short discussion afterward over coffee.,우리는 그 후에 커피를 마시며 짧게 토론할 것입니다.
+417,apology,n.,"사과, 사죄",Please accept our sincere apology for the mistake in your bill.,청구서 오류에 대한 저희의 진심 어린 사과를 받아 주세요.
+418,assemble,v.,"조립하다, 모이다",It takes about an hour to assemble the desk without help.,도움 없이 책상을 조립하는 데는 약 한 시간이 걸립니다.
+419,automatic,adj.,"자동의, 자동적인",The automatic doors at the entrance open when someone approaches.,입구의 자동문은 사람이 다가가면 열립니다.
+420,boardroom,n.,이사회실,The directors will meet in the boardroom at ten o'clock.,이사들은 10시에 이사회실에서 모일 것입니다.
+421,carpenter,n.,목수,The carpenter built new shelves for the storage room last week.,목수가 지난주에 창고에 새 선반을 만들었습니다.
+422,caterer,n.,"음식 공급업자, 출장 연회업체",The caterer will deliver all the food to the venue by noon.,출장 연회업체가 정오까지 모든 음식을 행사장에 배달할 것입니다.
+423,classify,v.,"분류하다, 등급을 매기다",The system will classify each document by subject and date.,시스템이 각 문서를 주제와 날짜별로 분류할 것입니다.
+424,consultation,n.,"상담, 협의",You can book a free consultation with one of our advisors online.,온라인으로 상담원과의 무료 상담을 예약할 수 있습니다.
+425,durable,adj.,"내구성이 있는, 튼튼한",These durable boots are designed for long days on construction sites.,이 튼튼한 부츠는 공사 현장에서의 긴 하루를 위해 설계되었습니다.
+426,glove,n.,장갑,Always wear a glove on your left hand when you use this machine.,이 기계를 사용할 때는 항상 왼손에 장갑을 끼세요.
+427,hardware,n.,"철물, 컴퓨터 장비",The hardware store on Elm Street sells tools at reasonable prices.,엘름 가의 철물점은 공구를 적당한 가격에 판매합니다.
+428,malfunction,n.,"오작동, 고장",A malfunction in the printer caused the delay in the report.,프린터 오작동으로 보고서가 지연되었습니다.
+429,outdated,adj.,"구식의, 시대에 뒤떨어진",Much of our equipment is outdated and needs to be replaced.,우리 장비의 상당수는 구식이어서 교체가 필요합니다.
+430,patience,n.,"인내, 참을성",Thank you for your patience while we fix the technical problem.,기술적 문제를 해결하는 동안 기다려 주셔서 감사합니다.
+431,postcard,n.,엽서,The museum sells a postcard of each famous painting in the gift shop.,박물관 선물 가게에서는 유명 그림마다 엽서를 판매합니다.
+432,prospective,adj.,"장래의, 유망한",Prospective buyers are invited to view the apartment this weekend.,구매 희망자는 이번 주말에 아파트를 둘러볼 수 있습니다.
+433,revision,n.,"수정, 개정",The revision of the contract will be completed by Friday.,계약서 수정은 금요일까지 마무리될 것입니다.
+434,strictly,adv.,"엄격히, 철저히",Smoking is strictly prohibited inside the building.,건물 내 흡연은 엄격히 금지되어 있습니다.
+435,tomato,n.,토마토,The chef adds a fresh tomato from the local farm to every salad.,주방장은 모든 샐러드에 지역 농장의 신선한 토마토를 넣습니다.
+436,tray,n.,"쟁반, 서류함",Please place your used tray on the shelf near the exit.,사용한 쟁반은 출구 근처 선반에 놓아 주세요.
+437,vendor,n.,"판매업체, 노점상",The vendor agreed to lower the price for a large order.,판매업체는 대량 주문에 대해 가격을 낮추는 데 동의했습니다.
+438,withdrawal,n.,"인출, 철회",There is a limit on the amount of cash withdrawal per day.,하루 현금 인출 금액에는 한도가 있습니다.
+439,anytime,adv.,"언제든지",You can reach our support team anytime by calling the number below.,아래 번호로 전화하시면 언제든지 지원팀과 연결할 수 있습니다.
+440,badge,n.,"배지, 명찰",All visitors must wear a badge while they are in the building.,모든 방문객은 건물 안에서 명찰을 착용해야 합니다.
+441,brake,n.,브레이크,The mechanic replaced the brake on the delivery truck yesterday.,정비사는 어제 배달 트럭의 브레이크를 교체했습니다.
+442,calculation,n.,"계산, 산출",An error in the calculation led to the wrong total on the invoice.,계산 오류로 송장에 잘못된 합계가 적혔습니다.
+443,coordinator,n.,"진행 책임자, 조정자",The event coordinator will contact each speaker by the end of the week.,행사 진행 책임자가 주말까지 각 연사에게 연락할 것입니다.
+444,costly,adj.,"비용이 많이 드는, 값비싼",A delay in the project could be very costly for the company.,프로젝트 지연은 회사에 매우 큰 비용이 될 수 있습니다.
+445,equip,v.,"장비를 갖추다, 준비시키다",The company will equip every office with a new computer next month.,회사는 다음 달에 모든 사무실에 새 컴퓨터를 갖출 것입니다.
+446,excursion,n.,"소풍, 단체 여행",The hotel organizes a day excursion to the national park each Sunday.,호텔은 매주 일요일 국립공원으로 당일 여행을 마련합니다.
+447,graphic,adj.,"그래픽의, 시각적인",We are hiring a graphic designer to create our new brochure.,우리는 새 안내 책자를 만들 그래픽 디자이너를 채용하고 있습니다.
+448,inexperience,n.,"경험 부족, 미숙",His inexperience in sales was not a problem for the interviewers.,영업 경험이 부족하다는 점은 면접관들에게 문제가 되지 않았습니다.
+449,lengthy,adj.,"긴, 장황한",A lengthy discussion about the budget delayed the end of the meeting.,예산에 관한 긴 논의로 회의가 늦게 끝났습니다.
+450,librarian,n.,사서,The librarian can help you find books on any subject.,사서가 어떤 주제의 책이든 찾도록 도와드릴 수 있습니다.
+451,meantime,phr.,"그 동안 (in the meantime)",In the meantime please take a seat and make yourself comfortable.,그 동안 자리에 앉아 편히 계세요.
+452,merge,v.,"합병하다, 합치다",The two small banks plan to merge into a single company next year.,두 작은 은행은 내년에 하나의 회사로 합병할 계획입니다.
+453,performer,n.,"공연자, 연주자",Each performer will have fifteen minutes on stage during the festival.,축제 동안 각 공연자는 무대에서 15분을 갖게 됩니다.
+454,pharmacist,n.,약사,The pharmacist explained how to take the medicine twice a day.,약사는 하루에 두 번 약을 복용하는 방법을 설명했습니다.
+455,pizza,n.,피자,The staff ordered pizza for dinner while they worked late.,직원들은 늦게까지 일하면서 저녁으로 피자를 주문했습니다.
+456,resignation,n.,"사직, 사임",The manager submitted her resignation letter to the director yesterday.,관리자는 어제 이사에게 사직서를 제출했습니다.
+457,reviewer,n.,"심사자, 평론가",The reviewer praised the novel for its clear and simple style.,평론가는 그 소설의 명료하고 간결한 문체를 칭찬했습니다.
+458,terminate,v.,"종료하다, 해지하다",Either party may terminate this agreement with thirty days' notice.,양 당사자는 30일 전 통지로 이 계약을 해지할 수 있습니다.
+459,translation,n.,"번역, 번역본",The translation of the manual will be ready by the end of the week.,설명서 번역은 이번 주말까지 준비될 것입니다.
+460,unfamiliar,adj.,"익숙하지 않은, 낯선",New employees may feel unfamiliar with the office system at first.,신입 직원은 처음에는 사무 시스템이 낯설게 느껴질 수 있습니다.
+461,actress,n.,여배우,The famous actress will attend the opening night of the film festival.,유명 여배우가 영화제 개막식에 참석할 것입니다.
+462,adjacent,adj.,"인접한, 가까운",The conference hall is adjacent to the main hotel lobby.,학회장은 호텔 중앙 로비와 인접해 있습니다.
+463,alternate,adj.,"대체의, 번갈아 하는",Please use an alternate route because the main road is closed.,큰길이 폐쇄되었으니 대체 경로를 이용해 주세요.
+464,congratulate,v.,"축하하다",I would like to congratulate everyone on the success of the project.,프로젝트의 성공에 대해 모두에게 축하의 말씀을 드립니다.
+465,escort,v.,"안내하다, 호위하다",A security officer will escort visitors to the meeting room.,보안 직원이 방문객을 회의실까지 안내할 것입니다.
+466,inexpensive,adj.,"저렴한, 비싸지 않은",The restaurant is known for its inexpensive lunch menu.,그 식당은 저렴한 점심 메뉴로 알려져 있습니다.
+467,mask,n.,"마스크, 가면",Workers should wear a mask when entering the paint room.,작업자는 도색실에 들어갈 때 마스크를 착용해야 합니다.
+468,purchaser,n.,구매자,The purchaser of the building will take over the lease in May.,건물 구매자는 5월에 임대 계약을 넘겨받을 것입니다.
+469,purse,n.,"지갑, 핸드백",A woman left her purse on the bus this morning.,한 여성이 오늘 아침 버스에 핸드백을 두고 내렸습니다.
+470,realtor,n.,부동산 중개인,The realtor will show you several houses near the school.,부동산 중개인이 학교 근처의 여러 주택을 보여 드릴 것입니다.
+471,rearrange,v.,"재배치하다, 일정을 다시 잡다",We need to rearrange the furniture before the clients arrive.,고객이 도착하기 전에 가구를 재배치해야 합니다.
+472,reopen,v.,"재개하다, 다시 열다",The museum will reopen to the public after the renovation in April.,박물관은 4월 보수 공사가 끝나면 일반에 다시 문을 엽니다.
+473,soap,n.,비누,Please wash your hands with soap before returning to work.,업무로 복귀하기 전에 비누로 손을 씻어 주세요.
+474,spokesperson,n.,대변인,A company spokesperson said the new product would launch in May.,회사 대변인은 신제품이 5월에 출시될 것이라고 말했습니다.
+475,superior,adj.,"우수한, 상급의",Our product is superior to those of our competitors in quality.,우리 제품은 품질 면에서 경쟁사 제품보다 우수합니다.
+476,airfare,n.,항공 요금,The company will pay your airfare and hotel for the business trip.,회사는 출장에 필요한 항공 요금과 호텔 비용을 지불할 것입니다.
+477,bake,v.,"굽다",The bakery will bake fresh bread every morning before it opens.,제과점은 문을 열기 전에 매일 아침 신선한 빵을 구울 것입니다.
+478,businessperson,n.,사업가,The businessperson gave a speech about starting a company abroad.,사업가는 해외에서 회사를 설립하는 것에 관해 연설했습니다.
+479,considerably,adv.,"상당히, 꽤",Prices have risen considerably since the beginning of the year.,연초 이후 물가가 상당히 올랐습니다.
+480,faulty,adj.,"결함이 있는, 잘못된",Customers may exchange any faulty product at no extra cost.,고객은 결함이 있는 제품을 추가 비용 없이 교환할 수 있습니다.
+481,hobby,n.,취미,Photography is a popular hobby among our employees.,사진 촬영은 우리 직원들 사이에서 인기 있는 취미입니다.
+482,informal,adj.,"비공식적인, 격식 없는",The informal meeting will take place over lunch in the cafeteria.,비공식 모임은 구내식당에서 점심을 먹으며 열릴 것입니다.
+483,kilometer,n.,킬로미터,The factory is located about one kilometer from the city center.,공장은 도심에서 약 1킬로미터 떨어져 있습니다.
+484,lawn,n.,잔디밭,Guests are asked not to walk on the lawn in front of the hall.,손님들은 홀 앞 잔디밭 위를 걷지 말아 주세요.
+485,microscope,n.,현미경,The researcher examined the sample under a high-powered microscope.,연구원은 고배율 현미경으로 시료를 조사했습니다.
+486,mislead,v.,"오해하게 하다, 호도하다",The advertisement may mislead customers about the price of the product.,그 광고는 고객에게 제품 가격에 대해 오해를 줄 수 있습니다.
+487,misplace,v.,"둔 곳을 잊다, 잘못 두다",Please be careful not to misplace the keys to the storage room.,창고 열쇠를 어디 뒀는지 잊어버리지 않도록 조심하세요.
+488,newsstand,n.,신문 가판대,You can buy a daily paper at the newsstand near the station.,역 근처 신문 가판대에서 일간지를 살 수 있습니다.
+489,overhead,adj.,"머리 위의, 간접비의",Please place your small bags in the overhead compartment above your seat.,작은 가방은 좌석 위의 선반에 넣어 주세요.
+490,portfolio,n.,"포트폴리오, 작품집",Applicants should bring a portfolio of their best design work.,지원자는 최고의 디자인 작품을 담은 포트폴리오를 가져와야 합니다.
+491,rack,n.,"선반, 걸이",Please hang your coat on the rack beside the door.,외투는 문 옆 옷걸이에 걸어 주세요.
+492,remodel,v.,"개조하다, 리모델링하다",The owner decided to remodel the restaurant to attract more customers.,주인은 더 많은 손님을 끌기 위해 식당을 리모델링하기로 했습니다.
+493,statistics,n.,"통계, 통계 자료",Recent statistics show that online sales are rising every month.,최근 통계는 온라인 매출이 매달 오르고 있음을 보여 줍니다.
+494,tunnel,n.,터널,The new tunnel will shorten the trip to the airport by twenty minutes.,새 터널은 공항까지의 이동 시간을 20분 줄여 줄 것입니다.
+495,unlimited,adj.,"무제한의, 한없는",This plan includes unlimited access to all our online courses.,이 요금제에는 모든 온라인 강좌를 무제한 이용하는 것이 포함됩니다.
+496,vitamin,n.,비타민,The company provides a free vitamin supplement to all its staff.,회사는 전 직원에게 무료로 비타민 보충제를 제공합니다.
+497,zoo,n.,동물원,The city zoo will extend its opening hours during the summer.,시립 동물원은 여름 동안 운영 시간을 연장합니다.
+498,alert,v.,"알리다, 경고하다",Please alert the manager at once if you notice any problem.,문제가 보이면 즉시 관리자에게 알려 주세요.
+499,auditorium,n.,"강당, 대강당",The keynote speech will be held in the main auditorium at nine.,기조연설은 9시에 대강당에서 열릴 것입니다.
+500,celebrity,n.,"유명 인사, 명성",A famous celebrity will cut the ribbon at the grand opening.,유명 인사가 개장식에서 테이프를 자를 것입니다.
