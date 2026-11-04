@@ -33,7 +33,10 @@ export function AuthProvider({ children }) {
     setUser(null)
   }
 
-  return <AuthContext.Provider value={{ user, isLoading, signIn, signUp, signOut }}>{children}</AuthContext.Provider>
+  // setUser 도 내보낸다: 설정을 바꾼 뒤 서버가 돌려준 최신 회원 정보로 화면 전체를 갱신하기 위함
+  return (
+    <AuthContext.Provider value={{ user, isLoading, signIn, signUp, signOut, setUser }}>{children}</AuthContext.Provider>
+  )
 }
 
 /** 어느 화면에서든 `const { user, signIn, ... } = useAuth()` 로 로그인 상태를 꺼내 쓴다. */

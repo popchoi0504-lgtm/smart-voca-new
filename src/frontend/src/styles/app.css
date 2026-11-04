@@ -138,6 +138,62 @@ a {
   color: var(--color-primary);
 }
 
+/* ---------- 학습 화면 (VS-3: 오늘 할 것, 플래시카드, 설정) ---------- */
+a.btn {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+a.btn-primary {
+  color: #ffffff;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-3);
+}
+
+.button-row {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.button-row .btn {
+  flex: 1;
+}
+
+.notice {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-3);
+  background: var(--color-bg);
+  border-radius: 8px;
+}
+
+.flashcard {
+  min-height: 220px;
+  margin-bottom: var(--space-3);
+  text-align: center;
+}
+
+.flashcard-word {
+  margin: var(--space-4) 0 var(--space-1);
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.flashcard-meaning {
+  margin: var(--space-3) 0 var(--space-2);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.flashcard-example {
+  margin: 0;
+}
+
 .source-notice {
   max-width: 720px;
   margin: var(--space-4) auto;

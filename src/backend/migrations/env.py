@@ -14,6 +14,8 @@ from app.models.base import Base
 # 새 모델(표)을 만들면 여기에서 불러와야 Alembic 이 그 표를 알게 된다.
 from app.models import user  # noqa: F401  (users 표, VS-1)
 from app.models import word  # noqa: F401  (words 표, VS-2)
+from app.models import user_word  # noqa: F401  (user_words 표, VS-3)
+from app.models import review_log  # noqa: F401  (review_logs 표, VS-3)
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
