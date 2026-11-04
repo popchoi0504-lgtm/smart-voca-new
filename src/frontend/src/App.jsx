@@ -3,6 +3,7 @@
 import { Route, Routes } from 'react-router-dom'
 
 import ProtectedRoute from './components/ProtectedRoute'
+import SourceNotice from './components/SourceNotice'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import NotFoundPage from './pages/NotFoundPage'
@@ -11,13 +12,17 @@ import StatusPage from './pages/StatusPage'
 
 export default function App() {
   return (
-    <Routes>
-      {/* 로그인해야 볼 수 있는 화면은 ProtectedRoute 로 감싼다 */}
-      <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
-      <Route path="/status" element={<StatusPage />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+    <>
+      <Routes>
+        {/* 로그인해야 볼 수 있는 화면은 ProtectedRoute 로 감싼다 */}
+        <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/status" element={<StatusPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+      {/* 모든 화면 하단에 단어 출처(CC BY-SA 4.0) 표기 */}
+      <SourceNotice />
+    </>
   )
 }
