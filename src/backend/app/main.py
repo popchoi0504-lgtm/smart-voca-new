@@ -8,7 +8,7 @@ from fastapi import FastAPI, Request
 
 from app.core.errors import register_exception_handlers
 from app.core.logging import setup_logging
-from app.routers import auth, health, study
+from app.routers import auth, health, quiz, study
 
 request_logger = logging.getLogger("smart_voca.request")
 
@@ -41,6 +41,7 @@ def create_app() -> FastAPI:
     app.include_router(auth.router, prefix="/api")
     app.include_router(study.study_router, prefix="/api")
     app.include_router(study.me_router, prefix="/api")
+    app.include_router(quiz.router, prefix="/api")
     return app
 
 
