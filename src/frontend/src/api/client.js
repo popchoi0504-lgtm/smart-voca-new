@@ -54,6 +54,14 @@ export async function apiFetch(path, { method = 'GET', body } = {}) {
 }
 
 /**
+ * 서버가 알려 준 입력 오류(칸별 메시지)를 { email: '...', password: '...' } 모양으로 바꿔 화면에서 쓰기 쉽게 한다.
+ */
+export function fieldErrorsOf(error) {
+  if (!(error instanceof ApiError) || !error.fields) return {}
+  return Object.fromEntries(error.fields.map((item) => [item.field, item.message]))
+}
+
+/**
  * 서버·DB 상태 확인. DB 가 고장이면 서버가 503 과 함께 {status, db} 를 보내므로 그 내용도 그대로 돌려준다.
  */
 export async function getHealth() {

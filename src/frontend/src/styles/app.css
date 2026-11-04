@@ -57,3 +57,83 @@ body {
   color: var(--color-danger);
   font-weight: 600;
 }
+
+/* ---------- 폼, 버튼, 링크 (VS-1: 로그인·회원가입) ---------- */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.field label {
+  font-weight: 600;
+}
+
+.field input {
+  padding: 12px var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: var(--font-size-base);
+  font-family: inherit;
+}
+
+.field input:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.field input[aria-invalid='true'] {
+  border-color: var(--color-danger);
+}
+
+.field-hint {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.field-error,
+.form-error {
+  margin: 0;
+  color: var(--color-danger);
+  font-size: 14px;
+}
+
+.btn {
+  padding: 12px var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.form-footer {
+  margin: 0;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+a {
+  color: var(--color-primary);
+}
