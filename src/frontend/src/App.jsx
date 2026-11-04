@@ -8,6 +8,7 @@ import FlashcardPage from './pages/FlashcardPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import NotFoundPage from './pages/NotFoundPage'
+import QuizPage from './pages/QuizPage'
 import SettingsPage from './pages/SettingsPage'
 import SignupPage from './pages/SignupPage'
 import StatusPage from './pages/StatusPage'
@@ -19,6 +20,7 @@ export default function App() {
         {/* 로그인해야 볼 수 있는 화면은 ProtectedRoute 로 감싼다 */}
         <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
         <Route path="/study" element={<ProtectedRoute><FlashcardPage /></ProtectedRoute>} />
+        <Route path="/quiz" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
         <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />

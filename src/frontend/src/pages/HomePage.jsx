@@ -57,7 +57,9 @@ export default function HomePage() {
             <p className="notice" role="status">오늘 새 단어 목표를 채웠어요. 🎉</p>
           )}
           {today.review_due_count > 0 && (
-            <p className="field-hint">복습 퀴즈는 다음 단계(VS-4)에서 열립니다.</p>
+            <Link className="btn btn-primary btn-block" to="/quiz">
+              복습 퀴즈 풀기 ({Math.min(today.review_due_count, 10)}개)
+            </Link>
           )}
         </section>
       )}
