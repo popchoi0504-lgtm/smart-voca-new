@@ -244,8 +244,9 @@
 - 요청: `{ "product": "premium_30d" }` (지금은 이 상품 하나)
 ```json
 { "order_id": "svc-3f9a1c0e5b2d4e78", "order_name": "smart-voca 프리미엄 30일",
-  "amount": 4900, "client_key": "test_gck_...", "customer_key": "u_9c1e..." }
+  "amount": 4900, "client_key": "test_gck_...", "customer_key": "u_9c1e...", "provider": "toss" }
 ```
+- `provider`(구현 때 추가, 2026-11-05): `toss` 또는 `fake`. 화면이 결제위젯을 띄울지 가짜 결제 버튼을 보여 줄지 정한다. `fake` 일 때 `client_key` 는 `"fake"`.
 - 동작: `payments` 에 `pending` 행 생성. **금액은 서버가 정한다** (요청에 금액이 있어도 무시)
 - `client_key` 는 결제위젯을 띄우는 **공개 키**(서버 시크릿 키와 다름). `customer_key` 는 회원마다 고유한 값으로, 회원 id 에서 서버 비밀 값으로 계산해 만든다(추측 불가). 추가 저장은 하지 않는다.
 - 주문번호 규칙: 서버가 `svc-` + 무작위 16자리(영문 소문자·숫자)로 생성. 결제사의 주문번호 규칙(길이·허용 문자)은 구현 때 확인 `[구현 시 확인]`
