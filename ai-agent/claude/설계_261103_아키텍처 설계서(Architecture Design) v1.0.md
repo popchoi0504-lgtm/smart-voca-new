@@ -91,7 +91,7 @@ smart-voca_new/
 │       │   └── styles/            # tokens.css(색·간격 값), 페이지별 css
 │       ├── vite.config.js         # /api → :8000 프록시
 │       └── package.json
-├── data/words/                    # toeic_500.csv + 출처·라이선스 안내
+├── data/words/                    # toeic_2000.csv + 출처·라이선스 안내
 ├── ai-agent/scripts/              # seed_words.py (상시 도구)
 ├── logs/                          # 서버 로그 (Git 제외)
 └── .env / .env.example            # 설정 (.env 는 Git 제외)

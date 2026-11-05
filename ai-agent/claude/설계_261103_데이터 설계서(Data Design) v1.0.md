@@ -36,7 +36,7 @@
 | 표 | 역할 | 주요 FR |
 |---|---|---|
 | `users` | 회원 계정, 설정, 이용권 만료일 | FR-AUTH-01~07, FR-STUDY-04, FR-SUB-05 |
-| `words` | 단어 500개 (읽기 전용 데이터) | FR-WORD-01~06 |
+| `words` | 단어 2,000개 (읽기 전용 데이터, 2026-11-05 에 500에서 확장) | FR-WORD-01~06 |
 | `user_words` | 사용자별 단어 학습 상태 (SM-2 값) | FR-SRS-01~05, FR-STUDY-03 |
 | `review_logs` | 모든 학습·퀴즈 결과 기록 (쌓기만 함) | FR-PROG-01~05, FR-HINT-03~04 |
 | `payments` | 결제 내역 | FR-SUB-02~06 |

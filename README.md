@@ -42,7 +42,7 @@ cd src\backend
 ```
 
 ```powershell
-# 5) 단어 500개 넣기: 4) 다음에 한 번 (여러 번 실행해도 500개 유지). 검증만 하려면 --dry-run
+# 5) 단어 2,000개 넣기: 4) 다음에 한 번 (여러 번 실행해도 2,000개 유지). 검증만 하려면 --dry-run
 cd src\backend
 .\.venv\Scripts\python.exe ..\..\ai-agent\scripts\seed_words.py
 ```
