@@ -18,7 +18,7 @@ from app.core.config import get_settings  # noqa: E402
 from app.models.word import Word  # noqa: E402
 from app.services.word_import import WordImportError, import_words, read_word_csv, validate_rows  # noqa: E402
 
-DEFAULT_CSV = PROJECT_ROOT / "data" / "words" / "toeic_500.csv"
+DEFAULT_CSV = PROJECT_ROOT / "data" / "words" / "toeic_2000.csv"
 
 
 def main() -> int:
