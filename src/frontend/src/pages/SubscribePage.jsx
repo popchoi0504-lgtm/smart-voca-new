@@ -25,29 +25,52 @@ export default function SubscribePage() {
     getPayments(10).then(setPayments).catch(() => {})
   }, [])
 
-  // 구매 버튼: 서버에 주문을 만들고(금액은 서버가 정함), 토스면 결제위젯을 그린다
+  // 구매 버튼: 서버에 주문만 만든다(금액은 서버가 정함). 위젯 그리기는 아래 효과가 "주문이 화면에 반영된 뒤"에 한다
   async function startPurchase() {
     setErrorMessage('')
     setIsBusy(true)
     try {
-      const newOrder = await createOrder()
-      setOrder(newOrder)
-      if (newOrder.provider === 'toss') {
+      setWidgets(null)
+      setOrder(await createOrder())
+    } catch (error) {
+      setErrorMessage(error.message)
+      setIsBusy(false)
+    }
+  }
+
+  // 토스 주문이 화면에 반영되어 위젯이 들어갈 빈 칸(#payment-method, #agreement)이 생긴 뒤에야 위젯을 그린다.
+  // (버튼 함수 안에서 바로 그리면 빈 칸이 아직 없어 "selector 를 찾을 수 없습니다" 오류가 난다. 두 번째 구매부터 발생했다)
+  useEffect(() => {
+    if (!order || order.provider !== 'toss') {
+      setIsBusy(false)
+      return undefined
+    }
+    let isCancelled = false // 화면을 떠나거나 새 주문으로 바뀌면 이전 작업을 멈춘다
+    async function renderWidgets() {
+      try {
         const TossPayments = await loadTossSdk()
-        const tossWidgets = TossPayments(newOrder.client_key).widgets({ customerKey: newOrder.customer_key })
-        await tossWidgets.setAmount({ currency: 'KRW', value: newOrder.amount })
+        if (isCancelled) return
+        const tossWidgets = TossPayments(order.client_key).widgets({ customerKey: order.customer_key })
+        await tossWidgets.setAmount({ currency: 'KRW', value: order.amount })
+        if (isCancelled) return
         await Promise.all([
           tossWidgets.renderPaymentMethods({ selector: '#payment-method', variantKey: 'DEFAULT' }),
           tossWidgets.renderAgreement({ selector: '#agreement', variantKey: 'AGREEMENT' }),
         ])
-        setWidgets(tossWidgets)
+        if (!isCancelled) setWidgets(tossWidgets)
+      } catch (error) {
+        if (!isCancelled) {
+          setOrder(null)
+          setErrorMessage(error.message)
+        }
       }
-    } catch (error) {
-      setOrder(null)
-      setErrorMessage(error.message)
+      if (!isCancelled) setIsBusy(false)
     }
-    setIsBusy(false)
-  }
+    renderWidgets()
+    return () => {
+      isCancelled = true
+    }
+  }, [order])
 
   // 토스: 결제창을 열고, 끝나면 토스가 successUrl 로 이동시킨다(주소 끝에 paymentKey, orderId, amount 가 붙음)
   async function payWithToss() {
@@ -100,7 +123,11 @@ export default function SubscribePage() {
         </div>
         <div className={`card plan ${isPremium ? 'plan-current' : ''}`}>
           <h2>{premiumPlan.name}</h2>
-          <p className="plan-price">{premiumPlan.price_krw.toLocaleString('ko-KR')}원 / {premiumPlan.pass_days}일</p>
+          <p className="plan-price">
+            {premiumPlan.price_krw.toLocaleString('ko-KR')}원
+            {/* 좁은 화면에서 "30" 과 "일" 이 갈라지지 않도록 묶어서 줄바꿈한다 */}
+            <span className="plan-period"> / {premiumPlan.pass_days}일</span>
+          </p>
           <p>단어 {premiumPlan.word_limit}개 전체</p>
         </div>
       </section>
