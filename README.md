@@ -2,7 +2,7 @@
 
 **파일 위치**: `README.md`
 **작성일**: 2026-11-03
-**설명**: 토익 영단어를 짧은 시간에 반복해서 잊지 않고 외우도록 돕는 웹 서비스 (개발 중). 실행 방법을 적은 안내 문서 (VS-0 기준, 이후 슬라이스마다 갱신)
+**설명**: 토익 영단어를 짧은 시간에 반복해서 잊지 않고 외우도록 돕는 웹 서비스 (개발 중). 실행 방법을 적은 안내 문서 (VS-7 기준). 자세한 운영·백업·시연 절차는 `ai-agent/claude/운영_261105_운영·배포 정의서(Operations Guide) v1.0.md`
 
 ---
 
@@ -71,6 +71,24 @@ npm run dev
 cd src\backend
 .\.venv\Scripts\python.exe -m pytest -v
 ```
+
+## 시연용 데모 계정
+
+```powershell
+cd src\backend
+.\.venv\Scripts\python.exe ..\..\ai-agent\scripts\seed_demo.py demo
+```
+
+`demo@smartvoca.com` / 기본 비밀번호는 운영·배포 정의서 5.2. 6일 학습 이력이 들어 있고, 여러 번 실행해도 같은 상태로 초기화된다.
+
+## 백업·복원
+
+```powershell
+cd src\backend
+.\.venv\Scripts\python.exe ..\..\ai-agent\scripts\db_backup.py backup
+```
+
+`backups\` 에 `.dump` 파일이 생긴다(Git 제외). 복원 방법은 운영·배포 정의서 6장.
 
 ## 문서
 

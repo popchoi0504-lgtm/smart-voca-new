@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# 2026-11-04 - smart-voca - user_words·review_logs 표 생성 (Alembic 자동 생성 후 데이터 설계서와 대조 확인)
+# 파일 위치: src/backend/migrations/versions/8232ffda5bc4_create_user_words_and_review_logs.py
 """create user_words and review_logs
 
 Revision ID: 8232ffda5bc4

@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# 2026-11-04 - smart-voca - words 표 생성 (Alembic 자동 생성 후 데이터 설계서와 대조 확인)
+# 파일 위치: src/backend/migrations/versions/835806a0dd82_create_words.py
 """create words
 
 Revision ID: 835806a0dd82

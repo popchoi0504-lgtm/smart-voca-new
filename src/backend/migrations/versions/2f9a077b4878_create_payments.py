@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# 2026-11-05 - smart-voca - payments 표 생성 (Alembic 자동 생성 후 데이터 설계서와 대조 확인)
+# 파일 위치: src/backend/migrations/versions/2f9a077b4878_create_payments.py
 """create payments
 
 Revision ID: 2f9a077b4878
