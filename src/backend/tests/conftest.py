@@ -16,7 +16,7 @@ from app.core.database import get_db
 from app.main import app
 from app.models import user  # noqa: F401  (모델을 불러와야 Base.metadata 에 표 목록이 채워진다)
 from app.models import word  # noqa: F401
-from app.models import review_log, user_word  # noqa: F401
+from app.models import payment, review_log, user_word  # noqa: F401
 from app.models.base import Base
 
 BACKEND_DIR = Path(__file__).resolve().parents[1]
