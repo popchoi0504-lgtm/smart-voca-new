@@ -33,6 +33,9 @@ class Settings(BaseSettings):
     premium_price_krw: int = 4900
     premium_pass_days: int = 30
 
+    # 결제 담당자: "toss"(토스 연동) 또는 "fake"(가짜 결제, FR-SUB-08)
+    payment_provider: str = "toss"
+
     # 토스페이먼츠 테스트 키 (VS-5 에서 사용, 대표가 .env 에 직접 입력)
     toss_client_key: str = ""
     toss_secret_key: str = ""
