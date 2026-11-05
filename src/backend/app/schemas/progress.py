@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+# 2026-11-05 - smart-voca - 학습 기록 요약 응답 양식 (인터페이스 정의서 4.5, FR-PROG-02~05)
+# 파일 위치: src/backend/app/schemas/progress.py
+from datetime import date
+
+from pydantic import BaseModel
+
+
+class TodayProgress(BaseModel):
+    date: date
+    reviewed_count: int  # 오늘 기록이 있는 서로 다른 단어 수 (새 단어 평가 포함)
+    new_learned_count: int  # 오늘 처음 배운 새 단어 수
+
+
+class MasteryCounts(BaseModel):
+    new_count: int
+    learning_count: int
+    familiar_count: int
+
+
+class ProgressSummaryResponse(BaseModel):
+    today: TodayProgress
+    total_learned_count: int
+    total_word_count: int
+    current_streak_days: int
+    mastery: MasteryCounts
