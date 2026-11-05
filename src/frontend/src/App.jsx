@@ -8,9 +8,12 @@ import FlashcardPage from './pages/FlashcardPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import NotFoundPage from './pages/NotFoundPage'
+import PaymentFailPage from './pages/PaymentFailPage'
+import PaymentSuccessPage from './pages/PaymentSuccessPage'
 import QuizPage from './pages/QuizPage'
 import SettingsPage from './pages/SettingsPage'
 import SignupPage from './pages/SignupPage'
+import SubscribePage from './pages/SubscribePage'
 import StatusPage from './pages/StatusPage'
 
 export default function App() {
@@ -22,6 +25,9 @@ export default function App() {
         <Route path="/study" element={<ProtectedRoute><FlashcardPage /></ProtectedRoute>} />
         <Route path="/quiz" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
         <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+        <Route path="/subscribe" element={<ProtectedRoute><SubscribePage /></ProtectedRoute>} />
+        <Route path="/payment/success" element={<ProtectedRoute><PaymentSuccessPage /></ProtectedRoute>} />
+        <Route path="/payment/fail" element={<ProtectedRoute><PaymentFailPage /></ProtectedRoute>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/status" element={<StatusPage />} />

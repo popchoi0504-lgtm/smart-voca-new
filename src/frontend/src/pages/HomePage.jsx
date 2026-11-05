@@ -50,7 +50,8 @@ export default function HomePage() {
           )}
           {today.new_target_count === 0 && today.new_locked_by_plan && (
             <p className="notice" role="status">
-              무료 단어 {today.plan_word_limit}개를 모두 배웠어요. 더 배우려면 프리미엄이 필요해요.
+              무료 단어 {today.plan_word_limit}개를 모두 배웠어요. 더 배우려면 프리미엄이 필요해요.{' '}
+              <Link to="/subscribe">프리미엄 보기</Link>
             </p>
           )}
           {today.new_target_count === 0 && !today.new_locked_by_plan && (
@@ -65,6 +66,7 @@ export default function HomePage() {
       )}
 
       <div className="button-row">
+        <Link className="btn" to="/subscribe">프리미엄</Link>
         <Link className="btn" to="/settings">설정</Link>
         <button className="btn" type="button" onClick={signOut}>로그아웃</button>
       </div>

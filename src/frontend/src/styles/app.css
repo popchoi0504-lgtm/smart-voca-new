@@ -224,3 +224,36 @@ a.btn-primary {
   font-size: 20px;
   letter-spacing: 2px;
 }
+
+/* ---------- 구독·결제 화면 (VS-5) ---------- */
+.plan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.plan {
+  text-align: center;
+}
+
+.plan h2 {
+  margin: 0 0 var(--space-1);
+  font-size: 18px;
+}
+
+.plan-price {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.plan-current {
+  border-color: var(--color-primary);
+}
+
+.hint-text {
+  margin: var(--space-1) 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
