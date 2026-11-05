@@ -66,6 +66,7 @@ export default function HomePage() {
       )}
 
       <div className="button-row">
+        <Link className="btn" to="/progress">학습 기록</Link>
         <Link className="btn" to="/subscribe">프리미엄</Link>
         <Link className="btn" to="/settings">설정</Link>
         <button className="btn" type="button" onClick={signOut}>로그아웃</button>

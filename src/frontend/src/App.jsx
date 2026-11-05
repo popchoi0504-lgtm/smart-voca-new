@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage'
 import NotFoundPage from './pages/NotFoundPage'
 import PaymentFailPage from './pages/PaymentFailPage'
 import PaymentSuccessPage from './pages/PaymentSuccessPage'
+import ProgressPage from './pages/ProgressPage'
 import QuizPage from './pages/QuizPage'
 import SettingsPage from './pages/SettingsPage'
 import SignupPage from './pages/SignupPage'
@@ -24,7 +25,8 @@ export default function App() {
         <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
         <Route path="/study" element={<ProtectedRoute><FlashcardPage /></ProtectedRoute>} />
         <Route path="/quiz" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
-        <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+        <Route path="/progress" element={<ProtectedRoute><ProgressPage /></ProtectedRoute>} />
+        <Route path="/settings"element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
         <Route path="/subscribe" element={<ProtectedRoute><SubscribePage /></ProtectedRoute>} />
         <Route path="/payment/success" element={<ProtectedRoute><PaymentSuccessPage /></ProtectedRoute>} />
         <Route path="/payment/fail" element={<ProtectedRoute><PaymentFailPage /></ProtectedRoute>} />
