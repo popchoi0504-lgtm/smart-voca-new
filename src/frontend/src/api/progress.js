@@ -6,3 +6,8 @@ import { apiFetch } from './client'
 export function getProgressSummary() {
   return apiFetch('/progress/summary')
 }
+
+/** { total_count, items: [{ word_id, headword, part_of_speech, meaning_ko, example_en, example_ko, mastery, first_learned_date }] } 최근에 배운 순 */
+export function getLearnedWords() {
+  return apiFetch('/progress/words')
+}

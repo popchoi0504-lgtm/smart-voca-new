@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { getProgressSummary } from '../api/progress'
+import { getLearnedWords, getProgressSummary } from '../api/progress'
+import SpeakButton from '../components/SpeakButton'
 
 // 숫자를 0~100 퍼센트로 바꾼다. 전체가 0이면 0 (0 으로 나누기 방지)
 function percent(part, whole) {
@@ -44,6 +45,7 @@ export default function ProgressPage() {
 function ProgressContent({ summary }) {
   const { today, total_learned_count: learned, total_word_count: total, current_streak_days: streak, mastery } = summary
   const learnedPercent = percent(learned, total)
+  const [isListOpen, setIsListOpen] = useState(false)
 
   return (
     <>
@@ -69,14 +71,17 @@ function ProgressContent({ summary }) {
 
       <section className="card">
         <h2 className="section-title">전체 진행</h2>
-        <div className="status-row">
-          <span>배운 단어</span>
+        {/* 눌러서 펼치면 지금까지 배운 단어 목록이 나온다 */}
+        <button className="status-row status-row-button" type="button" aria-expanded={isListOpen}
+          aria-controls="learned-words" onClick={() => setIsListOpen(!isListOpen)}>
+          <span>배운 단어 {isListOpen ? '▲' : '▼'}</span>
           <strong>{learned} / {total}개 ({learnedPercent}%)</strong>
-        </div>
+        </button>
         <div className="bar" role="progressbar" aria-label="전체 단어 중 배운 비율"
           aria-valuemin={0} aria-valuemax={total} aria-valuenow={learned}>
           <div className="bar-fill bar-fill-learned" style={{ width: `${learnedPercent}%` }} />
         </div>
+        {isListOpen && <LearnedWordList />}
       </section>
 
       <section className="card">
@@ -102,5 +107,38 @@ function ProgressContent({ summary }) {
         <p className="hint-text">복습 간격이 21일 이상이면 익숙함, 그보다 짧으면 학습 중이에요.</p>
       </section>
     </>
+  )
+}
+
+const MASTERY_LABELS = { learning: '학습 중', familiar: '익숙함' }
+
+// 펼칠 때 처음 한 번만 불러온다 (접었다 펴도 다시 요청하지 않음)
+function LearnedWordList() {
+  const [list, setList] = useState(null)
+  const [errorMessage, setErrorMessage] = useState('')
+
+  useEffect(() => {
+    getLearnedWords().then(setList).catch((error) => setErrorMessage(error.message))
+  }, [])
+
+  if (errorMessage) return <p className="form-error" role="alert">{errorMessage}</p>
+  if (!list) return <p className="hint-text">불러오는 중…</p>
+  if (list.items.length === 0) return <p className="hint-text">아직 배운 단어가 없어요. 새 단어 학습을 시작해 보세요.</p>
+
+  return (
+    <ul id="learned-words" className="learned-list" aria-label="배운 단어 목록">
+      {list.items.map((item) => (
+        <li key={item.word_id} className="learned-item">
+          <div className="learned-head">
+            <strong className="learned-word">{item.headword}</strong>
+            <span className="field-hint">{item.part_of_speech}</span>
+            <SpeakButton text={item.headword} />
+            <span className={`learned-badge learned-badge-${item.mastery}`}>{MASTERY_LABELS[item.mastery]}</span>
+          </div>
+          <p className="learned-meaning">{item.meaning_ko}</p>
+          <p className="field-hint">{item.first_learned_date} 처음 배움</p>
+        </li>
+      ))}
+    </ul>
   )
 }

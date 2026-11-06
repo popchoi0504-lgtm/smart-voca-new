@@ -24,3 +24,21 @@ class ProgressSummaryResponse(BaseModel):
     total_word_count: int
     current_streak_days: int
     mastery: MasteryCounts
+
+
+class LearnedWordItem(BaseModel):
+    """배운 단어 목록의 한 줄 (인터페이스 정의서 4.5 확장, 이슈 #20)"""
+
+    word_id: int
+    headword: str
+    part_of_speech: str
+    meaning_ko: str
+    example_en: str
+    example_ko: str
+    mastery: str  # "learning"(학습 중) / "familiar"(익숙함)
+    first_learned_date: date  # 처음 배운 날 (한국 날짜)
+
+
+class LearnedWordsResponse(BaseModel):
+    total_count: int
+    items: list[LearnedWordItem]

@@ -255,3 +255,38 @@ def test_other_users_records_are_not_mixed_in(client, db_session, now):
     assert data["current_streak_days"] == 0
     assert data["total_learned_count"] == 0
     assert data["today"]["reviewed_count"] == 0
+
+
+# ---------- 배운 단어 목록 (GET /progress/words, 이슈 #20) ----------
+
+
+def test_learned_words_requires_login(api_client):
+    assert api_client.get("/api/progress/words").status_code == 401
+
+
+def test_learned_words_empty(client):
+    data = client.get("/api/progress/words").json()
+    assert data == {"total_count": 0, "items": []}
+
+
+def test_learned_words_lists_only_my_words_newest_first(client, db_session):
+    """배운 단어만, 최근에 배운 것부터. 숙련도는 간격 21일 기준. 다른 회원이 배운 단어는 섞이지 않는다."""
+    me = user_id_of(db_session)
+    assert client.post("/api/auth/logout").status_code in (200, 204)
+    assert client.post("/api/auth/signup", json={**OTHER_CREDENTIALS, **SIGNUP_CONSENT}).status_code == 201
+    other = user_id_of(db_session, "other@gmail.com")
+    add_user_word(db_session, other, 5, 3)
+    assert client.post("/api/auth/logout").status_code in (200, 204)
+    assert client.post("/api/auth/login", json=CREDENTIALS).status_code == 200
+
+    add_user_word(db_session, me, 1, 3)
+    add_user_word(db_session, me, 2, 30)
+    row = db_session.get(UserWord, (me, 1))
+    row.first_learned_at = now_utc() - timedelta(days=2)
+    db_session.commit()
+
+    data = client.get("/api/progress/words").json()
+    assert data["total_count"] == 2
+    assert [item["word_id"] for item in data["items"]] == [2, 1]
+    assert [item["mastery"] for item in data["items"]] == ["familiar", "learning"]
+    assert {"headword", "meaning_ko", "example_en", "example_ko", "part_of_speech", "first_learned_date"} <= data["items"][0].keys()

@@ -594,3 +594,51 @@ a.btn-primary {
     border-radius: 24px;
   }
 }
+
+/* ---------- 학습 기록: 배운 단어 목록 ---------- */
+.status-row-button {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.learned-list {
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.learned-item {
+  padding: var(--space-2) 0;
+  border-top: 1px solid rgba(128, 128, 128, 0.25);
+}
+
+.learned-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.learned-word {
+  font-size: 18px;
+}
+
+.learned-badge {
+  margin-left: auto;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(128, 128, 128, 0.18);
+}
+
+.learned-meaning {
+  margin: var(--space-1) 0 0;
+}

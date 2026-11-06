@@ -238,6 +238,14 @@
 | current_streak_days | 오늘(또는 오늘 아직 학습 전이면 어제)부터 거슬러 올라가며 **하루도 빠짐없이** 학습한 날 수. 오늘 아직 안 했어도 어제까지 이어졌으면 끊기지 않은 것으로 본다 |
 | mastery | 새 단어 = 전체 단어 수(현재 2,000) - 학습한 수 / 학습 중 = `interval_days` 21 미만 / 익숙함 = 21 이상 (데이터 설계서 4.3, `[설계 확정]`) |
 
+**GET `/api/progress/words`** — 인증 필요 · 배운 단어 목록 `[구현 확정]` (이슈 #20, 2026-11-06)
+```json
+{ "total_count": 33,
+  "items": [ { "word_id": 41, "headword": "subway", "part_of_speech": "n.", "meaning_ko": "지하철",
+               "example_en": "...", "example_ko": "...", "mastery": "learning", "first_learned_date": "2026-11-06" } ] }
+```
+`user_words` 행이 있는 단어 = 배운 단어. 처음 배운 시각 내림차순(최근 순), 쪽 나누기 없음(전체 2,000개 이하). `mastery` 는 `learning`(interval 21일 미만) / `familiar`(21일 이상). 본인 단어만 반환한다.
+
 ### 4.6 구독과 결제 (SUB)
 
 **GET `/api/subscription`** — 인증 필요 · FR-SUB-01, 05
