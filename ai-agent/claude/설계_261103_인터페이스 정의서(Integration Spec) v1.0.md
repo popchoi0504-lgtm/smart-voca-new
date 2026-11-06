@@ -277,6 +277,15 @@
 - 성공: **200** `{ "status": "ok", "db": "ok" }`
 - DB 연결 실패: **503** `{ "status": "degraded", "db": "error" }` (이 API 만 일반 오류 모양과 다름)
 
+### 4.8 AI 선생님 (AI) — 2026-11-06 추가, 이슈 #16
+
+`POST /api/ai/teacher` — 로그인 필요. 상세 설계는 `설계_261106_AI 선생님 설계서 v1.0.md`.
+
+- 요청: `{ "word_id": 정수, "kind": "simple" | "compare" | "example" | "ask", "context": "study" | "quiz", "question": 문자열(kind=ask 일 때만, 1~200자) }`
+- 성공 200: `{ "answer": 글, "remaining_today": 오늘 남은 횟수, "daily_limit": 내 하루 한도 }`
+- 오류: 401 NOT_AUTHENTICATED, 404 WORD_NOT_FOUND, 409 WORD_NOT_LEARNED(context=quiz 인데 배우지 않은 단어), 403 WORD_NOT_AVAILABLE(context=study 인데 요금제 범위 밖), 422 입력 오류, 429 AI_LIMIT_REACHED(하루 한도 초과), 503 AI_UNAVAILABLE(기능 꺼짐·외부 호출 실패·시간 초과·차단).
+- 하루 한도: 무료 10회, 프리미엄 50회(한국 날짜 기준, 설정 변경 가능). 실패한 호출은 횟수에 세지 않는다.
+
 ## 5. 화면 경로와 API 연결 (참고)
 
 | 화면 경로 | 사용하는 API |
