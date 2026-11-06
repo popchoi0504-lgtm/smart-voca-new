@@ -595,15 +595,18 @@ a.btn-primary {
 .heatmap {
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(7, 1fr);
-  gap: 4px;
+  grid-template-rows: repeat(7, 11px);
+  grid-auto-columns: 11px;
+  gap: 3px;
+  width: max-content;
+  max-width: 100%;
   margin: var(--space-2) 0;
 }
 
 .heat {
   display: block;
   aspect-ratio: 1;
-  min-width: 10px;
+  min-width: 0;
   border-radius: 3px;
   background: var(--color-border);
 }
