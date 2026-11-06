@@ -40,6 +40,14 @@ class Settings(BaseSettings):
     toss_client_key: str = ""
     toss_secret_key: str = ""
 
+    # AI 선생님 (이슈 #16). provider: "fake"(가짜 답변, 개발·테스트용) 또는 "gemini"(실제 호출)
+    ai_provider: str = "fake"
+    gemini_api_key: str = ""
+    gemini_model: str = ""  # 모델 이름은 문서마다 달라서 코드에 쓰지 않고 .env 로 정한다
+    ai_teacher_enabled: bool = True  # False 면 기능을 끈다(발표 직전 장애 대비)
+    ai_free_daily_limit: int = 10  # 대표 결정 2026-11-06
+    ai_premium_daily_limit: int = 50
+
     # 로그 파일 위치
     log_dir: Path = PROJECT_ROOT / "logs"
 

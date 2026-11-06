@@ -17,6 +17,7 @@ from app.models import word  # noqa: F401  (words 표, VS-2)
 from app.models import user_word  # noqa: F401  (user_words 표, VS-3)
 from app.models import review_log  # noqa: F401  (review_logs 표, VS-3)
 from app.models import payment  # noqa: F401  (payments 표, VS-5)
+from app.models import ai_usage  # noqa: F401  (ai_usages 표, 이슈 #16)
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
