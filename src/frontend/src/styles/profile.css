@@ -1,0 +1,131 @@
+/* 2026-11-06 - smart-voca - 이니셜 아바타, 상단 메뉴의 내 이름, 설정 화면 구역 스타일 (이슈 #17) */
+/* 파일 위치: src/frontend/src/styles/profile.css */
+
+/* ---------- 아바타: 색 6종 (배경 + 그 위 글자색) ---------- */
+.avatar {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.avatar-sm { width: 28px; height: 28px; font-size: 13px; }
+.avatar-md { width: 40px; height: 40px; font-size: 17px; }
+.avatar-lg { width: 64px; height: 64px; font-size: 28px; }
+
+.avatar-mint { background: var(--color-mint); color: var(--color-mint-ink); }
+.avatar-lavender { background: var(--color-lav); color: var(--color-lav-ink); }
+.avatar-yellow { background: var(--color-sun); color: var(--color-sun-ink); }
+.avatar-pink { background: #fbd9e6; color: #9b1e55; }
+.avatar-sky { background: #d4eafb; color: #17598f; }
+.avatar-orange { background: #ffe0c8; color: #a04a0c; }
+
+/* ---------- 상단 메뉴의 내 이름(설정으로 이동) ---------- */
+.me-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.me-chip span:last-child {
+  max-width: 9em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+@media (max-width: 560px) {
+  .me-chip span:last-child { display: none; } /* 좁은 화면은 아바타만 */
+}
+
+/* ---------- 설정 화면 ---------- */
+.profile-preview {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.profile-preview strong {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.profile-preview small {
+  color: var(--color-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.color-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.color-picker button {
+  padding: 3px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+}
+
+.color-picker button[aria-pressed='true'] {
+  border-color: var(--color-text);
+}
+
+.summary-list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.summary-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.summary-list dt { color: var(--color-text-muted); }
+.summary-list dd { margin: 0; font-weight: 700; text-align: right; }
+
+.card-danger {
+  border: 1px solid #f1c3c6;
+  background: #fff6f6;
+}
+
+.card-danger h2 { color: var(--color-danger); }
+
+.btn-danger {
+  border-color: var(--color-danger);
+  background: var(--color-danger);
+  color: #fff;
+  font-weight: 700;
+}
+
+.btn-danger:hover:not(:disabled) { border-color: var(--color-danger); opacity: 0.88; }
+
+.warning-list {
+  margin: 0 0 var(--space-3);
+  padding-left: 1.2em;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+/* 접힌 탈퇴 카드의 버튼: 카드 폭 전체 */
+.btn-block-flat { width: 100%; }

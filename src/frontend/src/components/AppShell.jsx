@@ -3,6 +3,7 @@
 import { Link, NavLink } from 'react-router-dom'
 
 import { useAuth } from '../auth/AuthContext'
+import Avatar from './Avatar'
 import { TeacherProvider } from '../teacher/TeacherContext'
 import TeacherWidget from '../teacher/TeacherWidget'
 
@@ -31,7 +32,13 @@ export default function AppShell({ children }) {
           </div>
         )}
         {user ? (
-          <button className="pill" type="button" onClick={signOut}>로그아웃</button>
+          <div className="topbar-right">
+            <Link className="me-chip" to="/settings" aria-label="내 프로필 설정">
+              <Avatar name={user.display_name} color={user.avatar_color} size="sm" />
+              <span>{user.display_name}</span>
+            </Link>
+            <button className="pill" type="button" onClick={signOut}>로그아웃</button>
+          </div>
         ) : (
           <Link className="pill" to="/login">로그인</Link>
         )}

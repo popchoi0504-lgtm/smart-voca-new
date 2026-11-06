@@ -43,7 +43,7 @@ export default function HomePage() {
   return (
     <main className="home">
       <section className="home-left">
-        <p className="home-hello">안녕하세요, {user.email} 님 · {planText}</p>
+        <p className="home-hello">안녕하세요, {user.display_name} 님 · {planText}</p>
         <h1 className="home-title">
           토익 단어를<br />하루 <span>{user.daily_new_limit}개씩</span>,<br />가볍게.
         </h1>
