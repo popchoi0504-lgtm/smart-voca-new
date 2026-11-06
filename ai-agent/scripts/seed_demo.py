@@ -24,6 +24,7 @@ from sqlalchemy.orm import Session  # noqa: E402
 from app.core.config import get_settings  # noqa: E402
 from app.core.security import hash_password  # noqa: E402
 from app.core.timeutil import now_utc, today_kst  # noqa: E402
+from app.core_logic.consent_rules import TERMS_VERSION  # noqa: E402
 from app.models import payment, review_log, user_word  # noqa: E402,F401
 from app.models.review_log import ReviewLog  # noqa: E402
 from app.models.user import User  # noqa: E402
@@ -39,7 +40,8 @@ CHECK_PASSWORD = "Check-1234-temp"
 def get_or_create_user(session: Session, email: str, password: str) -> User:
     user = session.scalar(select(User).where(User.email == email))
     if user is None:
-        user = User(email=email, password_hash=hash_password(password))
+        # 가입 동의 기록(이슈 #18)도 함께 남겨 실제 가입한 회원과 같은 모양으로 만든다
+        user = User(email=email, password_hash=hash_password(password), terms_agreed_at=now_utc(), terms_version=TERMS_VERSION)
         session.add(user)
         session.flush()
     return user

@@ -3,7 +3,7 @@
 # 파일 위치: src/backend/app/models/user.py
 from datetime import datetime
 
-from sqlalchemy import BigInteger, CheckConstraint, DateTime, Identity, SmallInteger, Text, func
+from sqlalchemy import BigInteger, Boolean, CheckConstraint, DateTime, Identity, SmallInteger, Text, func
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.models.base import Base
@@ -34,6 +34,12 @@ class User(Base):
     avatar_color: Mapped[str | None] = mapped_column(Text)
     # 탈퇴한 시각. 값이 있으면 익명화된 탈퇴 회원이라 로그인 증표가 있어도 통과시키지 않는다
     deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    # 가입 동의 기록 (이슈 #18). 필수 동의(만 14세·이용약관·개인정보)를 한 시각·한 버전으로 기록한다. 기존 회원은 비어 있다
+    terms_agreed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    terms_version: Mapped[str | None] = mapped_column(Text)
+    # 마케팅 수신 동의(선택). 설정에서 언제든 바꿀 수 있다
+    marketing_agreed: Mapped[bool] = mapped_column(Boolean, server_default="false")
 
     __table_args__ = (
         CheckConstraint(

@@ -6,6 +6,7 @@ from datetime import date, datetime, timedelta, timezone
 import pytest
 from sqlalchemy import select
 
+from consent_helpers import SIGNUP_CONSENT
 from app.core.timeutil import KST, now_utc
 from app.models.review_log import ReviewLog
 from app.models.user import User
@@ -33,7 +34,7 @@ def words(db_session):
 
 @pytest.fixture
 def client(api_client, words):
-    assert api_client.post("/api/auth/signup", json=CREDENTIALS).status_code == 201
+    assert api_client.post("/api/auth/signup", json={**CREDENTIALS, **SIGNUP_CONSENT}).status_code == 201
     return api_client
 
 
@@ -244,7 +245,7 @@ def test_utc_morning_before_9am_kst_is_still_same_kst_day(client, db_session, no
 
 
 def test_other_users_records_are_not_mixed_in(client, db_session, now):
-    assert client.post("/api/auth/signup", json=OTHER_CREDENTIALS).status_code == 201  # 쿠키가 other 로 바뀐다
+    assert client.post("/api/auth/signup", json={**OTHER_CREDENTIALS, **SIGNUP_CONSENT}).status_code == 201  # 쿠키가 other 로 바뀐다
     other_id = user_id_of(db_session, "other@gmail.com")
     for ago in (0, 1, 2, 3):
         add_log(db_session, other_id, 1, TODAY - timedelta(days=ago))

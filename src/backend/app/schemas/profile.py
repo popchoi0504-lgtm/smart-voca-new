@@ -37,6 +37,12 @@ class ProfileRequest(BaseModel):
         return self
 
 
+class ConsentRequest(BaseModel):
+    """동의 변경: 선택 동의(마케팅)만 바꿀 수 있다. StrictBool 이 아니어도 bool 이면 충분."""
+
+    marketing_agreed: bool
+
+
 class PasswordChangeRequest(BaseModel):
     current_password: str
     new_password: str

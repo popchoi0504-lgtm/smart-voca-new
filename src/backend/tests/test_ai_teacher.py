@@ -7,6 +7,7 @@ from datetime import timedelta
 import pytest
 from sqlalchemy import select
 
+from consent_helpers import SIGNUP_CONSENT
 from app.ai.fake_provider import FakeTeacherProvider
 from app.ai.provider import get_teacher_provider
 from app.core.config import get_settings
@@ -44,7 +45,7 @@ def fake(api_client):
 
 @pytest.fixture
 def client(api_client, words, fake):
-    assert api_client.post("/api/auth/signup", json=CREDENTIALS).status_code == 201
+    assert api_client.post("/api/auth/signup", json={**CREDENTIALS, **SIGNUP_CONSENT}).status_code == 201
     return api_client
 
 

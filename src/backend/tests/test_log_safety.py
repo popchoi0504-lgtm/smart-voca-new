@@ -8,6 +8,7 @@ import logging
 import pytest
 from fastapi.testclient import TestClient
 
+from consent_helpers import SIGNUP_CONSENT
 from app.core.config import get_settings
 from app.core.security import ACCESS_TOKEN_COOKIE
 from app.main import app
@@ -53,7 +54,7 @@ def test_normal_flow_logs_contain_no_secrets(api_client, db_session, caplog, for
     db_session.commit()
 
     # 가입 → 로그아웃 → 틀린 비밀번호 → 없는 이메일 → 올바른 로그인
-    api_client.post("/api/auth/signup", json={"email": EMAIL, "password": PASSWORD})
+    api_client.post("/api/auth/signup", json={"email": EMAIL, "password": PASSWORD, **SIGNUP_CONSENT})
     token = api_client.cookies.get(ACCESS_TOKEN_COOKIE)
     forbidden_values["로그인 토큰"] = token
     api_client.post("/api/auth/logout")
@@ -91,7 +92,7 @@ def test_unexpected_error_hides_details_from_response_but_is_logged(api_client, 
     monkeypatch.setattr("app.routers.auth.auth_service.signup", explode)
     with TestClient(app, raise_server_exceptions=False) as lenient_client:
         # api_client 가 DB 를 테스트 DB 로 바꿔 둔 상태(dependency_overrides)를 그대로 쓴다
-        response = lenient_client.post("/api/auth/signup", json={"email": EMAIL, "password": PASSWORD})
+        response = lenient_client.post("/api/auth/signup", json={"email": EMAIL, "password": PASSWORD, **SIGNUP_CONSENT})
     assert response.status_code == 500
     assert response.json()["error"]["code"] == "INTERNAL_ERROR"
     for hidden in ("INTERNAL-DETAIL", "postgresql://", "Traceback", "RuntimeError", PASSWORD):

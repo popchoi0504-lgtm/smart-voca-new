@@ -17,7 +17,7 @@ router = APIRouter(prefix="/auth", tags=["인증"])
 @router.post("/signup", status_code=201, response_model=AuthResponse)
 def signup(body: SignupRequest, response: Response, db: Session = Depends(get_db)):
     """회원가입. 성공하면 바로 로그인된 상태(쿠키 발급)로 만든다."""
-    user = auth_service.signup(db, body.email, body.password)
+    user = auth_service.signup(db, body.email, body.password, body.terms_version, body.agree_marketing)
     set_auth_cookie(response, create_access_token(user.id))
     return AuthResponse(user=auth_service.to_user_out(user))
 

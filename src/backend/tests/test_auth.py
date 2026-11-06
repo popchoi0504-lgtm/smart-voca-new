@@ -6,6 +6,7 @@ from datetime import timedelta
 import pytest
 from sqlalchemy import func, select
 
+from consent_helpers import SIGNUP_CONSENT
 from app.core.security import ACCESS_TOKEN_COOKIE, create_access_token
 from app.core.timeutil import now_utc
 from app.models.user import User
@@ -14,7 +15,7 @@ VALID_USER = {"email": "student@gmail.com", "password": "abcd1234"}
 
 
 def signup(client, **overrides):
-    return client.post("/api/auth/signup", json={**VALID_USER, **overrides})
+    return client.post("/api/auth/signup", json={**VALID_USER, **SIGNUP_CONSENT, **overrides})
 
 
 def count_users(db_session) -> int:
@@ -92,7 +93,8 @@ def test_signup_reports_missing_fields_in_korean(api_client):
     response = api_client.post("/api/auth/signup", json={})
     assert response.status_code == 422
     fields = {item["field"]: item["message"] for item in response.json()["error"]["fields"]}
-    assert fields == {"email": "필수 입력입니다.", "password": "필수 입력입니다."}
+    required = "필수 입력입니다."
+    assert fields == {name: required for name in ("email", "password", "agree_age", "agree_terms", "agree_privacy", "terms_version")}
 
 
 def test_form_encoded_request_is_rejected(api_client):

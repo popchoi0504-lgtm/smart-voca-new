@@ -7,6 +7,7 @@ from datetime import timedelta
 import pytest
 from sqlalchemy import func, select
 
+from consent_helpers import SIGNUP_CONSENT
 from app.core.security import ACCESS_TOKEN_COOKIE
 from app.core.timeutil import now_utc
 from app.models.ai_usage import AiUsage
@@ -26,7 +27,7 @@ CONFIRM = "탈퇴합니다"
 def client(api_client, db_session):
     db_session.add(Word(headword="alpha", part_of_speech="n.", meaning_ko="뜻", example_en="I see alpha.", example_ko="예문", frequency_rank=1))
     db_session.commit()
-    assert api_client.post("/api/auth/signup", json={"email": EMAIL, "password": PASSWORD}).status_code == 201
+    assert api_client.post("/api/auth/signup", json={"email": EMAIL, "password": PASSWORD, **SIGNUP_CONSENT}).status_code == 201
     return api_client
 
 
@@ -91,7 +92,7 @@ def test_bad_profile_body_rejected(client, body):
 def test_duplicate_nicknames_allowed(client):
     client.patch("/api/me/profile", json={"nickname": "듀니"})
     client.post("/api/auth/logout")
-    client.post("/api/auth/signup", json={"email": "other@gmail.com", "password": PASSWORD})
+    client.post("/api/auth/signup", json={"email": "other@gmail.com", "password": PASSWORD, **SIGNUP_CONSENT})
     assert client.patch("/api/me/profile", json={"nickname": "듀니"}).status_code == 200
 
 
@@ -232,7 +233,7 @@ def test_deleted_member_cannot_log_in_and_email_can_signup_again(client, db_sess
     assert client.post("/api/auth/login", json={"email": EMAIL, "password": PASSWORD}).status_code == 401
     assert client.post("/api/auth/login", json={"email": f"deleted-1@deleted.invalid", "password": "!"}).status_code == 401
     # 같은 이메일로 다시 가입: 새 회원, 옛 기록과 이어지지 않는다
-    response = client.post("/api/auth/signup", json={"email": EMAIL, "password": "Another123"})
+    response = client.post("/api/auth/signup", json={"email": EMAIL, "password": "Another123", **SIGNUP_CONSENT})
     assert response.status_code == 201
     assert response.json()["user"]["id"] != 1
     assert count(db_session, User) == 2
@@ -241,7 +242,7 @@ def test_deleted_member_cannot_log_in_and_email_can_signup_again(client, db_sess
 def test_withdraw_leaves_other_members_untouched(client, db_session):
     assert client.post("/api/study/flashcard", json={"word_id": 1, "rating": "know"}).status_code == 200
     client.post("/api/auth/logout")
-    client.post("/api/auth/signup", json={"email": "second@gmail.com", "password": PASSWORD})
+    client.post("/api/auth/signup", json={"email": "second@gmail.com", "password": PASSWORD, **SIGNUP_CONSENT})
     client.post("/api/study/flashcard", json={"word_id": 1, "rating": "know"})
     client.patch("/api/me/profile", json={"nickname": "둘째"})
     assert withdraw(client).status_code == 204

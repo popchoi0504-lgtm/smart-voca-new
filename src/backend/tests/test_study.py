@@ -7,6 +7,7 @@ from decimal import Decimal
 import pytest
 from sqlalchemy import func, select
 
+from consent_helpers import SIGNUP_CONSENT
 from app.core.timeutil import now_utc
 from app.models.review_log import ReviewLog
 from app.models.user import User
@@ -32,7 +33,7 @@ def words(db_session):
 @pytest.fixture
 def client(api_client, words):
     """가입(=로그인)까지 끝낸 가짜 브라우저."""
-    assert api_client.post("/api/auth/signup", json=CREDENTIALS).status_code == 201
+    assert api_client.post("/api/auth/signup", json={**CREDENTIALS, **SIGNUP_CONSENT}).status_code == 201
     return api_client
 
 
@@ -272,6 +273,6 @@ def test_daily_limit_boundaries(client, good_value):
 def test_other_users_progress_is_separate(client, db_session):
     rate(client, 1)
     client.post("/api/auth/logout")
-    client.post("/api/auth/signup", json={"email": "other@gmail.com", "password": "abcd1234"})
+    client.post("/api/auth/signup", json={"email": "other@gmail.com", "password": "abcd1234", **SIGNUP_CONSENT})
     items = client.get("/api/study/new?limit=1").json()["items"]
     assert items[0]["frequency_rank"] == 1  # 다른 회원에게는 1번이 여전히 새 단어

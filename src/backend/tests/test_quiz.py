@@ -6,6 +6,7 @@ from datetime import timedelta
 import pytest
 from sqlalchemy import func, select
 
+from consent_helpers import SIGNUP_CONSENT
 from app.core.timeutil import KST, now_utc
 from app.models.review_log import ReviewLog
 from app.models.user_word import UserWord
@@ -27,7 +28,7 @@ def words(db_session):
 
 @pytest.fixture
 def client(api_client, words):
-    assert api_client.post("/api/auth/signup", json=CREDENTIALS).status_code == 201
+    assert api_client.post("/api/auth/signup", json={**CREDENTIALS, **SIGNUP_CONSENT}).status_code == 201
     return api_client
 
 
@@ -132,7 +133,7 @@ def test_queue_example_masked_is_null_when_example_lacks_the_word(client, db_ses
 def test_queue_only_shows_own_words(client, db_session, api_client):
     learn(db_session, 1)
     api_client.post("/api/auth/logout")
-    api_client.post("/api/auth/signup", json={"email": "other@gmail.com", "password": "abcd1234"})
+    api_client.post("/api/auth/signup", json={"email": "other@gmail.com", "password": "abcd1234", **SIGNUP_CONSENT})
     assert api_client.get("/api/quiz/queue").json()["items"] == []
 
 
@@ -176,7 +177,7 @@ def test_hint_differs_between_users(client, db_session, api_client):
     learn(db_session, 1)
     mine = hint(client, 1, 1).json()["scrambled"]
     api_client.post("/api/auth/logout")
-    api_client.post("/api/auth/signup", json={"email": "other@gmail.com", "password": "abcd1234"})
+    api_client.post("/api/auth/signup", json={"email": "other@gmail.com", "password": "abcd1234", **SIGNUP_CONSENT})
     now = now_utc()
     db_session.add(UserWord(user_id=2, word_id=1, next_review_date=today_kst(), first_learned_at=now, last_reviewed_at=now))
     db_session.commit()

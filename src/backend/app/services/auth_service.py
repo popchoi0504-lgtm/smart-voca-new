@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 from app.core.errors import AppError
 from app.core.security import hash_password, verify_password
 from app.core.timeutil import now_utc, to_kst
+from app.core_logic.consent_rules import TERMS_VERSION
 from app.core_logic.profile_rules import auto_avatar_color, display_name_of
 from app.models.user import User
 from app.schemas.auth import UserOut
@@ -29,12 +30,21 @@ def mask_email(email: str) -> str:
     return f"{local_part[:1]}***@{domain}"
 
 
-def signup(db: Session, email: str, password: str) -> User:
-    """새 회원을 만든다. 같은 이메일이 이미 있으면 409. 비밀번호는 해시로만 저장한다."""
+def signup(db: Session, email: str, password: str, terms_version: str, agree_marketing: bool = False) -> User:
+    """새 회원을 만든다. 같은 이메일이 이미 있으면 409. 비밀번호는 해시로만 저장한다. 동의 시각·버전·마케팅 동의를 함께 기록한다."""
+    # 화면이 낡은 약관을 보여 주고 있었다면 거부한다: 옛 문구에 동의했는데 최신 버전에 동의한 것으로 남는 것을 막는다
+    if terms_version != TERMS_VERSION:
+        raise AppError(409, "TERMS_VERSION_MISMATCH", "약관이 갱신됐어요. 화면을 새로고침한 뒤 다시 동의해 주세요.")
     if db.scalar(select(User.id).where(User.email == email)) is not None:
         raise AppError(409, "EMAIL_ALREADY_EXISTS", "이미 가입된 이메일입니다.")
 
-    user = User(email=email, password_hash=hash_password(password))
+    user = User(
+        email=email,
+        password_hash=hash_password(password),
+        terms_agreed_at=now_utc(),
+        terms_version=terms_version,
+        marketing_agreed=agree_marketing,
+    )
     db.add(user)
     try:
         db.commit()
@@ -71,6 +81,7 @@ def to_user_out(user: User) -> UserOut:
         nickname=user.nickname,
         display_name=display_name_of(user.nickname, user.email),
         avatar_color=user.avatar_color or auto_avatar_color(user.email),
+        marketing_agreed=user.marketing_agreed,
         daily_new_limit=user.daily_new_limit,
         is_premium=is_premium,
         premium_until=to_kst(premium_until) if premium_until is not None else None,

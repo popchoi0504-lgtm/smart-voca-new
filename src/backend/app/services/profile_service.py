@@ -49,6 +49,15 @@ def change_password(db: Session, user: User, request: PasswordChangeRequest) -> 
     logger.info("비밀번호 변경 user_id=%s", user.id)
 
 
+def update_consent(db: Session, user: User, marketing_agreed: bool) -> User:
+    """마케팅 수신 동의를 바꾼다(철회도 동의만큼 쉬워야 한다, FR-CONSENT-04). 필수 동의는 여기서 바꿀 수 없다."""
+    user.marketing_agreed = marketing_agreed
+    db.commit()
+    db.refresh(user)
+    logger.info("마케팅 동의 변경 user_id=%s 값=%s", user.id, marketing_agreed)
+    return user
+
+
 def get_plan_summary(db: Session, user: User) -> PlanSummaryResponse:
     """요금제·만료일·AI 선생님 오늘 남은 횟수. 기존 계산(요금제 판단, 한도)을 그대로 재사용한다."""
     is_premium = user.premium_until is not None and user.premium_until > now_utc()
@@ -77,6 +86,7 @@ def withdraw(db: Session, user: User, password: str) -> None:
     user.nickname = None
     user.avatar_color = None
     user.premium_until = None
+    user.marketing_agreed = False  # 동의 시각·버전은 증빙으로 남긴다(설계서 AD-C7)
     user.deleted_at = now_utc()
     db.commit()
     logger.info("회원 탈퇴(익명화) user_id=%s", user_id)

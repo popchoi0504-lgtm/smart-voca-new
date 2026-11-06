@@ -7,6 +7,7 @@ from datetime import timedelta
 import pytest
 from sqlalchemy import select
 
+from consent_helpers import SIGNUP_CONSENT
 from app.core.timeutil import now_utc
 from app.main import app
 from app.models.payment import Payment
@@ -29,7 +30,7 @@ def client(api_client, db_session):
         for rank in range(1, 261)
     )
     db_session.commit()
-    assert api_client.post("/api/auth/signup", json=CREDENTIALS).status_code == 201
+    assert api_client.post("/api/auth/signup", json={**CREDENTIALS, **SIGNUP_CONSENT}).status_code == 201
     return api_client
 
 

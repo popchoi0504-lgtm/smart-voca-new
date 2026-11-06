@@ -8,7 +8,7 @@ from app.core.database import get_db
 from app.core.dependencies import get_current_user
 from app.core.security import clear_auth_cookie, create_access_token, set_auth_cookie
 from app.models.user import User
-from app.schemas.profile import PasswordChangeRequest, PlanSummaryResponse, ProfileRequest, WithdrawRequest
+from app.schemas.profile import ConsentRequest, PasswordChangeRequest, PlanSummaryResponse, ProfileRequest, WithdrawRequest
 from app.schemas.study import UserResponse
 from app.services import auth_service, profile_service
 
@@ -18,6 +18,12 @@ router = APIRouter(prefix="/me", tags=["프로필"])
 @router.patch("/profile", response_model=UserResponse)
 def update_profile(body: ProfileRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     user = profile_service.update_profile(db, current_user, body)
+    return UserResponse(user=auth_service.to_user_out(user))
+
+
+@router.patch("/consent", response_model=UserResponse)
+def update_consent(body: ConsentRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    user = profile_service.update_consent(db, current_user, body.marketing_agreed)
     return UserResponse(user=auth_service.to_user_out(user))
 
 

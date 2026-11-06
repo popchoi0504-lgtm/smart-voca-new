@@ -36,10 +36,30 @@ def check_password_rules(password: str) -> str:
 
 
 class SignupRequest(BaseModel):
-    """회원가입 요청: 이메일과 비밀번호."""
+    """회원가입 요청: 이메일, 비밀번호, 동의 항목(필수 3개는 true 여야 함), 화면이 보여 준 약관 버전."""
 
     email: str
     password: str
+    agree_age: bool
+    agree_terms: bool
+    agree_privacy: bool
+    agree_marketing: bool = False
+    terms_version: str
+
+    @field_validator("agree_age", "agree_terms", "agree_privacy")
+    @classmethod
+    def must_agree(cls, value: bool) -> bool:
+        # 화면에서도 막지만 화면은 우회할 수 있어서 서버가 다시 검사한다 (FR-CONSENT-01)
+        if value is not True:
+            raise ValueError("필수 항목에 동의해 주세요.")
+        return value
+
+    @field_validator("terms_version")
+    @classmethod
+    def limit_version_length(cls, value: str) -> str:
+        if len(value) > 32:
+            raise ValueError("약관 버전이 올바르지 않습니다.")
+        return value
 
     @field_validator("email")
     @classmethod
@@ -79,6 +99,7 @@ class UserOut(BaseModel):
     nickname: str | None
     display_name: str  # 닉네임, 없으면 이메일의 @ 앞부분. 화면은 이 값만 쓴다
     avatar_color: str  # 고른 색, 없으면 이메일로 자동 배정한 색
+    marketing_agreed: bool
     daily_new_limit: int
     is_premium: bool
     premium_until: datetime | None
