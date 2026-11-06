@@ -5,7 +5,9 @@ import { Link, useLocation } from 'react-router-dom'
 
 import { getCheckQuiz, getHint, getQuizQueue, submitAnswer } from '../api/quiz'
 import HintPanel from '../components/HintPanel'
+import FavoriteButton from '../components/FavoriteButton'
 import SpeakButton from '../components/SpeakButton'
+import useFavoriteIds from '../favorites/useFavoriteIds'
 import { useTeacherTarget } from '../teacher/TeacherContext'
 
 export default function QuizPage() {
@@ -23,6 +25,7 @@ export default function QuizPage() {
   const [errorMessage, setErrorMessage] = useState('')
   const [summary, setSummary] = useState({ correct: 0, revealed: 0 })
   const [missedIds, setMissedIds] = useState([]) // 확인 모드에서 한 번이라도 틀린 단어 번호
+  const favorites = useFavoriteIds() // 별표(즐겨찾기) 상태
 
   function loadQueue() {
     setQueue(null)
@@ -176,6 +179,16 @@ export default function QuizPage() {
         <p className="field-hint">방금 배운 단어 확인 중이에요. 복습 일정은 바뀌지 않는 연습이에요.</p>
       )}
       <section className="card quiz-card" aria-live="polite">
+        {/* 별표는 카드 오른쪽 위. 정답이 공개된 뒤에만 보여 준다(단어가 곧 정답) */}
+        {isSolved && (
+          <span className="card-star">
+            <FavoriteButton
+              isOn={favorites.isFavorite(question.word_id)}
+              onToggle={() => favorites.toggle(question.word_id)}
+              headword={result.correct_answer}
+            />
+          </span>
+        )}
         <p className="field-hint">{question.part_of_speech} · {question.letter_count}글자</p>
         <p className="flashcard-meaning">{question.meaning_ko}</p>
         {question.example_masked && <p className="flashcard-example">{question.example_masked}</p>}
@@ -217,6 +230,7 @@ export default function QuizPage() {
             {/* 단어가 곧 정답이라 발음은 문제를 푼 뒤에만 들려 준다 (정답 노출 방지) */}
             <SpeakButton text={result.correct_answer} />
           </p>
+          {favorites.errorMessage && <p className="form-error" role="alert">{favorites.errorMessage}</p>}
           {result.practice && isCheckMode ? (
             <p className="field-hint">연습이라 복습 일정은 바뀌지 않았어요.</p>
           ) : result.practice ? (

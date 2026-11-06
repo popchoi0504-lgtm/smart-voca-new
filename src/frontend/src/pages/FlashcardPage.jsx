@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom'
 
 import { ApiError } from '../api/client'
 import { getNewWords, getToday, submitFlashcard } from '../api/study'
+import FavoriteButton from '../components/FavoriteButton'
 import SpeakButton from '../components/SpeakButton'
+import useFavoriteIds from '../favorites/useFavoriteIds'
 import { useTeacherTarget } from '../teacher/TeacherContext'
 
 const RATINGS = [
@@ -21,6 +23,7 @@ export default function FlashcardPage() {
   const [isSending, setIsSending] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [hasMore, setHasMore] = useState(false) // 세션을 마친 뒤 더 배울 새 단어가 남았는지
+  const favorites = useFavoriteIds() // 별표(즐겨찾기) 상태
 
   useEffect(() => {
     getNewWords(10).then(setWords).catch((error) => setErrorMessage(error.message))
@@ -107,6 +110,10 @@ export default function FlashcardPage() {
     <main className="page">
       <p className="page-subtitle">{index + 1} / {words.length}</p>
       <section className="card flashcard" aria-live="polite">
+        {/* 별표는 카드 오른쪽 위 모서리 */}
+        <span className="card-star">
+          <FavoriteButton isOn={favorites.isFavorite(word.word_id)} onToggle={() => favorites.toggle(word.word_id)} headword={word.headword} />
+        </span>
         <p className="flashcard-word">
           {word.headword} <SpeakButton text={word.headword} />
         </p>
@@ -122,7 +129,9 @@ export default function FlashcardPage() {
         )}
       </section>
 
-      {errorMessage && <p className="form-error" role="alert">{errorMessage}</p>}
+      {(errorMessage || favorites.errorMessage) && (
+        <p className="form-error" role="alert">{errorMessage || favorites.errorMessage}</p>
+      )}
 
       {!isFlipped ? (
         <button className="btn btn-primary btn-block" type="button" onClick={() => setIsFlipped(true)}>

@@ -6,6 +6,8 @@ import AppShell from './components/AppShell'
 import ProtectedRoute from './components/ProtectedRoute'
 import { PrivacyPage, TermsPage } from './legal/LegalDocs'
 import SourceNotice from './components/SourceNotice'
+import FavoritesPage from './pages/FavoritesPage'
+import FavoriteStudyPage from './pages/FavoriteStudyPage'
 import FlashcardPage from './pages/FlashcardPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
@@ -28,7 +30,9 @@ export default function App() {
         <Route path="/study" element={<ProtectedRoute><FlashcardPage /></ProtectedRoute>} />
         <Route path="/quiz" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
         <Route path="/quiz/check" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
-        <Route path="/progress" element={<ProtectedRoute><ProgressPage /></ProtectedRoute>} />
+        <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
+        <Route path="/favorites/study" element={<ProtectedRoute><FavoriteStudyPage /></ProtectedRoute>} />
+        <Route path="/progress"element={<ProtectedRoute><ProgressPage /></ProtectedRoute>} />
         <Route path="/settings"element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
         <Route path="/subscribe" element={<ProtectedRoute><SubscribePage /></ProtectedRoute>} />
         <Route path="/payment/success" element={<ProtectedRoute><PaymentSuccessPage /></ProtectedRoute>} />
