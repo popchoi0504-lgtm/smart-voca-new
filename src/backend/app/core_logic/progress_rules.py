@@ -31,3 +31,14 @@ def calculate_streak(study_dates: Iterable[date], today: date) -> int:
         streak += 1
         cursor -= timedelta(days=1)
     return streak
+
+
+def calculate_longest_streak(study_dates: Iterable[date]) -> int:
+    """지금까지의 가장 긴 연속 학습일 수(오늘과 무관). 날짜를 정렬해 이어지는 묶음의 최대 길이를 센다."""
+    longest = current = 0
+    previous: date | None = None
+    for day in sorted(set(study_dates)):
+        current = current + 1 if previous is not None and day - previous == timedelta(days=1) else 1
+        longest = max(longest, current)
+        previous = day
+    return longest

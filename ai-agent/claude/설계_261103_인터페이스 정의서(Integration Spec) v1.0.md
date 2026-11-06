@@ -254,6 +254,15 @@
 ```
 `user_words` 행이 있는 단어 = 배운 단어. 처음 배운 시각 내림차순(최근 순), 쪽 나누기 없음(전체 2,000개 이하). `mastery` 는 `learning`(interval 21일 미만) / `familiar`(21일 이상). 본인 단어만 반환한다.
 
+**GET `/api/progress/calendar?days=84`** — 인증 필요 · 학습 달력(잔디) (2026-11-06 추가)
+```json
+{ "start_date": "2026-08-16", "end_date": "2026-11-06",
+  "days": [ { "date": "2026-11-05", "count": 12 } ],
+  "longest_streak_days": 12, "studied_days_this_month": 4 }
+```
+- `days` 파라미터 7~366(기본 84=12주). `days` 배열에는 **학습한 날만** 담고(`count` = 그날 서로 다른 단어 수, 한국 날짜), 빈 날은 화면이 0 으로 채운다.
+- `longest_streak_days` 는 범위와 무관한 전체 기간 최장 연속, `studied_days_this_month` 는 이번 달(한국 기준) 학습한 날 수. 내 기록만 집계한다.
+
 ### 4.6 구독과 결제 (SUB)
 
 **GET `/api/subscription`** — 인증 필요 · FR-SUB-01, 05

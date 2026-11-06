@@ -290,3 +290,50 @@ def test_learned_words_lists_only_my_words_newest_first(client, db_session):
     assert [item["word_id"] for item in data["items"]] == [2, 1]
     assert [item["mastery"] for item in data["items"]] == ["familiar", "learning"]
     assert {"headword", "meaning_ko", "example_en", "example_ko", "part_of_speech", "first_learned_date"} <= data["items"][0].keys()
+
+
+# ---------- 학습 달력(잔디) ----------
+
+
+def calendar(client, days=84):
+    response = client.get(f"/api/progress/calendar?days={days}")
+    assert response.status_code == 200
+    return response.json()
+
+
+def test_calendar_requires_login(api_client):
+    assert api_client.get("/api/progress/calendar").status_code == 401
+
+
+def test_calendar_counts_distinct_words_per_day_and_range(client, db_session, now):
+    uid = user_id_of(db_session)
+    add_log(db_session, uid, 1, TODAY)
+    add_log(db_session, uid, 1, TODAY)  # 같은 단어 두 번 → 1
+    add_log(db_session, uid, 2, TODAY)
+    add_log(db_session, uid, 3, TODAY - timedelta(days=3))
+    add_log(db_session, uid, 3, TODAY - timedelta(days=30))  # 7일 범위 밖
+    body = calendar(client, days=7)
+    assert (body["start_date"], body["end_date"]) == ((TODAY - timedelta(days=6)).isoformat(), TODAY.isoformat())
+    assert body["days"] == [{"date": (TODAY - timedelta(days=3)).isoformat(), "count": 1},
+                            {"date": TODAY.isoformat(), "count": 2}]
+    assert body["studied_days_this_month"] == 2  # 11월: 2일, 5일 (30일 전 기록은 10월)
+
+
+def test_calendar_longest_streak_uses_all_history_and_ignores_others(client, db_session, now):
+    uid = user_id_of(db_session)
+    for offset in (40, 41, 42, 43, 44):  # 범위 밖 과거의 5일 연속
+        add_log(db_session, uid, 1, TODAY - timedelta(days=offset))
+    add_log(db_session, uid, 1, TODAY)
+    other = User(email="other@gmail.com", password_hash="x")
+    db_session.add(other)
+    db_session.commit()
+    for offset in range(10):  # 남의 기록은 섞이지 않는다
+        add_log(db_session, other.id, 1, TODAY - timedelta(days=offset))
+    body = calendar(client, days=7)
+    assert body["longest_streak_days"] == 5
+    assert [day["date"] for day in body["days"]] == [TODAY.isoformat()]
+
+
+def test_calendar_days_parameter_is_limited(client):
+    assert client.get("/api/progress/calendar?days=6").status_code == 422
+    assert client.get("/api/progress/calendar?days=367").status_code == 422

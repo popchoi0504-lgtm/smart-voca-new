@@ -1,16 +1,25 @@
 # -*- coding: utf-8 -*-
 # 2026-11-05 - smart-voca - 학습 기록 요약(오늘 학습량·누적·연속 학습일·숙련도 분포) 계산 (FR-PROG-02~05, DD-3·DD-8)
 # 파일 위치: src/backend/app/services/progress_service.py
+from datetime import timedelta
+
 from sqlalchemy import case, func, select
 from sqlalchemy.orm import Session
 
 from app.core.timeutil import KST, now_utc
-from app.core_logic.progress_rules import FAMILIAR_INTERVAL_DAYS, calculate_streak, classify_mastery
+from app.core_logic.progress_rules import (
+    FAMILIAR_INTERVAL_DAYS,
+    calculate_longest_streak,
+    calculate_streak,
+    classify_mastery,
+)
 from app.models.review_log import ReviewLog
 from app.models.user import User
 from app.models.user_word import UserWord
 from app.models.word import Word
 from app.schemas.progress import (
+    CalendarDay,
+    CalendarResponse,
     LearnedWordItem,
     LearnedWordsResponse,
     MasteryCounts,
@@ -76,3 +85,23 @@ def get_learned_words(db: Session, user: User) -> LearnedWordsResponse:
         for word, interval_days, first_learned_at in rows
     ]
     return LearnedWordsResponse(total_count=len(items), items=items)
+
+
+def get_calendar(db: Session, user: User, days: int) -> CalendarResponse:
+    """최근 days 일(오늘 포함)의 날짜별 학습 단어 수. 한국 날짜(study_date) 기준."""
+    today = now_utc().astimezone(KST).date()
+    start = today - timedelta(days=days - 1)
+    rows = db.execute(
+        select(ReviewLog.study_date, func.count(func.distinct(ReviewLog.word_id)))
+        .where(ReviewLog.user_id == user.id, ReviewLog.study_date >= start, ReviewLog.study_date <= today)
+        .group_by(ReviewLog.study_date)
+        .order_by(ReviewLog.study_date)
+    ).all()
+    all_dates = db.scalars(select(func.distinct(ReviewLog.study_date)).where(ReviewLog.user_id == user.id)).all()
+    return CalendarResponse(
+        start_date=start,
+        end_date=today,
+        days=[CalendarDay(date=study_date, count=count) for study_date, count in rows],
+        longest_streak_days=calculate_longest_streak(d for d in all_dates if d <= today),
+        studied_days_this_month=sum(1 for d in all_dates if d.year == today.year and d.month == today.month and d <= today),
+    )

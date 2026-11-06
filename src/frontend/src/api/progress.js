@@ -11,3 +11,8 @@ export function getProgressSummary() {
 export function getLearnedWords() {
   return apiFetch('/progress/words')
 }
+
+/** { start_date, end_date, days: [{ date, count }], longest_streak_days, studied_days_this_month } 학습한 날만 들어 있다 */
+export function getProgressCalendar(days = 84) {
+  return apiFetch(`/progress/calendar?days=${days}`)
+}

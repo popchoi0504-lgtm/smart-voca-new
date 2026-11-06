@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { getLearnedWords, getProgressSummary } from '../api/progress'
+import { getLearnedWords, getProgressCalendar, getProgressSummary } from '../api/progress'
 import SpeakButton from '../components/SpeakButton'
 
 // 숫자를 0~100 퍼센트로 바꾼다. 전체가 0이면 0 (0 으로 나누기 방지)
@@ -19,10 +19,13 @@ function streakMessage(streakDays, studiedToday) {
 
 export default function ProgressPage() {
   const [summary, setSummary] = useState(null)
+  const [calendar, setCalendar] = useState(null)
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
     getProgressSummary().then(setSummary).catch((error) => setErrorMessage(error.message))
+    // 달력은 없어도 나머지 화면이 동작해야 하므로 실패해도 오류를 띄우지 않고 그 카드만 숨긴다
+    getProgressCalendar(84).then(setCalendar).catch(() => {})
   }, [])
 
   return (
@@ -33,7 +36,7 @@ export default function ProgressPage() {
       {errorMessage && <p className="form-error" role="alert">{errorMessage}</p>}
       {!summary && !errorMessage && <p>불러오는 중…</p>}
 
-      {summary && <ProgressContent summary={summary} />}
+      {summary && <ProgressContent summary={summary} calendar={calendar} />}
 
       <div className="button-row">
         <Link className="btn" to="/">홈으로</Link>
@@ -42,7 +45,7 @@ export default function ProgressPage() {
   )
 }
 
-function ProgressContent({ summary }) {
+function ProgressContent({ summary, calendar }) {
   const { today, total_learned_count: learned, total_word_count: total, current_streak_days: streak, mastery } = summary
   const learnedPercent = percent(learned, total)
   const [isListOpen, setIsListOpen] = useState(false)
@@ -55,7 +58,10 @@ function ProgressContent({ summary }) {
           <span className="streak-unit">일 연속 학습</span>
         </div>
         <p className="hint-text">{streakMessage(streak, today.reviewed_count > 0)}</p>
+        {calendar && <WeekDots calendar={calendar} />}
       </section>
+
+      {calendar && <HeatmapCard calendar={calendar} />}
 
       <section className="card">
         <h2 className="section-title">오늘 ({today.date})</h2>
@@ -107,6 +113,87 @@ function ProgressContent({ summary }) {
         <p className="hint-text">복습 간격이 21일 이상이면 익숙함, 그보다 짧으면 학습 중이에요.</p>
       </section>
     </>
+  )
+}
+
+const WEEKDAY_LABELS = ['월', '화', '수', '목', '금', '토', '일']
+const DAY_MS = 24 * 60 * 60 * 1000
+
+// "YYYY-MM-DD" 를 시간대 영향 없이 날짜 숫자로 다룬다(UTC 자정 기준 밀리초)
+function dayNumber(isoDate) {
+  return Date.parse(`${isoDate}T00:00:00Z`) / DAY_MS
+}
+
+function formatDayNumber(number) {
+  return new Date(number * DAY_MS).toISOString().slice(0, 10)
+}
+
+// 학습량(단어 수)을 색 진하기 단계 0~3 으로 바꾼다
+function heatLevel(count) {
+  if (count <= 0) return 0
+  if (count < 10) return 1
+  if (count < 20) return 2
+  return 3
+}
+
+// 이번 주(월~일) 학습 여부를 동그라미로 보여 준다
+function WeekDots({ calendar }) {
+  const today = dayNumber(calendar.end_date)
+  const mondayOffset = (new Date(today * DAY_MS).getUTCDay() + 6) % 7 // 월요일=0
+  const monday = today - mondayOffset
+  const studied = new Set(calendar.days.map((day) => day.date))
+  return (
+    <div className="week-dots" aria-label="이번 주 학습 여부">
+      {WEEKDAY_LABELS.map((label, index) => {
+        const iso = formatDayNumber(monday + index)
+        const isStudied = studied.has(iso)
+        const isFuture = monday + index > today
+        return (
+          <span key={label} className={`week-dot${isStudied ? ' week-dot-on' : ''}${isFuture ? ' week-dot-future' : ''}`}
+            title={`${iso} ${isStudied ? '학습함' : isFuture ? '' : '학습 안 함'}`}>
+            {label}
+          </span>
+        )
+      })}
+    </div>
+  )
+}
+
+// 최근 12주를 주 단위 열로 그린 잔디. 맨 위 행이 월요일이다
+function HeatmapCard({ calendar }) {
+  const today = dayNumber(calendar.end_date)
+  const start = dayNumber(calendar.start_date)
+  const counts = new Map(calendar.days.map((day) => [day.date, day.count]))
+  const firstMonday = start - ((new Date(start * DAY_MS).getUTCDay() + 6) % 7)
+  const cells = []
+  for (let day = firstMonday; day <= today; day += 1) {
+    const iso = formatDayNumber(day)
+    const count = day < start ? 0 : (counts.get(iso) ?? 0)
+    cells.push({ iso, count, outside: day < start })
+  }
+  return (
+    <section className="card">
+      <h2 className="section-title">학습 달력</h2>
+      <div className="heatmap" role="img" aria-label={`최근 12주 중 이번 달 ${calendar.studied_days_this_month}일 학습`}>
+        {cells.map((cell) => (
+          <i key={cell.iso} className={`heat heat-${cell.outside ? 'out' : heatLevel(cell.count)}`}
+            title={`${cell.iso} · ${cell.count}개`} />
+        ))}
+      </div>
+      <div className="heat-legend">
+        <span>적게</span>
+        {[0, 1, 2, 3].map((level) => <i key={level} className={`heat heat-${level}`} />)}
+        <span>많이</span>
+      </div>
+      <div className="status-row">
+        <span>이번 달 학습한 날</span>
+        <strong>{calendar.studied_days_this_month}일</strong>
+      </div>
+      <div className="status-row">
+        <span>최장 연속 학습</span>
+        <strong>{calendar.longest_streak_days}일</strong>
+      </div>
+    </section>
   )
 }
 

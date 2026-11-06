@@ -42,3 +42,18 @@ class LearnedWordItem(BaseModel):
 class LearnedWordsResponse(BaseModel):
     total_count: int
     items: list[LearnedWordItem]
+
+
+class CalendarDay(BaseModel):
+    date: date
+    count: int  # 그날 학습한 서로 다른 단어 수
+
+
+class CalendarResponse(BaseModel):
+    """학습 달력(잔디). days 에는 학습한 날만 담고, 빈 날은 화면이 0 으로 채운다."""
+
+    start_date: date
+    end_date: date  # 오늘(한국 날짜)
+    days: list[CalendarDay]
+    longest_streak_days: int  # 전체 기간 최장 연속 (범위 밖 과거 포함)
+    studied_days_this_month: int

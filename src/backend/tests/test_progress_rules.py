@@ -105,3 +105,16 @@ def test_mastery_boundary(interval_days, expected):
 def test_threshold_is_21_days():
     """설계서가 정한 값(21일)이 바뀌면 이 테스트가 알려 준다."""
     assert FAMILIAR_INTERVAL_DAYS == 21
+
+
+def test_최장_연속은_과거의_가장_긴_묶음():
+    from datetime import date
+
+    from app.core_logic.progress_rules import calculate_longest_streak
+
+    days = [date(2026, 10, d) for d in (1, 2, 3, 4, 10, 11, 20)]
+    assert calculate_longest_streak(days) == 4
+    assert calculate_longest_streak(days + days) == 4  # 같은 날 중복은 하루
+    assert calculate_longest_streak([date(2026, 10, 1), date(2026, 10, 2), date(2026, 10, 4)]) == 2  # 하루 빠지면 끊김
+    assert calculate_longest_streak([]) == 0
+    assert calculate_longest_streak([date(2026, 10, 1)]) == 1
