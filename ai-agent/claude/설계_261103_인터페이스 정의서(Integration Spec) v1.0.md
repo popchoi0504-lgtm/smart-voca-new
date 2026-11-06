@@ -85,6 +85,7 @@
 | nickname | 문자열 또는 null | 정한 닉네임(2~12자). 2026-11-06 추가, 이슈 #17 |
 | display_name | 문자열 | 닉네임, 없으면 이메일의 @ 앞부분. 화면은 이 값만 쓴다 |
 | avatar_color | 문자열 | 아바타 색(mint·lavender·yellow·pink·sky·orange). 고르지 않았으면 이메일로 자동 배정한 값 |
+| marketing_agreed | 불리언 | 마케팅 수신 동의 여부. 2026-11-06 추가, 이슈 #18 |
 
 ### 4.2 인증 (AUTH)
 
@@ -93,9 +94,13 @@
 |---|---|
 | email | 이메일 형식, 최대 254자. 서버가 소문자·공백 정리 |
 | password | 8~64자, 영문·숫자 각 1자 이상 `[설계 확정]` |
+| agree_age, agree_terms, agree_privacy | 반드시 `true`(만 14세 이상, 이용약관, 개인정보 수집·이용). 2026-11-06 추가, 이슈 #18 |
+| agree_marketing | 선택, 기본 `false` |
+| terms_version | 화면이 보여 준 약관 버전. 서버의 현재 버전(`2026-11-06`)과 같아야 한다 |
 
 - 성공: **201** `{ "user": { ... } }` + 로그인 쿠키 발급 (가입 후 바로 로그인 상태. IF-3)
-- 오류: 409 `EMAIL_ALREADY_EXISTS`, 422 `VALIDATION_ERROR`
+- 오류: 409 `EMAIL_ALREADY_EXISTS`, 409 `TERMS_VERSION_MISMATCH`(화면의 약관이 낡음), 422 `VALIDATION_ERROR`(필수 동의 칸이 `true` 가 아님 포함)
+- 성공하면 동의 시각·약관 버전·마케팅 동의를 회원 행에 기록한다.
 
 **POST `/api/auth/login`** — 인증 불필요 · FR-AUTH-02, 05
 - 요청: `{ "email": "...", "password": "..." }`
@@ -306,10 +311,14 @@
 **GET `/api/me/plan`** — FR-PROFILE-04
 - 성공 200 `{ "plan": "free"|"premium", "premium_until": 시각|null, "ai_daily_limit", "ai_used_today", "ai_remaining_today" }`
 
+**PATCH `/api/me/consent`** — 선택 동의 변경 · FR-CONSENT-04 (이슈 #18)
+- 요청: `{ "marketing_agreed": true | false }`, 성공 200 `{ "user": {...} }`. 필수 동의는 바꿀 수 없다. 오류: 401, 422
+
 **POST `/api/me/withdraw`** — FR-PROFILE-05
 - 요청: `{ "password", "confirm_text": "탈퇴합니다" }`
 - 성공 **204** + 쿠키 삭제. 학습 기록·AI 사용 횟수 삭제, 회원 행 익명화(이메일 `deleted-{번호}@deleted.invalid`, 비밀번호 해시 `!`, 닉네임·색·이용권 비움, `deleted_at` 기록), 결제 기록은 유지.
 - 오류: 400 WRONG_PASSWORD, 422 VALIDATION_ERROR(칸 `confirm_text`)
+- 동의 시각·약관 버전은 증빙으로 남기고 `marketing_agreed` 는 `false` 로 바꾼다.
 - 탈퇴한 회원의 옛 쿠키는 401 로 막는다. 같은 이메일로 다시 가입할 수 있다.
 
 ## 5. 화면 경로와 API 연결 (참고)

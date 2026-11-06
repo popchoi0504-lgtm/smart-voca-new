@@ -66,6 +66,9 @@ erDiagram
 | created_at | timestamptz | Y | 가입 시각, 기본값 현재 시각 |
 | nickname | text | N | 닉네임 2~12자(길이는 서버가 검사, 중복 허용이라 UNIQUE 없음). 2026-11-06 추가, FR-PROFILE-01 |
 | avatar_color | text | N | 아바타 색 6종 중 하나. CHECK `ck_users_avatar_color_allowed`. 비어 있으면 이메일로 자동 배정. FR-PROFILE-02 |
+| terms_agreed_at | timestamptz | N | 필수 동의(만 14세·이용약관·개인정보)를 한 시각. 기존 회원은 비어 있음. 2026-11-06 추가, FR-CONSENT-02 |
+| terms_version | text | N | 동의한 약관·방침 버전(예: `2026-11-06`). 탈퇴해도 증빙으로 남김 |
+| marketing_agreed | boolean | Y | 마케팅 수신 동의(선택), 기본 false. 탈퇴 시 false |
 | deleted_at | timestamptz | N | 탈퇴 시각. 값이 있으면 익명화된 탈퇴 회원(이메일 `deleted-{id}@deleted.invalid`, 해시 `!`). 로그인 증표가 남아 있어도 통과 불가. FR-PROFILE-05 |
 
 - 인덱스: `email` UNIQUE (로그인 조회와 중복 가입 방지 겸용)
