@@ -22,6 +22,15 @@ class FakePaymentProvider:
         self.reject_code = reject_code
         self.approved_at = approved_at
         self.calls: list[tuple[str, str, int]] = []
+        self.cancel_outcome = "approve"  # "approve" / "reject" / "unavailable"
+        self.cancel_calls: list[tuple[str, str]] = []
+
+    def cancel(self, payment_key: str, reason: str) -> None:
+        self.cancel_calls.append((payment_key, reason))
+        if self.cancel_outcome == "reject":
+            raise PaymentRejected("ALREADY_CANCELED_PAYMENT")
+        if self.cancel_outcome == "unavailable":
+            raise PaymentProviderUnavailable("가짜 결제사 통신 실패")
 
     def confirm(self, payment_key: str, order_id: str, amount: int) -> ConfirmResult:
         self.calls.append((payment_key, order_id, amount))

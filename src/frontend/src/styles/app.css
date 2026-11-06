@@ -161,6 +161,23 @@ input:focus-visible {
   border-bottom: none;
 }
 
+/* 결제 내역 행: 환불 불가 이유 문구는 아래 줄로 내려간다 */
+.status-row {
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.status-row .hint-text {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.btn-small {
+  margin-left: var(--space-2);
+  padding: 4px 12px;
+  font-size: 0.85rem;
+}
+
 .status-ok {
   color: var(--color-success);
   font-weight: 700;

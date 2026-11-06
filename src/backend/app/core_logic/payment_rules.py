@@ -36,6 +36,24 @@ def is_amount_matching(requested_amount: int, expected_amount: int) -> bool:
     return requested_amount == expected_amount
 
 
+def is_within_refund_window(approved_at: datetime | None, now: datetime, window_days: int) -> bool:
+    """결제 승인 시각부터 window_days 일 안인지. 승인 시각이 없으면(결제 전) 환불 대상이 아니다."""
+    if approved_at is None:
+        return False
+    return now <= approved_at + timedelta(days=window_days)
+
+
+def shrink_premium_until(current_until: datetime | None, now: datetime, pass_days: int) -> datetime | None:
+    """환불로 이용권을 pass_days 일 줄인다. 줄인 결과가 지금 이전이면 None(무료로 복귀).
+
+    extend_premium_until 의 반대 계산이다.
+    """
+    if current_until is None:
+        return None
+    shrunk = current_until - timedelta(days=pass_days)
+    return shrunk if shrunk > now else None
+
+
 def extend_premium_until(current_until: datetime | None, now: datetime, pass_days: int) -> datetime:
     """이용권 만료 시각을 늘린다: max(지금, 현재 만료 시각) + pass_days 일.
 

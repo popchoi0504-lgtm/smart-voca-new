@@ -69,6 +69,17 @@ class PaymentItem(BaseModel):
     pass_days: int
     requested_at: datetime
     approved_at: datetime | None
+    # 환불 가능 여부와, 불가할 때의 이유(화면에 그대로 보여 준다)
+    refundable: bool = False
+    refund_block_message: str | None = None
+
+
+class RefundResponse(BaseModel):
+    status: Literal["canceled"]
+    order_id: str
+    amount: int
+    # 환불 뒤 남은 이용권 만료일. 이용권이 모두 사라지면 None(무료)
+    premium_until: datetime | None
 
 
 class PaymentListResponse(BaseModel):

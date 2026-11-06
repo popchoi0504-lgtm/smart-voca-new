@@ -16,6 +16,11 @@ export function confirmPayment(paymentKey, orderId, amount) {
   return apiFetch('/payments/confirm', { method: 'POST', body: { payment_key: paymentKey, order_id: orderId, amount } })
 }
 
+/** 환불(결제 취소). 조건에 맞지 않으면 서버가 이유를 오류 메시지로 돌려준다. */
+export function refundPayment(orderId) {
+  return apiFetch(`/payments/${encodeURIComponent(orderId)}/refund`, { method: 'POST' })
+}
+
 export async function getPayments(limit = 20) {
   const data = await apiFetch(`/payments?limit=${limit}`)
   return data.items

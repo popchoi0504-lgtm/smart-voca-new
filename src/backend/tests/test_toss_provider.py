@@ -8,7 +8,7 @@ import httpx
 import pytest
 
 from app.payments.provider import PaymentProviderUnavailable, PaymentRejected
-from app.payments.toss_provider import CONFIRM_URL, TossPaymentProvider
+from app.payments.toss_provider import CANCEL_URL, CONFIRM_URL, TossPaymentProvider
 
 SECRET = "test_gsk_dummy_value"
 
@@ -82,3 +82,33 @@ def test_network_failure_becomes_unavailable(monkeypatch):
 def test_missing_secret_key_is_unavailable():
     with pytest.raises(PaymentProviderUnavailable):
         TossPaymentProvider("")
+
+
+# ---------- 결제 취소(환불) ----------
+
+
+def test_cancel_request_shape(monkeypatch):
+    sent = fake_post(monkeypatch, body={"status": "CANCELED"})
+    TossPaymentProvider(SECRET).cancel("pk_real", "고객 요청 환불")
+    assert sent["url"] == CANCEL_URL.format(payment_key="pk_real")
+    assert sent["json"] == {"cancelReason": "고객 요청 환불"}  # 금액을 생략하면 전액 취소
+    assert sent["headers"]["Idempotency-Key"] == "cancel-pk_real"
+
+
+def test_cancel_200_but_not_canceled_is_not_trusted(monkeypatch):
+    fake_post(monkeypatch, body={"status": "DONE"})
+    with pytest.raises(PaymentRejected):
+        TossPaymentProvider(SECRET).cancel("pk_real", "x")
+
+
+def test_cancel_rejection_and_outage(monkeypatch):
+    fake_post(monkeypatch, 400, {"code": "ALREADY_CANCELED_PAYMENT", "message": "이미 취소된 결제"})
+    with pytest.raises(PaymentRejected) as info:
+        TossPaymentProvider(SECRET).cancel("pk_real", "x")
+    assert info.value.code == "ALREADY_CANCELED_PAYMENT"
+    fake_post(monkeypatch, 500, {"code": "FAILED_INTERNAL_SYSTEM_PROCESSING"})
+    with pytest.raises(PaymentProviderUnavailable):
+        TossPaymentProvider(SECRET).cancel("pk_real", "x")
+    fake_post(monkeypatch, error=httpx.ConnectTimeout("t"))
+    with pytest.raises(PaymentProviderUnavailable):
+        TossPaymentProvider(SECRET).cancel("pk_real", "x")

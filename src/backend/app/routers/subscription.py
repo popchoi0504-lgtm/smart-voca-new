@@ -14,6 +14,7 @@ from app.schemas.subscription import (
     OrderRequest,
     OrderResponse,
     PaymentListResponse,
+    RefundResponse,
     SubscriptionResponse,
 )
 from app.services import subscription_service
@@ -40,6 +41,16 @@ def confirm(
     provider: PaymentProvider = Depends(get_payment_provider),
 ):
     return subscription_service.confirm_payment(db, current_user, provider, body.payment_key, body.order_id, body.amount)
+
+
+@payments_router.post("/{order_id}/refund", response_model=RefundResponse)
+def refund(
+    order_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+    provider: PaymentProvider = Depends(get_payment_provider),
+):
+    return subscription_service.refund_payment(db, current_user, provider, order_id)
 
 
 @payments_router.get("", response_model=PaymentListResponse)

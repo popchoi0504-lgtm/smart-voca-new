@@ -8,7 +8,9 @@ from app.core_logic.payment_rules import (
     extend_premium_until,
     generate_order_id,
     is_amount_matching,
+    is_within_refund_window,
     make_customer_key,
+    shrink_premium_until,
 )
 
 NOW = datetime(2026, 11, 5, 12, 0, tzinfo=timezone.utc)
@@ -60,3 +62,17 @@ def test_이용권이_남아_있으면_남은_기간_뒤에_이어_붙는다():
 
 def test_만료_시각이_정확히_지금이면_지금부터_시작():
     assert extend_premium_until(NOW, NOW, 30) == NOW + timedelta(days=30)
+
+
+def test_환불_기간_안과_밖():
+    approved = NOW - timedelta(days=7)
+    assert is_within_refund_window(approved, NOW, 7) is True  # 정확히 7일째까지는 가능
+    assert is_within_refund_window(approved - timedelta(seconds=1), NOW, 7) is False
+    assert is_within_refund_window(None, NOW, 7) is False
+
+
+def test_환불하면_이용권이_결제분만큼_줄고_다_사라지면_None():
+    assert shrink_premium_until(NOW + timedelta(days=60), NOW, 30) == NOW + timedelta(days=30)
+    assert shrink_premium_until(NOW + timedelta(days=30), NOW, 30) is None
+    assert shrink_premium_until(NOW + timedelta(days=10), NOW, 30) is None
+    assert shrink_premium_until(None, NOW, 30) is None

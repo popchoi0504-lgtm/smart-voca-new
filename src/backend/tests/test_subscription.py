@@ -267,3 +267,135 @@ def test_default_provider_without_fake_override_is_toss(monkeypatch):
     monkeypatch.setattr(settings, "payment_provider", "toss")
     monkeypatch.setattr(settings, "toss_secret_key", "test_gsk_dummy")
     assert get_payment_provider().name == "toss"
+
+
+# ---------- 환불(구독 취소) ----------
+
+
+def paid(client, payment_key="pk_test_1"):
+    placed = order(client)
+    assert confirm(client, placed["order_id"], payment_key=payment_key).status_code == 200
+    return placed["order_id"]
+
+
+def refund(client, order_id):
+    return client.post(f"/api/payments/{order_id}/refund")
+
+
+def study_word(db_session, rank):
+    """결제 이후 rank 번 단어를 한 번 학습한 기록을 만든다."""
+    from datetime import date
+
+    from app.models.review_log import ReviewLog
+
+    user = me(db_session)
+    word = db_session.scalar(select(Word).where(Word.frequency_rank == rank))
+    db_session.add(ReviewLog(user_id=user.id, word_id=word.id, activity_type="flashcard", result="know",
+                             sm2_quality=5, study_date=date.today()))
+    db_session.commit()
+
+
+def test_refund_requires_login(api_client):
+    assert api_client.post("/api/payments/svc-x/refund").status_code == 401
+
+
+def test_refund_cancels_payment_and_takes_back_pass(client, db_session, provider):
+    order_id = paid(client)
+    response = refund(client, order_id)
+    assert response.status_code == 200
+    assert (response.json()["status"], response.json()["premium_until"]) == ("canceled", None)
+    assert payment_row(db_session, order_id).status == "canceled"
+    assert me(db_session).premium_until is None
+    assert provider.cancel_calls == [("pk_test_1", "고객 요청 환불")]
+    assert client.get("/api/subscription").json()["current"]["plan"] == "free"
+
+
+def test_refund_twice_is_blocked_and_provider_called_once(client, db_session, provider):
+    order_id = paid(client)
+    refund(client, order_id)
+    again = refund(client, order_id)
+    assert (again.status_code, again.json()["error"]["code"]) == (409, "REFUND_NOT_ALLOWED")
+    assert len(provider.cancel_calls) == 1
+
+
+def test_refund_after_window_is_blocked(client, db_session, provider):
+    order_id = paid(client)
+    payment_row(db_session, order_id).approved_at = now_utc() - timedelta(days=8)
+    db_session.commit()
+    response = refund(client, order_id)
+    assert (response.status_code, response.json()["error"]["code"]) == (409, "REFUND_NOT_ALLOWED")
+    assert provider.cancel_calls == []
+    assert me(db_session).premium_until is not None
+
+
+def test_refund_blocked_after_studying_premium_word(client, db_session, provider):
+    order_id = paid(client)
+    study_word(db_session, FREE_LIMIT + 1)  # 251번 = 프리미엄 범위
+    response = refund(client, order_id)
+    assert (response.status_code, response.json()["error"]["code"]) == (409, "REFUND_NOT_ALLOWED")
+    assert provider.cancel_calls == []
+
+
+def test_refund_allowed_after_studying_only_free_words(client, db_session, provider):
+    order_id = paid(client)
+    study_word(db_session, 1)  # 무료 범위 학습은 환불을 막지 않는다
+    assert refund(client, order_id).status_code == 200
+
+
+def test_only_latest_paid_payment_is_refundable(client, db_session, provider):
+    first = paid(client, "pk_a")
+    second = paid(client, "pk_b")
+    blocked = refund(client, first)
+    assert (blocked.status_code, blocked.json()["error"]["code"]) == (409, "REFUND_NOT_ALLOWED")
+    until_before = me(db_session).premium_until
+    assert refund(client, second).status_code == 200
+    # 두 번째 결제분(30일)만 줄어들어 첫 결제의 이용권은 남는다
+    assert me(db_session).premium_until == until_before - timedelta(days=PASS_DAYS)
+    assert me(db_session).premium_until > now_utc()
+
+
+def test_cannot_refund_someone_elses_payment(client, db_session, provider):
+    other = User(email="other@gmail.com", password_hash="x")
+    db_session.add(other)
+    db_session.commit()
+    db_session.add(Payment(user_id=other.id, order_id="svc-otherusersorder1", amount=PRICE, pass_days=PASS_DAYS,
+                           status="paid", payment_key="pk_other", approved_at=now_utc()))
+    db_session.commit()
+    assert refund(client, "svc-otherusersorder1").status_code == 404
+    assert provider.cancel_calls == []
+
+
+def test_pending_payment_is_not_refundable(client, provider):
+    placed = order(client)
+    assert refund(client, placed["order_id"]).status_code == 409
+    assert provider.cancel_calls == []
+
+
+def test_provider_cancel_rejection_keeps_everything(client, db_session, provider):
+    order_id = paid(client)
+    provider.cancel_outcome = "reject"
+    response = refund(client, order_id)
+    assert (response.status_code, response.json()["error"]["code"]) == (402, "REFUND_FAILED")
+    assert payment_row(db_session, order_id).status == "paid"
+    assert me(db_session).premium_until is not None
+
+
+def test_provider_outage_on_refund_allows_retry(client, db_session, provider):
+    order_id = paid(client)
+    provider.cancel_outcome = "unavailable"
+    response = refund(client, order_id)
+    assert (response.status_code, response.json()["error"]["code"]) == (502, "PAYMENT_PROVIDER_ERROR")
+    assert payment_row(db_session, order_id).status == "paid"
+    provider.cancel_outcome = "approve"
+    assert refund(client, order_id).status_code == 200
+
+
+def test_payment_list_shows_refundable_flag(client, db_session, provider):
+    order_id = paid(client)
+    item = client.get("/api/payments").json()["items"][0]
+    assert (item["refundable"], item["refund_block_message"]) == (True, None)
+    study_word(db_session, FREE_LIMIT + 1)
+    item = client.get("/api/payments").json()["items"][0]
+    assert item["refundable"] is False and "프리미엄 단어" in item["refund_block_message"]
+    refund_state = client.get("/api/payments").json()["items"][0]
+    assert refund_state["order_id"] == order_id

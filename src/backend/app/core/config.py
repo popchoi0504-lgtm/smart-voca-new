@@ -32,6 +32,7 @@ class Settings(BaseSettings):
     free_word_limit: int = 250
     premium_price_krw: int = 4900
     premium_pass_days: int = 30
+    refund_window_days: int = 7  # 결제 후 이 기간 안, 프리미엄 단어를 쓰지 않았을 때만 환불
 
     # 결제 담당자: "toss"(토스 연동) 또는 "fake"(가짜 결제, FR-SUB-08)
     payment_provider: str = "toss"

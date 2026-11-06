@@ -10,6 +10,7 @@ import httpx
 from app.payments.provider import ConfirmResult, PaymentProviderUnavailable, PaymentRejected
 
 CONFIRM_URL = "https://api.tosspayments.com/v1/payments/confirm"
+CANCEL_URL = "https://api.tosspayments.com/v1/payments/{payment_key}/cancel"
 TIMEOUT_SECONDS = 10.0
 
 
@@ -50,6 +51,36 @@ class TossPaymentProvider:
 
         code = str(body.get("code", "UNKNOWN"))
         # 5xx 와 일시 오류는 결과를 모르는 상태 → 다시 확인할 수 있게 pending 유지
+        if response.status_code >= 500 or code in ("PROVIDER_ERROR", "IDEMPOTENT_REQUEST_PROCESSING"):
+            raise PaymentProviderUnavailable(f"토스 일시 오류 {code}")
+        raise PaymentRejected(code, str(body.get("message", "")))
+
+    def cancel(self, payment_key: str, reason: str) -> None:
+        """전액 취소. 토스 문서: POST /v1/payments/{paymentKey}/cancel, cancelReason 필수(금액을 생략하면 전액)."""
+        try:
+            response = httpx.post(
+                CANCEL_URL.format(payment_key=payment_key),
+                json={"cancelReason": reason},
+                headers={
+                    "Authorization": self._auth_header,
+                    # 같은 결제의 취소 요청이 겹쳐도 한 번만 처리되게 한다
+                    "Idempotency-Key": f"cancel-{payment_key}",
+                },
+                timeout=TIMEOUT_SECONDS,
+            )
+        except httpx.HTTPError as error:
+            raise PaymentProviderUnavailable("토스 통신 실패") from error
+
+        try:
+            body = response.json()
+        except ValueError as error:
+            raise PaymentProviderUnavailable("토스 응답을 읽을 수 없음") from error
+
+        if response.status_code == 200:
+            if body.get("status") != "CANCELED":
+                raise PaymentRejected("UNEXPECTED_PAYMENT_STATE", "취소 응답이 예상과 다름")
+            return
+        code = str(body.get("code", "UNKNOWN"))
         if response.status_code >= 500 or code in ("PROVIDER_ERROR", "IDEMPOTENT_REQUEST_PROCESSING"):
             raise PaymentProviderUnavailable(f"토스 일시 오류 {code}")
         raise PaymentRejected(code, str(body.get("message", "")))

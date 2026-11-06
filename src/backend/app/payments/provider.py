@@ -31,12 +31,16 @@ class PaymentProviderUnavailable(Exception):
 
 
 class PaymentProvider(Protocol):
-    """결제 담당자가 지켜야 할 모양. confirm 하나뿐이다."""
+    """결제 담당자가 지켜야 할 모양. 승인 확인(confirm)과 결제 취소(cancel)."""
 
     name: str
 
     def confirm(self, payment_key: str, order_id: str, amount: int) -> ConfirmResult:
         """결제사에 승인 확인을 요청한다. 거절이면 PaymentRejected, 통신 실패면 PaymentProviderUnavailable."""
+        ...
+
+    def cancel(self, payment_key: str, reason: str) -> None:
+        """결제 전액을 취소(환불)한다. 거절이면 PaymentRejected, 통신 실패면 PaymentProviderUnavailable."""
         ...
 
 

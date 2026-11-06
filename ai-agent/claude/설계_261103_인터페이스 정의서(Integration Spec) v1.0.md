@@ -294,6 +294,14 @@
                "requested_at": "2026-11-03T14:06:40+09:00", "approved_at": "2026-11-03T14:07:11+09:00" } ] }
 ```
 - 최신순, `limit` 1~50, 기본 20. 내 결제만 보인다.
+- 2026-11-06 추가 항목: 각 건에 `refundable`(환불 가능 여부)·`refund_block_message`(불가 이유, 가능하면 null).
+
+**POST `/api/payments/{order_id}/refund`** — 인증 필요 · 환불(구독 취소). 응답 200 `{ "status": "canceled", "order_id", "amount", "premium_until": null | "…" }`
+- 이용권은 자동 갱신이 없는 30일 1회 결제라 "해지"할 대상이 없고, 취소는 **환불**로 제공한다.
+- 조건(모두 만족): 내 결제 · `paid` · **가장 최근 결제**(이용권이 이어 붙으므로) · 승인 후 `REFUND_WINDOW_DAYS`(기본 7일) 이내 · 승인 이후 **무료 범위 밖 단어**를 학습한 기록 없음.
+- 처리: 결제사 취소 API 로 전액 취소 → 성공하면 한 트랜잭션에서 `status=canceled` + `premium_until` 을 `pass_days` 만큼 줄임(남지 않으면 null=무료).
+- 오류: 404 `ORDER_NOT_FOUND`, 409 `REFUND_NOT_ALLOWED`(이유 문장이 메시지), 402 `REFUND_FAILED`(결제사 거절, 상태 불변), 502 `PAYMENT_PROVIDER_ERROR`(상태 불변, 재시도 가능)
+- 토스: `POST /v1/payments/{paymentKey}/cancel`, `cancelReason` 필수, 금액 생략 시 전액. `[토스 테스트 키 실호출은 미확인]`
 
 ### 4.7 시스템 (SYS)
 

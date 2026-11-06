@@ -9,8 +9,16 @@ from sqlalchemy.orm import Session
 from app.core.config import get_settings
 from app.core.errors import AppError
 from app.core.timeutil import now_utc, to_kst
-from app.core_logic.payment_rules import extend_premium_until, generate_order_id, is_amount_matching, make_customer_key
+from app.core_logic.payment_rules import (
+    extend_premium_until,
+    generate_order_id,
+    is_amount_matching,
+    is_within_refund_window,
+    make_customer_key,
+    shrink_premium_until,
+)
 from app.models.payment import Payment
+from app.models.review_log import ReviewLog
 from app.models.user import User
 from app.models.word import Word
 from app.payments.provider import PaymentProvider, PaymentProviderUnavailable, PaymentRejected
@@ -22,6 +30,7 @@ from app.schemas.subscription import (
     PaymentListResponse,
     PaymentOut,
     PlanOut,
+    RefundResponse,
     SubscriptionResponse,
 )
 
@@ -139,13 +148,54 @@ def confirm_payment(
     return _to_confirm_response(payment, locked_user, already_processed=False)
 
 
+def _latest_paid_id(db: Session, user_id: int) -> int | None:
+    """가장 최근에 승인된 결제의 id. 이용권이 이어 붙으므로 환불은 이 결제만 허용한다."""
+    return db.scalar(
+        select(Payment.id)
+        .where(Payment.user_id == user_id, Payment.status == "paid")
+        .order_by(Payment.approved_at.desc(), Payment.id.desc())
+        .limit(1)
+    )
+
+
+def _refund_block_message(db: Session, user: User, payment: Payment, latest_paid_id: int | None) -> str | None:
+    """환불할 수 없는 이유(사용자에게 보여 줄 문장). 환불 가능하면 None."""
+    if payment.status == "canceled":
+        return "이미 환불된 결제예요."
+    if payment.status != "paid":
+        return "결제가 완료된 건만 환불할 수 있어요."
+    settings = get_settings()
+    if payment.id != latest_paid_id:
+        return "가장 최근 결제만 환불할 수 있어요."
+    if not is_within_refund_window(payment.approved_at, now_utc(), settings.refund_window_days):
+        return f"결제 후 {settings.refund_window_days}일이 지나 환불할 수 없어요."
+    # 프리미엄 범위(무료 범위 밖) 단어를 결제 이후에 학습했는지
+    used_premium = db.scalar(
+        select(func.count())
+        .select_from(ReviewLog)
+        .join(Word, Word.id == ReviewLog.word_id)
+        .where(
+            ReviewLog.user_id == user.id,
+            ReviewLog.reviewed_at >= payment.approved_at,
+            Word.frequency_rank > settings.free_word_limit,
+        )
+    )
+    if used_premium:
+        return "프리미엄 단어를 이미 학습해서 환불할 수 없어요."
+    return None
+
+
 def list_payments(db: Session, user: User, limit: int) -> PaymentListResponse:
-    """내 결제 내역(최신순). pending 도 보여 준다."""
+    """내 결제 내역(최신순). pending 도 보여 준다. 환불 가능 여부를 함께 계산해 준다."""
     rows = db.scalars(
         select(Payment).where(Payment.user_id == user.id).order_by(Payment.requested_at.desc(), Payment.id.desc()).limit(limit)
     ).all()
-    return PaymentListResponse(
-        items=[
+    latest_paid_id = _latest_paid_id(db, user.id)
+    items = []
+    for row in rows:
+        # 환불 안내는 결제 완료·환불된 건에만 의미가 있다(대기·실패는 비워 둔다)
+        block_message = _refund_block_message(db, user, row, latest_paid_id) if row.status in ("paid", "canceled") else None
+        items.append(
             PaymentItem(
                 order_id=row.order_id,
                 amount=row.amount,
@@ -153,7 +203,42 @@ def list_payments(db: Session, user: User, limit: int) -> PaymentListResponse:
                 pass_days=row.pass_days,
                 requested_at=to_kst(row.requested_at),
                 approved_at=to_kst(row.approved_at) if row.approved_at else None,
+                refundable=row.status == "paid" and block_message is None,
+                refund_block_message=block_message,
             )
-            for row in rows
-        ]
+        )
+    return PaymentListResponse(items=items)
+
+
+def refund_payment(db: Session, user: User, provider: PaymentProvider, order_id: str) -> RefundResponse:
+    """환불(결제 취소). 순서: 내 결제 잠금 → 조건 확인 → 결제사 취소 → (한 트랜잭션) canceled + 이용권 되돌림."""
+    payment = db.scalar(
+        select(Payment).where(Payment.order_id == order_id, Payment.user_id == user.id).with_for_update()
+    )
+    if payment is None:
+        raise AppError(404, "ORDER_NOT_FOUND", "결제를 찾을 수 없어요.")
+    block_message = _refund_block_message(db, user, payment, _latest_paid_id(db, user.id))
+    if block_message is not None:
+        raise AppError(409, "REFUND_NOT_ALLOWED", block_message)
+
+    try:
+        provider.cancel(payment.payment_key, "고객 요청 환불")
+    except PaymentRejected as rejected:
+        logger.warning("환불 거절 user_id=%s order_id=%s code=%s", user.id, order_id, rejected.code)
+        raise AppError(402, "REFUND_FAILED", "결제사가 환불을 처리하지 못했어요. 잠시 후 다시 시도해 주세요.") from rejected
+    except PaymentProviderUnavailable as unavailable:
+        db.rollback()  # 상태를 바꾸지 않는다: 결제는 그대로 paid, 다시 시도할 수 있다
+        logger.warning("환불 중 결제사 통신 실패 user_id=%s order_id=%s: %s", user.id, order_id, unavailable)
+        raise AppError(502, "PAYMENT_PROVIDER_ERROR", "결제 서비스에 연결할 수 없어요. 잠시 후 다시 시도해 주세요.") from unavailable
+
+    locked_user = db.scalar(select(User).where(User.id == user.id).with_for_update())
+    payment.status = "canceled"
+    locked_user.premium_until = shrink_premium_until(locked_user.premium_until, now_utc(), payment.pass_days)
+    db.commit()  # canceled 변경과 이용권 회수가 한 번에 저장된다
+    logger.info("환불 완료 user_id=%s order_id=%s premium_until=%s", user.id, order_id, locked_user.premium_until)
+    return RefundResponse(
+        status="canceled",
+        order_id=payment.order_id,
+        amount=payment.amount,
+        premium_until=to_kst(locked_user.premium_until) if locked_user.premium_until else None,
     )

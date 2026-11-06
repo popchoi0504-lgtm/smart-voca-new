@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { createOrder, getPayments, getSubscription } from '../api/subscription'
+import { createOrder, getPayments, getSubscription, refundPayment } from '../api/subscription'
 import { loadTossSdk } from '../payments/loadToss'
 
 const STATUS_LABEL = { pending: '결제 대기', paid: '결제 완료', failed: '실패', canceled: '취소' }
@@ -18,12 +18,32 @@ export default function SubscribePage() {
   const [order, setOrder] = useState(null) // 만든 주문. 있으면 결제 단계 화면을 보여 준다
   const [widgets, setWidgets] = useState(null) // 토스 결제위젯 객체
   const [errorMessage, setErrorMessage] = useState('')
+  const [noticeMessage, setNoticeMessage] = useState('')
   const [isBusy, setIsBusy] = useState(false)
 
   useEffect(() => {
     getSubscription().then(setSubscription).catch((error) => setErrorMessage(error.message))
     getPayments(10).then(setPayments).catch(() => {})
   }, [])
+
+  // 환불: 되돌릴 수 없으므로 한 번 더 확인한 뒤 서버에 요청하고, 끝나면 이용권 상태와 내역을 다시 불러온다
+  async function requestRefund(item) {
+    const message = `${item.amount.toLocaleString('ko-KR')}원을 환불하고 이 결제의 이용권 ${item.pass_days}일을 취소할까요?`
+    if (!window.confirm(message)) return
+    setErrorMessage('')
+    setNoticeMessage('')
+    setIsBusy(true)
+    try {
+      await refundPayment(item.order_id)
+      const [nextSubscription, nextPayments] = await Promise.all([getSubscription(), getPayments(10)])
+      setSubscription(nextSubscription)
+      setPayments(nextPayments)
+      setNoticeMessage('환불을 요청했어요. 카드사에 따라 취소 내역이 반영되기까지 며칠 걸릴 수 있어요.')
+    } catch (error) {
+      setErrorMessage(error.message)
+    }
+    setIsBusy(false)
+  }
 
   // 구매 버튼: 서버에 주문만 만든다(금액은 서버가 정함). 위젯 그리기는 아래 효과가 "주문이 화면에 반영된 뒤"에 한다
   async function startPurchase() {
@@ -133,6 +153,7 @@ export default function SubscribePage() {
       </section>
 
       {errorMessage && <p className="form-error" role="alert">{errorMessage}</p>}
+      {noticeMessage && <p className="hint-text" role="status">{noticeMessage}</p>}
 
       {!order && (
         <button className="btn btn-primary btn-block" type="button" onClick={startPurchase} disabled={isBusy}>
@@ -166,10 +187,23 @@ export default function SubscribePage() {
       {payments.length > 0 && (
         <section className="card">
           <h2>결제 내역</h2>
+          <p className="hint-text">
+            자동 갱신 없이 30일 이용권을 한 번씩 결제하는 방식이라 따로 해지할 필요가 없어요. 결제 후 7일 안에 프리미엄 단어를 학습하지 않았다면 환불할 수 있어요.
+          </p>
           {payments.map((item) => (
             <div className="status-row" key={item.order_id}>
               <span>{formatDate(item.requested_at)} · {item.amount.toLocaleString('ko-KR')}원</span>
-              <span>{STATUS_LABEL[item.status] ?? item.status}</span>
+              <span>
+                {STATUS_LABEL[item.status] ?? item.status}
+                {item.refundable && (
+                  <button className="btn btn-small" type="button" onClick={() => requestRefund(item)} disabled={isBusy}>
+                    환불
+                  </button>
+                )}
+              </span>
+              {item.status === 'paid' && !item.refundable && item.refund_block_message && (
+                <span className="hint-text">{item.refund_block_message}</span>
+              )}
             </div>
           ))}
         </section>
