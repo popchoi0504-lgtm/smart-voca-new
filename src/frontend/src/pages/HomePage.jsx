@@ -103,12 +103,12 @@ export default function HomePage() {
 
       <div className="stage">
         <div className="stage-col">
-          <PhotoCard scene={<ListeningScene />} chip="듣기 · LC" caption="복습 퀴즈 풀기" to="/quiz" />
-          <PhotoCard scene={<AnswerSheetScene />} chip="실전 대비" caption="학습 기록 보기" to="/progress" square />
+          <PhotoCard scene={<ListeningScene />} caption="복습 퀴즈 풀기" to="/quiz" />
+          <PhotoCard scene={<AnswerSheetScene />} caption="학습 기록 보기" to="/progress" square />
         </div>
         <div className="stage-col stage-col-lower">
-          <PhotoCard scene={<MeetingScene />} chip="회의 · 협상" caption="새 단어 배우기" to="/study" bubble={{ word: 'negotiate', meaning: '협상하다 · 계약 조건을 협상하다' }} />
-          <PhotoCard scene={<TripScene />} chip="출장 · 여행" caption="프리미엄 보기" to="/subscribe" square />
+          <PhotoCard scene={<MeetingScene />} caption="새 단어 배우기" to="/study" bubble={{ word: 'negotiate', meaning: '협상하다 · 계약 조건을 협상하다' }} />
+          <PhotoCard scene={<TripScene />} caption="프리미엄 보기" to="/subscribe" square />
         </div>
       </div>
     </main>
