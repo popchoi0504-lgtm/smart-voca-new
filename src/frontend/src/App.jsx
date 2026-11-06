@@ -27,6 +27,7 @@ export default function App() {
         <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
         <Route path="/study" element={<ProtectedRoute><FlashcardPage /></ProtectedRoute>} />
         <Route path="/quiz" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
+        <Route path="/quiz/check" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
         <Route path="/progress" element={<ProtectedRoute><ProgressPage /></ProtectedRoute>} />
         <Route path="/settings"element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
         <Route path="/subscribe" element={<ProtectedRoute><SubscribePage /></ProtectedRoute>} />

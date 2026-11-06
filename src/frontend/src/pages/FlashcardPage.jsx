@@ -91,6 +91,10 @@ export default function FlashcardPage() {
         <h1 className="page-title">수고했어요! 🎉</h1>
         <p className="page-subtitle">새 단어 {words.length}개를 배웠어요. 내일 복습 목록에 나와요.</p>
         <div className="button-row">
+          {/* 방금 배운 단어를 바로 확인한다. 건너뛰어도 되고, 복습 일정은 바뀌지 않는 연습이다 */}
+          <Link className="btn btn-primary" to="/quiz/check" state={{ wordIds: words.map((item) => item.word_id) }}>
+            바로 확인 퀴즈
+          </Link>
           {hasMore && <button className="btn btn-primary" type="button" onClick={startNextSession}>이어서 더 배우기</button>}
           <Link className="btn" to="/">오늘 할 것으로</Link>
         </div>

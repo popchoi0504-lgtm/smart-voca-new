@@ -7,6 +7,11 @@ export function getQuizQueue(limit = 10) {
   return apiFetch(`/quiz/queue?limit=${limit}`)
 }
 
+/** 새 단어를 배운 직후 확인 퀴즈. 내가 배운 단어 번호(최대 10개)를 주면 같은 모양의 { items, remaining_due_count } 를 준다. */
+export function getCheckQuiz(wordIds) {
+  return apiFetch(`/quiz/check?word_ids=${wordIds.join(',')}`)
+}
+
 /** level: 1(철자 섞기) | 2(빈칸) | 3(정답). 서버는 저장하지 않는다. */
 export function getHint(wordId, level) {
   return apiFetch(`/quiz/${wordId}/hint`, { method: 'POST', body: { level } })
