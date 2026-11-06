@@ -23,8 +23,8 @@ export function AuthProvider({ children }) {
     setUser(data.user)
   }
 
-  async function signUp(email, password) {
-    const data = await signup(email, password)
+  async function signUp(email, password, consents) {
+    const data = await signup(email, password, consents)
     setUser(data.user)
   }
 

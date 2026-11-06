@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 
 import AppShell from './components/AppShell'
 import ProtectedRoute from './components/ProtectedRoute'
+import { PrivacyPage, TermsPage } from './legal/LegalDocs'
 import SourceNotice from './components/SourceNotice'
 import FlashcardPage from './pages/FlashcardPage'
 import HomePage from './pages/HomePage'
@@ -33,6 +34,8 @@ export default function App() {
         <Route path="/payment/fail" element={<ProtectedRoute><PaymentFailPage /></ProtectedRoute>} />
         <Route path="/login" element={<AppShell><LoginPage /></AppShell>} />
         <Route path="/signup" element={<AppShell><SignupPage /></AppShell>} />
+        <Route path="/terms" element={<AppShell><TermsPage /></AppShell>} />
+        <Route path="/privacy" element={<AppShell><PrivacyPage /></AppShell>} />
         <Route path="/status" element={<AppShell><StatusPage /></AppShell>} />
         <Route path="*" element={<AppShell><NotFoundPage /></AppShell>} />
       </Routes>

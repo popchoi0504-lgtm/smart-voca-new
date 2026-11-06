@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { changePassword, getPlanSummary, updateProfile, withdrawAccount } from '../api/profile'
+import { changePassword, getPlanSummary, updateMarketingConsent, updateProfile, withdrawAccount } from '../api/profile'
 import { fieldErrorsOf } from '../api/client'
 import { updateDailyNewLimit } from '../api/study'
 import { useAuth } from '../auth/AuthContext'
@@ -171,6 +171,29 @@ function StudySection() {
   )
 }
 
+function ConsentSection() {
+  const { user, setUser } = useAuth()
+  const form = useSubmit()
+
+  // 체크하면 바로 저장한다(철회도 동의만큼 쉬워야 한다). 실패하면 서버 값 그대로라 체크도 그대로 남는다
+  function handleChange(event) {
+    const checked = event.target.checked
+    form.submit(async () => setUser(await updateMarketingConsent(checked)), checked ? '수신에 동의했어요.' : '수신 동의를 철회했어요.')
+  }
+
+  return (
+    <section className="card form">
+      <h2>알림</h2>
+      <label className="consent-row">
+        <input type="checkbox" checked={user.marketing_agreed} onChange={handleChange} disabled={form.isSubmitting} />
+        <span>서비스 소식 수신에 동의합니다. (선택)</span>
+      </label>
+      <Messages errorMessage={form.errorMessage} savedMessage={form.savedMessage} />
+      <p className="field-hint"><Link to="/privacy">개인정보처리방침</Link> · <Link to="/terms">이용약관</Link></p>
+    </section>
+  )
+}
+
 function PasswordSection() {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
@@ -290,6 +313,7 @@ export default function SettingsPage() {
       <ProfileSection />
       <PlanSection />
       <StudySection />
+      <ConsentSection />
       <PasswordSection />
       <WithdrawSection />
       <p><Link to="/">← 오늘 할 것으로</Link></p>

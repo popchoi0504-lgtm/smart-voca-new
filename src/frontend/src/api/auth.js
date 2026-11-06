@@ -2,8 +2,9 @@
 // 파일 위치: src/frontend/src/api/auth.js
 import { apiFetch, ApiError } from './client'
 
-export function signup(email, password) {
-  return apiFetch('/auth/signup', { method: 'POST', body: { email, password } })
+/** consents: { agree_age, agree_terms, agree_privacy, agree_marketing, terms_version } */
+export function signup(email, password, consents) {
+  return apiFetch('/auth/signup', { method: 'POST', body: { email, password, ...consents } })
 }
 
 export function login(email, password) {

@@ -8,6 +8,12 @@ export async function updateProfile(changes) {
   return data.user
 }
 
+/** 선택 동의(마케팅)만 바꾼다. 성공하면 최신 user. */
+export async function updateMarketingConsent(marketingAgreed) {
+  const data = await apiFetch('/me/consent', { method: 'PATCH', body: { marketing_agreed: marketingAgreed } })
+  return data.user
+}
+
 export function changePassword(currentPassword, newPassword) {
   return apiFetch('/me/password', { method: 'POST', body: { current_password: currentPassword, new_password: newPassword } })
 }

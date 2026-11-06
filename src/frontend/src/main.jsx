@@ -10,6 +10,7 @@ import './styles/tokens.css'
 import './styles/app.css'
 import './styles/home.css'
 import './styles/profile.css'
+import './styles/legal.css'
 import './styles/teacher.css'
 
 createRoot(document.getElementById('root')).render(
