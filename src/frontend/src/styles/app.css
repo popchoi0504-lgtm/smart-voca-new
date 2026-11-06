@@ -642,3 +642,46 @@ a.btn-primary {
 .learned-meaning {
   margin: var(--space-1) 0 0;
 }
+
+/* ---------- 즐겨찾기 별표 버튼 (이슈 #22) ---------- */
+.star-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-muted);
+  font-size: 22px;
+  line-height: 1;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.star-btn:hover {
+  background: #fff;
+  box-shadow: 0 0 0 2px currentColor;
+}
+
+.star-btn.is-on {
+  color: #e0a100;
+}
+
+/* 카드 오른쪽 위 모서리 */
+.flashcard,
+.quiz-card {
+  position: relative;
+}
+
+.card-star {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+}
+
+.favorite-item.is-locked {
+  opacity: 0.6;
+}
