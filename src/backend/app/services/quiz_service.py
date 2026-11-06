@@ -51,6 +51,14 @@ def _get_learned_word(db: Session, user: User, word_id: int) -> Word:
     return word
 
 
+def _to_quiz_item(word: Word) -> QuizItem:
+    """문제 한 개로 변환. 정답 영단어는 QuizItem 양식에 필드가 없어 실수로도 나가지 않는다(AD-7)."""
+    return QuizItem(
+        word_id=word.id, part_of_speech=word.part_of_speech, meaning_ko=word.meaning_ko,
+        example_masked=_mask_example(word.headword, word.example_en), letter_count=letter_count(word.headword),
+    )
+
+
 def get_queue(db: Session, user: User, limit: int) -> QuizQueueResponse:
     """복습 대상을 오래 밀린 순(복습일이 빠른 순)으로 최대 limit 개. 만료된 이용권이어도 배운 단어는 복습 가능(IF-7)."""
     today = _today()
@@ -61,14 +69,32 @@ def get_queue(db: Session, user: User, limit: int) -> QuizQueueResponse:
         .order_by(UserWord.next_review_date, Word.frequency_rank)
         .limit(min(limit, MAX_QUEUE_SIZE))
     ).all()
-    items = [
-        QuizItem(
-            word_id=word.id, part_of_speech=word.part_of_speech, meaning_ko=word.meaning_ko,
-            example_masked=_mask_example(word.headword, word.example_en), letter_count=letter_count(word.headword),
-        )
-        for word in words
-    ]
+    items = [_to_quiz_item(word) for word in words]
     return QuizQueueResponse(items=items, remaining_due_count=_due_count(db, user.id, today))
+
+
+def _parse_word_ids(raw: str) -> list[int]:
+    """"1,2,2,3" → [1, 2, 3]. 순서는 유지하고 중복은 뺀다. 숫자가 아니거나 비었거나 10개를 넘으면 422."""
+    parts = [part.strip() for part in raw.split(",")]
+    if not parts or not all(part.isascii() and part.isdigit() for part in parts):
+        raise AppError(422, "VALIDATION_ERROR", "단어 번호를 쉼표로 구분해 숫자로 입력해 주세요.")
+    ids = list(dict.fromkeys(int(part) for part in parts))
+    if len(ids) > MAX_QUEUE_SIZE:
+        raise AppError(422, "VALIDATION_ERROR", f"한 번에 최대 {MAX_QUEUE_SIZE}개까지 확인할 수 있어요.")
+    return ids
+
+
+def get_check_quiz(db: Session, user: User, raw_word_ids: str) -> QuizQueueResponse:
+    """새 단어를 배운 직후의 확인 퀴즈. 요청한 단어(내가 배운 것만)를 요청한 순서대로 문제로 만든다.
+
+    읽기만 한다. 복습 일정·기록은 제출(submit_answer)이 정하는데, 갓 배운 단어는 복습일이 내일이라 연습으로 처리된다.
+    """
+    word_ids = _parse_word_ids(raw_word_ids)
+    for word_id in word_ids:
+        _get_learned_word(db, user, word_id)  # 없는 단어 404, 배우지 않은 단어(남의 단어 포함) 409
+    words = {word.id: word for word in db.scalars(select(Word).where(Word.id.in_(word_ids))).all()}
+    items = [_to_quiz_item(words[word_id]) for word_id in word_ids]
+    return QuizQueueResponse(items=items, remaining_due_count=_due_count(db, user.id, _today()))
 
 
 def get_hint(db: Session, user: User, word_id: int, level: int) -> HintResponse:

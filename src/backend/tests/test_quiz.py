@@ -310,3 +310,76 @@ def test_answer_errors(client, db_session):
     assert answer(client, 1, "x", 4).status_code == 422
     assert answer(client, 1, "x", -1).status_code == 422
     assert answer(client, 1, "x" * 101, 0).status_code == 422
+
+
+# ---------- 확인 퀴즈: 새 단어 학습 직후 (이슈 #21) ----------
+
+
+def check(client, ids):
+    return client.get(f"/api/quiz/check?word_ids={ids}")
+
+
+def test_check_requires_login(api_client):
+    assert check(api_client, "1").status_code == 401
+
+
+def test_check_returns_learned_words_in_requested_order_without_duplicates(client, db_session):
+    for word_id in (1, 2, 3):
+        learn(db_session, word_id, due_in_days=1)  # 갓 배운 단어: 복습일이 내일
+    response = check(client, "3,1,3,2")
+    assert response.status_code == 200
+    assert [item["word_id"] for item in response.json()["items"]] == [3, 1, 2]
+
+
+def test_check_never_contains_the_answer_word(client, db_session):
+    """AD-7: 확인 퀴즈 응답에도 정답 영단어가 없다."""
+    for word_id in (1, 2):
+        learn(db_session, word_id, due_in_days=1)
+    response = check(client, "1,2")
+    assert "word001" not in response.text.lower() and "word002" not in response.text.lower()
+    item = response.json()["items"][0]
+    assert set(item) == {"word_id", "part_of_speech", "meaning_ko", "example_masked", "letter_count"}
+    assert item["example_masked"] == "I see ______."
+
+
+def test_check_accepts_ten_but_rejects_eleven(client, db_session):
+    for word_id in range(1, 12):
+        learn(db_session, word_id, due_in_days=1)
+    assert check(client, ",".join(str(i) for i in range(1, 11))).status_code == 200
+    assert check(client, ",".join(str(i) for i in range(1, 12))).status_code == 422
+    assert check(client, ",".join(["1"] * 11)).status_code == 200  # 중복은 먼저 제거하므로 1개로 센다
+
+
+@pytest.mark.parametrize("raw", ["", "abc", "1,,2", "1,-2", "1.5"])
+def test_check_rejects_malformed_ids(client, db_session, raw):
+    learn(db_session, 1, due_in_days=1)
+    assert check(client, raw).status_code == 422
+
+
+def test_check_rejects_unlearned_and_unknown_words(client, db_session):
+    learn(db_session, 1, due_in_days=1)
+    assert check(client, "1,2").status_code == 409  # 2번은 아직 배우지 않음
+    assert check(client, "1,999").status_code == 404
+
+
+def test_check_rejects_another_users_words(api_client, client, db_session):
+    learn(db_session, 1, due_in_days=1)  # user 1 이 배움
+    api_client.post("/api/auth/logout")
+    api_client.post("/api/auth/signup", json={"email": "other@gmail.com", "password": "abcd1234", **SIGNUP_CONSENT})
+    response = check(api_client, "1")
+    assert response.status_code == 409 and response.json()["error"]["code"] == "WORD_NOT_LEARNED"
+
+
+def test_check_and_practice_answers_leave_schedule_and_logs_unchanged(client, db_session):
+    learn(db_session, 1, due_in_days=1, interval_days=1, repetitions=1)
+    before = db_session.get(UserWord, (1, 1))
+    snapshot = (before.repetitions, before.interval_days, before.ease_factor, before.next_review_date)
+    db_session.expire_all()
+    assert check(client, "1").status_code == 200
+    for text in ("wrong", "word001"):  # 틀린 답, 맞는 답 모두 연습
+        body = answer(client, 1, text).json()
+        assert body["practice"] is True and body["recorded"] is False
+    db_session.expire_all()
+    after = db_session.get(UserWord, (1, 1))
+    assert (after.repetitions, after.interval_days, after.ease_factor, after.next_review_date) == snapshot
+    assert db_session.scalar(select(func.count()).select_from(ReviewLog)) == 0

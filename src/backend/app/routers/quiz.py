@@ -22,6 +22,15 @@ def queue(
     return quiz_service.get_queue(db, current_user, limit)
 
 
+@router.get("/check", response_model=QuizQueueResponse)
+def check(
+    word_ids: str = Query(..., description="쉼표로 구분한 단어 번호. 예: 1,2,3 (최대 10개)"),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return quiz_service.get_check_quiz(db, current_user, word_ids)
+
+
 @router.post("/{word_id}/hint", response_model=HintResponse, response_model_exclude_unset=True)
 def hint(word_id: int, body: HintRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     return quiz_service.get_hint(db, current_user, word_id, body.level)
