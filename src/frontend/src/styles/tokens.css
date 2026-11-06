@@ -1,4 +1,4 @@
-/* 2026-11-03 - smart-voca - 디자인 토큰: 색·간격·글자 크기를 한곳에 모아 둔다 (바꾸면 전체 화면에 반영). 2026-11-06 화면 디자인 개편: 흰 패널·알약 버튼·민트/라벤더 포인트, 어두운 모드 추가 */
+/* 2026-11-03 - smart-voca - 디자인 토큰: 색·간격·글자 크기를 한곳에 모아 둔다 (바꾸면 전체 화면에 반영). 2026-11-06 화면 디자인 개편: 흰 패널·알약 버튼·민트/라벤더 포인트; 어두운 모드는 쓰지 않기로 함(2026-11-06 대표 결정) */
 /* 파일 위치: src/frontend/src/styles/tokens.css */
 :root {
   /* 색: 바탕(canvas) 위에 큰 흰 패널(panel)이 놓이고, 그 안의 카드는 card 색 */
@@ -8,7 +8,7 @@
   --color-text: #0f1115;
   --color-text-muted: #5d6370;
   --color-border: #e4e7ee;
-  --color-primary: #0f1115; /* 주 버튼: 검정 알약 (어두운 모드에서는 밝은 알약) */
+  --color-primary: #0f1115; /* 주 버튼: 검정 알약  */
   --color-on-primary: #ffffff;
   --color-success: #1d5a22;
   --color-danger: #d1242f;
@@ -39,27 +39,4 @@
   --font-family: 'Noto Sans KR', 'Manrope', 'Malgun Gothic', system-ui, sans-serif;
   --font-size-base: 16px;
   --font-size-title: 32px;
-}
-
-/* 어두운 모드: 사용자 기기 설정을 따른다 */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0c0d10;
-    --color-surface: #16181d;
-    --color-card: #1d2026;
-    --color-text: #f2f3f6;
-    --color-text-muted: #9aa0ad;
-    --color-border: #2a2d35;
-    --color-primary: #f2f3f6;
-    --color-on-primary: #0f1115;
-    --color-success: #b9ecb0;
-    --color-danger: #ff8a8f;
-    --color-mint: #23402a;
-    --color-mint-ink: #b9ecb0;
-    --color-lav: #2a2850;
-    --color-lav-ink: #cfcaff;
-    --color-sun: #3f3418;
-    --color-sun-ink: #ffe3a0;
-    color-scheme: dark;
-  }
 }
