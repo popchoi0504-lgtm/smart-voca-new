@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 import { ApiError } from '../api/client'
 import { getNewWords, getToday, submitFlashcard } from '../api/study'
+import { useTeacherTarget } from '../teacher/TeacherContext'
 
 const RATINGS = [
   { value: 'dont_know', label: '몰랐음' },
@@ -31,6 +32,12 @@ export default function FlashcardPage() {
       getToday().then((today) => setHasMore(today.new_target_count > 0)).catch(() => setHasMore(false))
     }
   }, [isFinished, words])
+
+  // AI 선생님에게 "지금 보는 단어"를 알려 준다 (세션을 마쳤거나 단어가 없으면 등록하지 않음)
+  const currentWord = words && index < words.length ? words[index] : null
+  useTeacherTarget(
+    currentWord ? { wordId: currentWord.word_id, label: currentWord.headword, context: 'study', ready: true } : null,
+  )
 
   async function handleRate(rating) {
     setErrorMessage('')

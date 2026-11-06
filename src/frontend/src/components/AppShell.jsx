@@ -3,6 +3,8 @@
 import { Link, NavLink } from 'react-router-dom'
 
 import { useAuth } from '../auth/AuthContext'
+import { TeacherProvider } from '../teacher/TeacherContext'
+import TeacherWidget from '../teacher/TeacherWidget'
 
 const MENU = [
   { to: '/', label: '홈', end: true },
@@ -15,7 +17,8 @@ export default function AppShell({ children }) {
   const { user, signOut } = useAuth()
 
   return (
-    <div className="panel">
+    <TeacherProvider>
+      <div className="panel">
       <nav className="topbar" aria-label="주 메뉴">
         <Link className="brand" to="/"><i className="brand-mark" aria-hidden="true" />smart-voca</Link>
         {user && (
@@ -34,6 +37,9 @@ export default function AppShell({ children }) {
         )}
       </nav>
       {children}
-    </div>
+      </div>
+      {/* 오른쪽 아래 AI 선생님: 로그인한 화면에만 (FR-AI-01) */}
+      {user && <TeacherWidget />}
+    </TeacherProvider>
   )
 }

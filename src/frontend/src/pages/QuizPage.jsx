@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 import { getHint, getQuizQueue, submitAnswer } from '../api/quiz'
 import HintPanel from '../components/HintPanel'
+import { useTeacherTarget } from '../teacher/TeacherContext'
 
 export default function QuizPage() {
   const [queue, setQueue] = useState(null) // { items, remaining_due_count }, null 이면 불러오는 중
@@ -36,6 +37,20 @@ export default function QuizPage() {
 
   const isFinished = queue !== null && index >= queue.items.length
   const isSolved = result !== null && result.result !== 'wrong'
+
+  // AI 선생님: 단어가 곧 정답이라 문제를 맞히거나 "정답 확인"을 한 뒤에만 물어볼 수 있다 (FR-AI-03)
+  const currentQuestion = queue && index < queue.items.length ? queue.items[index] : null
+  useTeacherTarget(
+    currentQuestion
+      ? {
+          wordId: currentQuestion.word_id,
+          label: isSolved ? result.correct_answer : '이 문제',
+          context: 'quiz',
+          ready: isSolved,
+          notReadyMessage: '문제를 푼 뒤에 물어볼 수 있어요. 막히면 힌트를 써 보세요.',
+        }
+      : null,
+  )
 
   async function sendAnswer(text, level) {
     setErrorMessage('')
