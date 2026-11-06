@@ -82,6 +82,9 @@
 | daily_new_limit | 정수 | 하루 새 단어 수 설정 |
 | is_premium | 불리언 | 지금 이용권이 유효한가 (`premium_until` 이 지금보다 미래) |
 | premium_until | 시각 또는 null | 이용권 만료 시각 |
+| nickname | 문자열 또는 null | 정한 닉네임(2~12자). 2026-11-06 추가, 이슈 #17 |
+| display_name | 문자열 | 닉네임, 없으면 이메일의 @ 앞부분. 화면은 이 값만 쓴다 |
+| avatar_color | 문자열 | 아바타 색(mint·lavender·yellow·pink·sky·orange). 고르지 않았으면 이메일로 자동 배정한 값 |
 
 ### 4.2 인증 (AUTH)
 
@@ -285,6 +288,29 @@
 - 성공 200: `{ "answer": 글, "remaining_today": 오늘 남은 횟수, "daily_limit": 내 하루 한도 }`
 - 오류: 401 NOT_AUTHENTICATED, 404 WORD_NOT_FOUND, 409 WORD_NOT_LEARNED(context=quiz 인데 배우지 않은 단어), 403 WORD_NOT_AVAILABLE(context=study 인데 요금제 범위 밖), 422 입력 오류, 429 AI_LIMIT_REACHED(하루 한도 초과), 503 AI_UNAVAILABLE(기능 꺼짐·외부 호출 실패·시간 초과·차단).
 - 하루 한도: 무료 10회, 프리미엄 50회(한국 날짜 기준, 설정 변경 가능). 실패한 호출은 횟수에 세지 않는다.
+
+### 4.9 프로필·보안·탈퇴 (PROFILE) — 2026-11-06 추가, 이슈 #17
+
+모두 로그인 필요(없으면 401 NOT_AUTHENTICATED). 상세 설계는 `설계_261106_프로필 설정 설계서 v1.0.md`.
+
+**PATCH `/api/me/profile`** — FR-PROFILE-01·02
+- 요청: `{ "nickname"?: 문자열, "avatar_color"?: 색 이름 }` (보낸 칸만 바꾼다. 둘 다 없거나 null 이면 422)
+- 닉네임: 앞뒤 공백 정리 후 2~12자, 줄바꿈 등 제어 문자 불가, 중복 허용. 색은 6종만.
+- 성공 200 `{ "user": {...} }`. 오류: 422 VALIDATION_ERROR(칸별 메시지)
+
+**POST `/api/me/password`** — FR-PROFILE-03
+- 요청: `{ "current_password", "new_password" }`. 새 비밀번호는 가입과 같은 규칙(8~64자, 영문+숫자)이고 현재와 달라야 한다.
+- 성공 **204** + 이 기기에 새 로그인 쿠키. 이미 발급된 다른 쿠키는 만료(7일)까지 유효(설계서 6장 한계).
+- 오류: 400 WRONG_PASSWORD, 422 VALIDATION_ERROR(칸 `new_password`)
+
+**GET `/api/me/plan`** — FR-PROFILE-04
+- 성공 200 `{ "plan": "free"|"premium", "premium_until": 시각|null, "ai_daily_limit", "ai_used_today", "ai_remaining_today" }`
+
+**POST `/api/me/withdraw`** — FR-PROFILE-05
+- 요청: `{ "password", "confirm_text": "탈퇴합니다" }`
+- 성공 **204** + 쿠키 삭제. 학습 기록·AI 사용 횟수 삭제, 회원 행 익명화(이메일 `deleted-{번호}@deleted.invalid`, 비밀번호 해시 `!`, 닉네임·색·이용권 비움, `deleted_at` 기록), 결제 기록은 유지.
+- 오류: 400 WRONG_PASSWORD, 422 VALIDATION_ERROR(칸 `confirm_text`)
+- 탈퇴한 회원의 옛 쿠키는 401 로 막는다. 같은 이메일로 다시 가입할 수 있다.
 
 ## 5. 화면 경로와 API 연결 (참고)
 

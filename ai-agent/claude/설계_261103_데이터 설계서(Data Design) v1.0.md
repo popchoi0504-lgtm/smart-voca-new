@@ -64,9 +64,12 @@ erDiagram
 | daily_new_limit | smallint | Y | 하루 새 단어 수 설정. 기본 10, 범위 1~50(제안) `[설계 확정]`. FR-STUDY-04 |
 | premium_until | timestamptz | N | 이용권 만료 시각. 비어 있거나 과거면 무료. FR-SUB-05 |
 | created_at | timestamptz | Y | 가입 시각, 기본값 현재 시각 |
+| nickname | text | N | 닉네임 2~12자(길이는 서버가 검사, 중복 허용이라 UNIQUE 없음). 2026-11-06 추가, FR-PROFILE-01 |
+| avatar_color | text | N | 아바타 색 6종 중 하나. CHECK `ck_users_avatar_color_allowed`. 비어 있으면 이메일로 자동 배정. FR-PROFILE-02 |
+| deleted_at | timestamptz | N | 탈퇴 시각. 값이 있으면 익명화된 탈퇴 회원(이메일 `deleted-{id}@deleted.invalid`, 해시 `!`). 로그인 증표가 남아 있어도 통과 불가. FR-PROFILE-05 |
 
 - 인덱스: `email` UNIQUE (로그인 조회와 중복 가입 방지 겸용)
-- 개인정보: 이메일만 저장한다. 이름, 전화번호는 받지 않는다.
+- 개인정보: 이메일과 닉네임(보기용)만 저장한다. 이름, 전화번호는 받지 않는다. 탈퇴하면 익명화하며, 결제 기록은 법정 보관을 위해 익명화한 회원 행에 연결된 채 남긴다(보관 기간은 정식 출시 전 확인 필요).
 
 ### 4.2 words (단어)
 
