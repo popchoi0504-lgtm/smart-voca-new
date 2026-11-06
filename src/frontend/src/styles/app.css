@@ -36,6 +36,13 @@ input:focus-visible {
   background: var(--color-surface);
   border-radius: var(--radius-panel);
   min-height: 560px;
+  position: relative;
+  overflow: hidden; /* 로그인 화면의 큰 사진이 패널 모서리 밖으로 나가지 않게 */
+}
+
+.topbar {
+  position: relative;
+  z-index: 2; /* 사진 위에서도 로고·버튼이 보이게 */
 }
 
 .topbar {
@@ -304,6 +311,8 @@ a.btn-primary {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--space-5);
   align-items: center;
+  /* 로그인과 회원가입의 패널 크기가 같도록, 더 긴 회원가입 폼(비밀번호 안내·오류 줄 포함)이 들어가는 높이로 고정한다 */
+  min-height: 540px;
   padding-top: var(--space-4);
 }
 
@@ -313,12 +322,14 @@ a.btn-primary {
   margin: 0 auto;
 }
 
+/* 로그인·가입 사진: 패널 오른쪽 절반을 위·아래·옆 끝까지 꽉 채운다 */
 .auth-photo {
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50%;
   overflow: hidden;
-  aspect-ratio: 4 / 5;
-  max-height: 520px;
-  border-radius: 28px;
 }
 
 .auth-photo img {
@@ -327,6 +338,14 @@ a.btn-primary {
   inset: 0;
   width: 100%;
   height: 100%;
+  filter: saturate(0.7) contrast(0.88) brightness(1.08);
+}
+
+.auth-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(236, 240, 250, 0.35), rgba(236, 240, 250, 0.18));
 }
 
 /* ---------- 플래시카드·퀴즈 ---------- */
@@ -541,8 +560,15 @@ a.btn-primary {
     grid-template-columns: 1fr;
   }
 
+  /* 좁은 화면: 사진은 폼 아래에 가로로 긴 둥근 사진으로 */
+  .auth {
+    min-height: 0;
+  }
+
   .auth-photo {
-    max-height: 240px;
+    position: relative;
+    width: 100%;
     aspect-ratio: 16 / 9;
+    border-radius: 24px;
   }
 }

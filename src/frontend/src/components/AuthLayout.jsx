@@ -8,7 +8,6 @@ export default function AuthLayout({ children }) {
       <div className="auth-form">{children}</div>
       <div className="auth-photo" aria-hidden="false">
         <ListeningScene />
-        <span className="photo-chip">토익 빈출 단어 2,000개</span>
       </div>
     </main>
   )
