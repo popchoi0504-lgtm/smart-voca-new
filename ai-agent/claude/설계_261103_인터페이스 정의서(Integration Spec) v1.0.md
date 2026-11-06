@@ -337,6 +337,20 @@
 - 동의 시각·약관 버전은 증빙으로 남기고 `marketing_agreed` 는 `false` 로 바꾼다.
 - 탈퇴한 회원의 옛 쿠키는 401 로 막는다. 같은 이메일로 다시 가입할 수 있다.
 
+### 4.10 즐겨찾기 (FAV) — 2026-11-06 추가, 이슈 #22 (설계: 즐겨찾기 설계서)
+
+**GET `/api/favorites`** — 인증 필요 · 내 즐겨찾기 전체
+- 응답: `{ total_count, items: [{ word_id, headword, part_of_speech, meaning_ko, example_en, example_ko, favorited_date, is_locked }] }`. 최근에 단 순. `is_locked` 는 현재 이용권 범위 밖이라 다시 학습할 수 없는 단어.
+
+**GET `/api/favorites/study?limit=10`** — 인증 필요 · 다시 학습용 단어
+- `limit` 1~20(기본 10, 범위 밖이면 422). 즐겨찾기 중 잠기지 않은 단어를 **무작위**로 돌려준다.
+- 응답: `{ items: [플래시카드 단어(/study/new 의 항목과 같은 모양)], total_available }`. **읽기 전용**: 복습 일정(SM-2)과 학습 기록을 바꾸지 않는다.
+
+**PUT `/api/favorites/{word_id}`** — 인증 필요 · 별표 켜기 → **204**. 이미 켜져 있어도 204.
+- 오류: 404 `WORD_NOT_FOUND`, 403 `PLAN_LIMIT_EXCEEDED`(이용권 범위 밖 단어)
+
+**DELETE `/api/favorites/{word_id}`** — 인증 필요 · 별표 끄기 → **204**. 원래 꺼져 있어도 204. 이용권이 만료돼도 항상 가능.
+
 ## 5. 화면 경로와 API 연결 (참고)
 
 | 화면 경로 | 사용하는 API |
@@ -349,6 +363,7 @@
 | `/subscribe` | subscription, payments/orders |
 | `/payment/success`, `/payment/fail` | payments/confirm |
 | `/settings` | me/settings |
+| `/favorites`, `/favorites/study` | favorites (목록·해제), favorites/study (다시 학습), 학습·퀴즈 카드의 별표 |
 
 ## 6. 설계 결정 기록 (ADR 성격)
 

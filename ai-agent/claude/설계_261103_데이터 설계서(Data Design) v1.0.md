@@ -40,6 +40,7 @@
 | `user_words` | 사용자별 단어 학습 상태 (SM-2 값) | FR-SRS-01~05, FR-STUDY-03 |
 | `review_logs` | 모든 학습·퀴즈 결과 기록 (쌓기만 함) | FR-PROG-01~05, FR-HINT-03~04 |
 | `payments` | 결제 내역 | FR-SUB-02~06 |
+| `favorites` | 회원이 별표로 모은 단어 (2026-11-06 추가, 이슈 #22, 상세는 즐겨찾기 설계서 2장) | — |
 
 ```mermaid
 erDiagram
@@ -48,6 +49,8 @@ erDiagram
     users ||--o{ review_logs : "학습 기록"
     words ||--o{ review_logs : "어떤 단어인지"
     users ||--o{ payments : "결제"
+    users ||--o{ favorites : "별표한 단어"
+    words ||--o{ favorites : "어떤 단어인지"
 ```
 
 관계 읽는 법: `users ||--o{ user_words` 는 "회원 한 명이 학습 상태 행을 여러 개 가질 수 있다"는 뜻이다. `user_words` 는 회원과 단어를 이어주는 **연결 표**로, "이 회원이 이 단어를 얼마나 아는가"를 한 행에 담는다.
