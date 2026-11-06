@@ -374,6 +374,28 @@ a.btn-primary {
   overflow-wrap: anywhere;
 }
 
+.speak-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+  line-height: 1;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.speak-btn:hover,
+.speak-btn.is-speaking {
+  background: #fff;
+  box-shadow: 0 0 0 2px currentColor;
+}
+
 .flashcard-meaning {
   margin: var(--space-3) 0 var(--space-2);
   font-size: 22px;

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 import { ApiError } from '../api/client'
 import { getNewWords, getToday, submitFlashcard } from '../api/study'
+import SpeakButton from '../components/SpeakButton'
 import { useTeacherTarget } from '../teacher/TeacherContext'
 
 const RATINGS = [
@@ -102,12 +103,16 @@ export default function FlashcardPage() {
     <main className="page">
       <p className="page-subtitle">{index + 1} / {words.length}</p>
       <section className="card flashcard" aria-live="polite">
-        <p className="flashcard-word">{word.headword}</p>
+        <p className="flashcard-word">
+          {word.headword} <SpeakButton text={word.headword} />
+        </p>
         <p className="field-hint">{word.part_of_speech}</p>
         {isFlipped && (
           <>
             <p className="flashcard-meaning">{word.meaning_ko}</p>
-            <p className="flashcard-example">{word.example_en}</p>
+            <p className="flashcard-example">
+              {word.example_en} <SpeakButton text={word.example_en} label="예문 듣기" />
+            </p>
             <p className="field-hint">{word.example_ko}</p>
           </>
         )}

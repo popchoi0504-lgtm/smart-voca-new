@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 import { getHint, getQuizQueue, submitAnswer } from '../api/quiz'
 import HintPanel from '../components/HintPanel'
+import SpeakButton from '../components/SpeakButton'
 import { useTeacherTarget } from '../teacher/TeacherContext'
 
 export default function QuizPage() {
@@ -173,7 +174,9 @@ export default function QuizPage() {
         <div className="notice" role="status">
           <p>
             {result.result === 'correct' ? '정답이에요! ' : '정답을 확인했어요. '}
-            <strong className="hint-letters">{result.correct_answer}</strong>
+            <strong className="hint-letters">{result.correct_answer}</strong>{' '}
+            {/* 단어가 곧 정답이라 발음은 문제를 푼 뒤에만 들려 준다 (정답 노출 방지) */}
+            <SpeakButton text={result.correct_answer} />
           </p>
           {result.practice ? (
             <p className="field-hint">오늘 이미 기록된 단어라 복습 일정은 바뀌지 않았어요(연습).</p>
