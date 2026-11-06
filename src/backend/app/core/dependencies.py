@@ -18,6 +18,7 @@ def get_current_user(request: Request, db: Session = Depends(get_db)) -> User:
     token = request.cookies.get(ACCESS_TOKEN_COOKIE)
     user_id = decode_access_token(token) if token else None
     user = db.get(User, user_id) if user_id is not None else None
-    if user is None:
+    # 탈퇴한 회원(deleted_at)은 탈퇴 전에 발급된 증표가 남아 있어도 통과시키지 않는다
+    if user is None or user.deleted_at is not None:
         raise AppError(401, "NOT_AUTHENTICATED", "로그인이 필요합니다.")
     return user

@@ -29,7 +29,16 @@ class User(Base):
 
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
+    # 프로필 (이슈 #17). 비어 있으면 화면에서 이메일 앞부분·자동 배정 색을 쓴다
+    nickname: Mapped[str | None] = mapped_column(Text)
+    avatar_color: Mapped[str | None] = mapped_column(Text)
+    # 탈퇴한 시각. 값이 있으면 익명화된 탈퇴 회원이라 로그인 증표가 있어도 통과시키지 않는다
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
     __table_args__ = (
+        CheckConstraint(
+            "avatar_color IN ('mint', 'lavender', 'yellow', 'pink', 'sky', 'orange')", name="avatar_color_allowed"
+        ),
         # 잘못된 값은 서버 코드가 틀려도 DB 가 막는다 (이름: ck_users_daily_new_limit_range)
         CheckConstraint("daily_new_limit BETWEEN 1 AND 50", name="daily_new_limit_range"),
     )

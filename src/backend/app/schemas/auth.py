@@ -76,6 +76,9 @@ class UserOut(BaseModel):
 
     id: int
     email: str
+    nickname: str | None
+    display_name: str  # 닉네임, 없으면 이메일의 @ 앞부분. 화면은 이 값만 쓴다
+    avatar_color: str  # 고른 색, 없으면 이메일로 자동 배정한 색
     daily_new_limit: int
     is_premium: bool
     premium_until: datetime | None

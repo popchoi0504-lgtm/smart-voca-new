@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 from app.core.errors import AppError
 from app.core.security import hash_password, verify_password
 from app.core.timeutil import now_utc, to_kst
+from app.core_logic.profile_rules import auto_avatar_color, display_name_of
 from app.models.user import User
 from app.schemas.auth import UserOut
 
@@ -67,6 +68,9 @@ def to_user_out(user: User) -> UserOut:
     return UserOut(
         id=user.id,
         email=user.email,
+        nickname=user.nickname,
+        display_name=display_name_of(user.nickname, user.email),
+        avatar_color=user.avatar_color or auto_avatar_color(user.email),
         daily_new_limit=user.daily_new_limit,
         is_premium=is_premium,
         premium_until=to_kst(premium_until) if premium_until is not None else None,

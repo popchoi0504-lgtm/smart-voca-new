@@ -30,6 +30,12 @@ def _daily_limit(user: User) -> int:
     return settings.ai_premium_daily_limit if _is_premium(user, now_utc()) else settings.ai_free_daily_limit
 
 
+def get_usage_today(db: Session, user: User) -> tuple[int, int]:
+    """(하루 한도, 오늘 쓴 횟수). 설정 화면의 이용권 요약용 — 횟수를 바꾸지 않고 읽기만 한다."""
+    used = db.scalar(select(AiUsage.call_count).where(AiUsage.user_id == user.id, AiUsage.usage_date == today_kst()))
+    return _daily_limit(user), used or 0
+
+
 def _reserve_call(db: Session, user_id: int, usage_date, limit: int) -> int | None:
     """오늘 횟수를 1 늘린다. 한도에 이미 닿았으면 None. 확인과 증가를 SQL 한 문장으로 해서 동시에 눌러도 한도를 넘지 않는다."""
     statement = (
