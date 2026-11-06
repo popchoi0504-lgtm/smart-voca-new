@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Link, Navigate, useLocation } from 'react-router-dom'
 
 import { useAuth } from '../auth/AuthContext'
+import AuthLayout from '../components/AuthLayout'
 import FormField from '../components/FormField'
 
 export default function LoginPage() {
@@ -34,7 +35,7 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="page">
+    <AuthLayout>
       <h1 className="page-title">로그인</h1>
       <p className="page-subtitle">smart-voca 에 오신 것을 환영합니다</p>
       <form className="card form" onSubmit={handleSubmit}>
@@ -62,6 +63,6 @@ export default function LoginPage() {
           계정이 없으신가요? <Link to="/signup">회원가입</Link>
         </p>
       </form>
-    </main>
+    </AuthLayout>
   )
 }

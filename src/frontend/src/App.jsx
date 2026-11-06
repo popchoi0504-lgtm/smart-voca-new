@@ -2,6 +2,7 @@
 // 파일 위치: src/frontend/src/App.jsx
 import { Route, Routes } from 'react-router-dom'
 
+import AppShell from './components/AppShell'
 import ProtectedRoute from './components/ProtectedRoute'
 import SourceNotice from './components/SourceNotice'
 import FlashcardPage from './pages/FlashcardPage'
@@ -19,7 +20,7 @@ import StatusPage from './pages/StatusPage'
 
 export default function App() {
   return (
-    <>
+    <div className="canvas">
       <Routes>
         {/* 로그인해야 볼 수 있는 화면은 ProtectedRoute 로 감싼다 */}
         <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
@@ -30,13 +31,13 @@ export default function App() {
         <Route path="/subscribe" element={<ProtectedRoute><SubscribePage /></ProtectedRoute>} />
         <Route path="/payment/success" element={<ProtectedRoute><PaymentSuccessPage /></ProtectedRoute>} />
         <Route path="/payment/fail" element={<ProtectedRoute><PaymentFailPage /></ProtectedRoute>} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/status" element={<StatusPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/login" element={<AppShell><LoginPage /></AppShell>} />
+        <Route path="/signup" element={<AppShell><SignupPage /></AppShell>} />
+        <Route path="/status" element={<AppShell><StatusPage /></AppShell>} />
+        <Route path="*" element={<AppShell><NotFoundPage /></AppShell>} />
       </Routes>
       {/* 모든 화면 하단에 단어 출처(CC BY-SA 4.0) 표기 */}
       <SourceNotice />
-    </>
+    </div>
   )
 }

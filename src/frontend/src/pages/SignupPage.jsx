@@ -5,6 +5,7 @@ import { Link, Navigate } from 'react-router-dom'
 
 import { fieldErrorsOf } from '../api/client'
 import { useAuth } from '../auth/AuthContext'
+import AuthLayout from '../components/AuthLayout'
 import FormField from '../components/FormField'
 
 export default function SignupPage() {
@@ -36,7 +37,7 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="page">
+    <AuthLayout>
       <h1 className="page-title">회원가입</h1>
       <p className="page-subtitle">이메일과 비밀번호만 있으면 시작할 수 있어요</p>
       <form className="card form" onSubmit={handleSubmit} noValidate>
@@ -67,6 +68,6 @@ export default function SignupPage() {
           이미 계정이 있으신가요? <Link to="/login">로그인</Link>
         </p>
       </form>
-    </main>
+    </AuthLayout>
   )
 }

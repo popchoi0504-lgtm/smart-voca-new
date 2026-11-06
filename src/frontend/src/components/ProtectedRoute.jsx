@@ -4,6 +4,7 @@
 import { Navigate, useLocation } from 'react-router-dom'
 
 import { useAuth } from '../auth/AuthContext'
+import AppShell from './AppShell'
 
 export default function ProtectedRoute({ children }) {
   const { user, isLoading } = useAuth()
@@ -12,5 +13,5 @@ export default function ProtectedRoute({ children }) {
   if (isLoading) return <main className="page"><p>불러오는 중…</p></main>
   // 로그인 후 원래 가려던 화면으로 돌아올 수 있게, 가려던 위치(from)를 같이 넘긴다
   if (!user) return <Navigate to="/login" replace state={{ from: location }} />
-  return children
+  return <AppShell>{children}</AppShell>
 }
