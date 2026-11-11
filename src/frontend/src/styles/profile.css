@@ -129,3 +129,66 @@
 
 /* 접힌 탈퇴 카드의 버튼: 카드 폭 전체 */
 .btn-block-flat { width: 100%; }
+
+/* ---------- 설정 화면 탭 (2026-11-11) ---------- */
+.settings-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: var(--space-3);
+  padding: 6px;
+  overflow-x: auto; /* 좁은 화면에서 탭이 넘치면 옆으로 밀어서 본다 */
+  border-radius: 999px;
+  background: var(--color-surface);
+}
+
+.settings-tab {
+  flex: 1;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: inherit;
+  font-size: 15px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.settings-tab[aria-selected='true'] {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 700;
+}
+
+.settings-tab:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+/* 제목 + 오른쪽 버튼 한 줄 (접힌 비밀번호 카드) */
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.setting-row h2 { margin: 0 0 2px; }
+
+/* 맨 아래 작은 탈퇴 링크 */
+.danger-zone {
+  margin: var(--space-4) 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.link-danger {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-danger);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}

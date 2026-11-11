@@ -1,7 +1,8 @@
 // 2026-11-04 - smart-voca - 설정 화면: 프로필(닉네임·아바타), 이용권 요약, 하루 새 단어 수, 비밀번호 변경, 회원 탈퇴 (FR-STUDY-04, FR-PROFILE-01~05)
+// 2026-11-11 - 세로로 길게 쌓이던 카드 6개를 가로 탭 4개(프로필·이용권·학습·알림·보안)로 재배치. 저장·검사 동작은 그대로.
 // 파일 위치: src/frontend/src/pages/SettingsPage.jsx
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
 import { changePassword, getPlanSummary, updateMarketingConsent, updateProfile, withdrawAccount } from '../api/profile'
 import { fieldErrorsOf } from '../api/client'
@@ -197,6 +198,7 @@ function ConsentSection() {
 function PasswordSection() {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
+  const [isOpen, setIsOpen] = useState(false) // 평소에는 접어 두고 "변경"을 눌렀을 때만 입력칸을 보인다
   const form = useSubmit()
 
   async function handleSubmit(event) {
@@ -205,11 +207,35 @@ function PasswordSection() {
     if (ok) {
       setCurrentPassword('')
       setNewPassword('')
+      setIsOpen(false)
     }
   }
 
+  function handleCancel() {
+    setIsOpen(false)
+    setCurrentPassword('')
+    setNewPassword('')
+  }
+
+  if (!isOpen) {
+    return (
+      <section className="card">
+        <div className="setting-row">
+          <div>
+            <h2>비밀번호</h2>
+            <small className="field-hint">주기적으로 바꾸면 계정이 더 안전해요.</small>
+          </div>
+          <button className="btn" type="button" aria-expanded="false" aria-controls="password-form" onClick={() => setIsOpen(true)}>
+            변경
+          </button>
+        </div>
+        {form.savedMessage && <p className="status-ok" role="status">{form.savedMessage}</p>}
+      </section>
+    )
+  }
+
   return (
-    <form className="card form" onSubmit={handleSubmit}>
+    <form id="password-form" className="card form" onSubmit={handleSubmit}>
       <h2>비밀번호 변경</h2>
       <FormField
         label="현재 비밀번호"
@@ -233,6 +259,9 @@ function PasswordSection() {
       <Messages errorMessage={form.errorMessage} savedMessage={form.savedMessage} />
       <button className="btn btn-primary" type="submit" disabled={form.isSubmitting || !currentPassword || !newPassword}>
         {form.isSubmitting ? '바꾸는 중…' : '비밀번호 바꾸기'}
+      </button>
+      <button className="btn" type="button" aria-expanded="true" aria-controls="password-form" onClick={handleCancel} disabled={form.isSubmitting}>
+        취소
       </button>
     </form>
   )
@@ -259,12 +288,14 @@ function WithdrawSection() {
   }
 
   if (!isOpen) {
+    // 눈에 덜 띄는 작은 글자 링크로 둔다(실수로 누르지 않게). 누르면 아래에서 경고와 확인 절차가 펼쳐진다
     return (
-      <section className="card card-danger">
-        <button className="btn btn-danger btn-block-flat" type="button" aria-expanded="false" aria-controls="withdraw-form" onClick={() => setIsOpen(true)}>
+      <p className="danger-zone">
+        더 이상 사용하지 않으시나요?{' '}
+        <button className="link-danger" type="button" aria-expanded="false" aria-controls="withdraw-form" onClick={() => setIsOpen(true)}>
           회원 탈퇴
         </button>
-      </section>
+      </p>
     )
   }
 
@@ -306,16 +337,69 @@ function WithdrawSection() {
   )
 }
 
+// 탭 4개. 주소의 ?tab= 값으로 열린 탭을 기억해서, 새로고침하거나 링크로 들어와도 같은 탭이 열린다
+const TABS = [
+  { id: 'profile', label: '프로필' },
+  { id: 'plan', label: '이용권' },
+  { id: 'study', label: '학습·알림' },
+  { id: 'security', label: '보안' },
+]
+
 export default function SettingsPage() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const requestedTab = searchParams.get('tab')
+  const activeTab = TABS.some((tab) => tab.id === requestedTab) ? requestedTab : TABS[0].id
+
+  function selectTab(tabId) {
+    setSearchParams({ tab: tabId }, { replace: true })
+  }
+
+  // 좌우 화살표로 탭을 옮길 수 있게 한다(키보드 사용자용)
+  function handleTabKeyDown(event, index) {
+    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return
+    event.preventDefault()
+    const step = event.key === 'ArrowRight' ? 1 : -1
+    const next = TABS[(index + step + TABS.length) % TABS.length]
+    selectTab(next.id)
+    document.getElementById(`settings-tab-${next.id}`)?.focus()
+  }
+
   return (
     <main className="page">
       <h1 className="page-title">설정</h1>
-      <ProfileSection />
-      <PlanSection />
-      <StudySection />
-      <ConsentSection />
-      <PasswordSection />
-      <WithdrawSection />
+      <div className="settings-tabs" role="tablist" aria-label="설정 구역">
+        {TABS.map((tab, index) => (
+          <button
+            key={tab.id}
+            id={`settings-tab-${tab.id}`}
+            className="settings-tab"
+            type="button"
+            role="tab"
+            aria-selected={activeTab === tab.id}
+            aria-controls={`settings-panel-${tab.id}`}
+            tabIndex={activeTab === tab.id ? 0 : -1}
+            onClick={() => selectTab(tab.id)}
+            onKeyDown={(event) => handleTabKeyDown(event, index)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      {/* 안 보이는 탭도 화면에는 올려 두고 숨기기만 한다 → 탭을 옮겨도 쓰던 입력이 사라지지 않는다 */}
+      <div id="settings-panel-profile" role="tabpanel" aria-labelledby="settings-tab-profile" hidden={activeTab !== 'profile'}>
+        <ProfileSection />
+      </div>
+      <div id="settings-panel-plan" role="tabpanel" aria-labelledby="settings-tab-plan" hidden={activeTab !== 'plan'}>
+        <PlanSection />
+      </div>
+      <div id="settings-panel-study" role="tabpanel" aria-labelledby="settings-tab-study" hidden={activeTab !== 'study'}>
+        <StudySection />
+        <ConsentSection />
+      </div>
+      <div id="settings-panel-security" role="tabpanel" aria-labelledby="settings-tab-security" hidden={activeTab !== 'security'}>
+        <PasswordSection />
+        <WithdrawSection />
+      </div>
       <p><Link to="/">← 오늘 할 것으로</Link></p>
     </main>
   )
