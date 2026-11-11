@@ -226,19 +226,31 @@ def test_payment_list_is_mine_and_newest_first(client, db_session, provider):
     first, second = order(client), order(client)
     confirm(client, first["order_id"], payment_key="pk_a")
     items = client.get("/api/payments").json()["items"]
-    assert [item["order_id"] for item in items] == [second["order_id"], first["order_id"]]
-    assert [item["status"] for item in items] == ["pending", "paid"]
+    # 결제 대기(second)는 내역에 나오지 않고, 결제 완료만 보인다
+    assert [item["order_id"] for item in items] == [first["order_id"]]
+    assert [item["status"] for item in items] == ["paid"]
     other = User(email="other@gmail.com", password_hash="x")
     db_session.add(other)
     db_session.commit()
     db_session.add(Payment(user_id=other.id, order_id="svc-otherusersorder1", amount=PRICE, pass_days=PASS_DAYS))
     db_session.commit()
-    assert len(client.get("/api/payments").json()["items"]) == 2  # 남의 결제는 안 보인다
+    assert len(client.get("/api/payments").json()["items"]) == 1  # 남의 결제는 안 보인다
 
 
-def test_payment_list_limit(client):
-    for _ in range(3):
+def test_pending_orders_do_not_hide_paid_payments(client, provider):
+    """결제 대기 주문이 아무리 많아도 결제 완료 건(환불 버튼이 붙는 건)이 내역에서 밀려나지 않는다."""
+    paid_order = order(client)
+    confirm(client, paid_order["order_id"])
+    for _ in range(15):
         order(client)
+    items = client.get("/api/payments?limit=10").json()["items"]
+    assert [item["order_id"] for item in items] == [paid_order["order_id"]]
+    assert items[0]["refundable"] is True
+
+
+def test_payment_list_limit(client, provider):
+    for index in range(3):
+        confirm(client, order(client)["order_id"], payment_key=f"pk_{index}")
     assert len(client.get("/api/payments?limit=2").json()["items"]) == 2
     assert client.get("/api/payments?limit=0").status_code == 422
     assert client.get("/api/payments?limit=51").status_code == 422

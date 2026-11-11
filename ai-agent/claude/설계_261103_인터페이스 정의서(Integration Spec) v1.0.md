@@ -303,6 +303,7 @@
                "requested_at": "2026-11-03T14:06:40+09:00", "approved_at": "2026-11-03T14:07:11+09:00" } ] }
 ```
 - 최신순, `limit` 1~50, 기본 20. 내 결제만 보인다.
+- 2026-11-11: **결제 대기(`pending`)는 내역에서 제외**한다. 결제창을 열었다 닫은 미완료 주문이 쌓여 결제 완료 건(환불 버튼이 붙는 건)을 목록 밖으로 밀어냈기 때문.
 - 2026-11-06 추가 항목: 각 건에 `refundable`(환불 가능 여부)·`refund_block_message`(불가 이유, 가능하면 null).
 
 **POST `/api/payments/{order_id}/refund`** — 인증 필요 · 환불(구독 취소). 응답 200 `{ "status": "canceled", "order_id", "amount", "premium_until": null | "…" }`

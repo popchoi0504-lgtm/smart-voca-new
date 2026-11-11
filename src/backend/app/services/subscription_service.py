@@ -186,9 +186,13 @@ def _refund_block_message(db: Session, user: User, payment: Payment, latest_paid
 
 
 def list_payments(db: Session, user: User, limit: int) -> PaymentListResponse:
-    """내 결제 내역(최신순). pending 도 보여 준다. 환불 가능 여부를 함께 계산해 준다."""
+    """내 결제 내역(최신순). 환불 가능 여부를 함께 계산해 준다.
+
+    결제 대기(pending)는 결제창을 열었다 닫은 미완료 주문이라 돈이 오간 적이 없다. 내역에 넣으면
+    구매 버튼을 누를 때마다 쌓여 결제 완료 건을 밀어내므로(환불 버튼이 안 보이던 원인) 뺀다.
+    """
     rows = db.scalars(
-        select(Payment).where(Payment.user_id == user.id).order_by(Payment.requested_at.desc(), Payment.id.desc()).limit(limit)
+        select(Payment).where(Payment.user_id == user.id, Payment.status != "pending").order_by(Payment.requested_at.desc(), Payment.id.desc()).limit(limit)
     ).all()
     latest_paid_id = _latest_paid_id(db, user.id)
     items = []
