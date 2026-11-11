@@ -1,6 +1,6 @@
 # 운영·배포 정의서 (Operations Guide)
 
-**파일 위치**: `ai-agent/claude/운영_261105_운영·배포 정의서(Operations Guide) v1.0.md`
+**파일 위치**: `docs/운영_261105_운영·배포 정의서(Operations Guide) v1.0.md`
 **작성일**: 2026-11-05
 **버전**: v1.0
 **설명**: 처음 보는 사람이 문서만 보고 smart-voca 를 실행·시연하고, 데이터를 백업·복원하고, 문제가 났을 때 확인할 곳을 아는 것이 목표. (FR-SYS-04, NFR-DATA-01, NFR-SEC-03, 구현 계획서 VS-7)

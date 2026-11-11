@@ -1,6 +1,6 @@
 # 데이터 설계서 (Data Design)
 
-**파일 위치**: `ai-agent/claude/설계_261103_데이터 설계서(Data Design) v1.0.md`
+**파일 위치**: `docs/설계_261103_데이터 설계서(Data Design) v1.0.md`
 **작성일**: 2026-11-03
 **버전**: v1.0 (초안)
 **설명**: smart-voca 의 PostgreSQL 표(테이블) 구조, 컬럼, 제약 조건, 인덱스, 설계 결정을 정리한 문서

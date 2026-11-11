@@ -1,6 +1,6 @@
 # 인터페이스 정의서 (Integration Spec)
 
-**파일 위치**: `ai-agent/claude/설계_261103_인터페이스 정의서(Integration Spec) v1.0.md`
+**파일 위치**: `docs/설계_261103_인터페이스 정의서(Integration Spec) v1.0.md`
 **작성일**: 2026-11-03
 **버전**: v1.0 (초안)
 **설명**: React 화면과 FastAPI 서버가 주고받는 API 17개의 요청·응답 모양, 공통 규칙, 오류 코드를 정의한 문서

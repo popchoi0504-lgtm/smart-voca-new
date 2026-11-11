@@ -1,6 +1,6 @@
 # 아키텍처 설계서 (Architecture Design)
 
-**파일 위치**: `ai-agent/claude/설계_261103_아키텍처 설계서(Architecture Design) v1.0.md`
+**파일 위치**: `docs/설계_261103_아키텍처 설계서(Architecture Design) v1.0.md`
 **작성일**: 2026-11-03
 **버전**: v1.0 (초안)
 **설명**: smart-voca 의 구성 요소, 통신 구조, 폴더 구조, 보안 전략, 기술 선택의 근거(AD-1~AD-11)를 정리한 문서

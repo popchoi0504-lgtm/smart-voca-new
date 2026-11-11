@@ -1,6 +1,6 @@
 # 요구사항 명세서 (Requirement Spec)
 
-**파일 위치**: `ai-agent/claude/분석_261103_요구사항 명세서(Requirement Spec) v1.0.md`
+**파일 위치**: `docs/분석_261103_요구사항 명세서(Requirement Spec) v1.0.md`
 **작성일**: 2026-11-03
 **버전**: v1.0 (초안)
 **설명**: smart-voca 의 기능·비기능 요구사항에 고유 ID 를 부여하고, 기획서 항목과의 추적 관계를 정리한 문서

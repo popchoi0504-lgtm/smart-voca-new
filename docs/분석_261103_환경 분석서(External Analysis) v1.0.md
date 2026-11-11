@@ -1,6 +1,6 @@
 # 환경 분석서 (External Analysis)
 
-**파일 위치**: `ai-agent/claude/분석_261103_환경 분석서(External Analysis) v1.0.md`
+**파일 위치**: `docs/분석_261103_환경 분석서(External Analysis) v1.0.md`
 **작성일**: 2026-11-03
 **버전**: v1.0 (초안)
 **설명**: smart-voca 프로젝트의 외부 환경(경쟁 서비스, 단어 데이터 출처, 복습 알고리즘, 결제 테스트, 기술 환경)을 웹 조사로 정리한 분석 문서

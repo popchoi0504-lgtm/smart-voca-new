@@ -1,6 +1,6 @@
 # 현황 분석서 (Internal Assessment)
 
-**파일 위치**: `ai-agent/claude/분석_261103_현황 분석서(Internal Assessment) v1.0.md`
+**파일 위치**: `docs/분석_261103_현황 분석서(Internal Assessment) v1.0.md`
 **작성일**: 2026-11-03
 **버전**: v1.0 (초안)
 **설명**: smart-voca 프로젝트를 시작하는 시점의 대표 상황, 가용 자원, 제약 조건, 가정을 정리한 분석 문서
