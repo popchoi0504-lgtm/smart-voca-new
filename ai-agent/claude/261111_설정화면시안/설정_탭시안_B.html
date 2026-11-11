@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>설정 화면 시안 B (가로 탭)</title>
+<!-- 2026-11-11 - smart-voca - 설정 화면 1차 시안(레이아웃·글자만). 앱 코드 아님. -->
+<!-- 파일 위치: ai-agent/claude/261111_설정화면시안/설정_탭시안_B.html -->
+<style>
+  :root{
+    --bg:#eceef3; --surface:#fff; --card:#f3f4f8; --text:#0f1115; --muted:#5d6370;
+    --border:#e4e7ee; --primary:#0f1115; --on-primary:#fff; --danger:#d1242f;
+    --mint:#cdf2c4; --mint-ink:#1d5a22; --lav:#e6e4fb; --lav-ink:#3d36a6; --sun:#fff0c2; --sun-ink:#7a5600;
+    --radius:24px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,"Malgun Gothic",sans-serif;line-height:1.5}
+  .nav{display:flex;gap:6px;align-items:center;padding:14px 20px;background:var(--surface);border-bottom:1px solid var(--border);flex-wrap:wrap}
+  .nav b{margin-right:10px}
+  .nav span{padding:6px 12px;border-radius:999px;font-size:14px;color:var(--muted)}
+  .nav span.on{background:var(--card);color:var(--text);font-weight:600}
+  .page{max-width:640px;margin:0 auto;padding:24px 16px 48px}
+  h1{font-size:26px;margin:8px 0 16px}
+  /* 탭 줄 */
+  .tabs{display:flex;gap:6px;padding:6px;background:var(--surface);border-radius:999px;margin-bottom:16px;overflow-x:auto}
+  .tab{flex:1;white-space:nowrap;text-align:center;padding:10px 14px;border:0;border-radius:999px;background:transparent;
+       font:inherit;font-size:15px;color:var(--muted);cursor:pointer}
+  .tab[aria-selected="true"]{background:var(--primary);color:var(--on-primary);font-weight:600}
+  .panel{display:none}
+  .panel.on{display:block}
+  .card{background:var(--surface);border-radius:var(--radius);padding:24px;margin-bottom:16px}
+  .card h2{font-size:18px;margin:0 0 4px}
+  .hint{color:var(--muted);font-size:14px;margin:0 0 16px}
+  label{display:block;font-size:14px;font-weight:600;margin:14px 0 6px}
+  input[type=text],input[type=password],input[type=number]{width:100%;padding:13px 16px;border:1px solid var(--border);border-radius:999px;font:inherit;background:var(--surface)}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-top:1px solid var(--border)}
+  .row:first-of-type{border-top:0}
+  .row small{display:block;color:var(--muted)}
+  .btn{padding:12px 20px;border:1px solid var(--border);border-radius:999px;background:var(--surface);font:inherit;font-size:15px;font-weight:500;cursor:pointer}
+  .btn-primary{background:var(--primary);color:var(--on-primary);border-color:var(--primary)}
+  .btn-danger{color:var(--danger);border-color:#f1c4c7}
+  .avatar{width:64px;height:64px;border-radius:50%;background:var(--lav);color:var(--lav-ink);display:grid;place-items:center;font-weight:700;font-size:22px}
+  .profile-head{display:flex;gap:16px;align-items:center;margin-bottom:8px}
+  .swatches{display:flex;gap:10px}
+  .swatches i{width:30px;height:30px;border-radius:50%;display:block;border:3px solid transparent}
+  .swatches i.sel{border-color:var(--text)}
+  .badge{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--mint);color:var(--mint-ink);font-size:13px;font-weight:600}
+  .stat{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+  .stat div{background:var(--card);border-radius:18px;padding:14px;text-align:center}
+  .stat b{display:block;font-size:20px}
+  .stat span{font-size:12px;color:var(--muted)}
+  .switch{width:46px;height:28px;border-radius:999px;background:#cfd3dc;position:relative;flex:none}
+  .switch::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff}
+  .switch.on{background:var(--primary)}
+  .switch.on::after{left:21px}
+  .stepper{display:flex;align-items:center;gap:12px}
+  .stepper button{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);font-size:20px}
+  .fold{display:none;margin-top:12px}
+  .fold.open{display:block}
+  .danger-zone{margin-top:24px;text-align:center;color:var(--muted);font-size:14px}
+  .danger-zone a{color:var(--danger);text-decoration:underline;cursor:pointer}
+  .note{margin:28px 0 0;padding:16px 18px;border-radius:18px;background:var(--sun);color:var(--sun-ink);font-size:14px}
+</style>
+</head>
+<body>
+<div class="nav"><b>smart-voca</b><span>오늘</span><span>학습 기록</span><span>즐겨찾기</span><span>AI 선생님</span><span class="on">설정</span></div>
+
+<main class="page">
+  <h1>설정</h1>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true"  data-p="p1">프로필</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="p2">이용권</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="p3">학습·알림</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="p4">보안</button>
+  </div>
+
+  <!-- 1. 프로필 -->
+  <section class="panel on" id="p1">
+    <div class="card">
+      <div class="profile-head">
+        <div class="avatar">JI</div>
+        <div><h2>지윤</h2><p class="hint" style="margin:0">test@example.com</p></div>
+      </div>
+      <label>닉네임</label>
+      <input type="text" value="지윤">
+      <label>아바타 색</label>
+      <div class="swatches"><i style="background:#e6e4fb" class="sel"></i><i style="background:#cdf2c4"></i><i style="background:#fff0c2"></i><i style="background:#ffd9d6"></i><i style="background:#d4e8ff"></i></div>
+      <p style="margin:20px 0 0"><button class="btn btn-primary">저장</button></p>
+    </div>
+  </section>
+
+  <!-- 2. 이용권 -->
+  <section class="panel" id="p2">
+    <div class="card">
+      <h2>내 이용권 <span class="badge">프리미엄</span></h2>
+      <p class="hint">2,000개 단어를 모두 학습할 수 있어요.</p>
+      <div class="stat">
+        <div><b>11/30</b><span>만료일</span></div>
+        <div><b>19일</b><span>남은 기간</span></div>
+        <div><b>2,000</b><span>학습 가능 단어</span></div>
+      </div>
+      <p style="margin:16px 0 0"><button class="btn btn-primary">이용권 연장·결제 내역 보기</button></p>
+    </div>
+  </section>
+
+  <!-- 3. 학습·알림 -->
+  <section class="panel" id="p3">
+    <div class="card">
+      <h2>학습·알림</h2>
+      <p class="hint">하루 학습량과 알림을 한곳에서 정해요.</p>
+      <div class="row">
+        <div>하루에 배울 새 단어 수<small>1~20개, 기본 10개</small></div>
+        <div class="stepper"><button>−</button><b>10</b><button>+</button></div>
+      </div>
+      <div class="row">
+        <div>마케팅 정보 수신<small>이벤트·소식 알림 (선택)</small></div>
+        <div class="switch"></div>
+      </div>
+      <p style="margin:16px 0 0"><button class="btn btn-primary">저장</button></p>
+    </div>
+  </section>
+
+  <!-- 4. 보안 -->
+  <section class="panel" id="p4">
+    <div class="card">
+      <div class="row">
+        <div><h2 style="margin:0">비밀번호</h2><small>마지막 변경: 2026-11-04</small></div>
+        <button class="btn" id="pwBtn">변경</button>
+      </div>
+      <div class="fold" id="pwFold">
+        <label>현재 비밀번호</label><input type="password">
+        <label>새 비밀번호</label><input type="password">
+        <label>새 비밀번호 확인</label><input type="password">
+        <p style="margin:16px 0 0"><button class="btn btn-primary">변경하기</button></p>
+      </div>
+    </div>
+    <div class="danger-zone">더 이상 사용하지 않으시나요? <a id="wdLink">회원 탈퇴</a></div>
+  </section>
+
+  <p class="note">
+    <b>1차 시안 (레이아웃·글자만)</b> · 위 탭을 눌러 보세요. 보안 탭의 "변경"을 누르면 비밀번호 입력칸이 펼쳐지고,
+    "회원 탈퇴"는 맨 아래 작은 링크로 두었어요(누르면 확인 창이 뜨는 걸로 계획). 폰 화면은 창을 좁혀 보면 확인할 수 있어요.
+  </p>
+</main>
+
+<script>
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(x){x.setAttribute('aria-selected', x===t)});
+      document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on', p.id===t.dataset.p)});
+    });
+  });
+  document.getElementById('pwBtn').addEventListener('click', function(){
+    document.getElementById('pwFold').classList.toggle('open');
+  });
+  document.getElementById('wdLink').addEventListener('click', function(){
+    alert('실제 화면에서는 여기서 "정말 탈퇴할까요?" 확인 창과 비밀번호 입력이 나옵니다.');
+  });
+</script>
+</body>
+</html>
