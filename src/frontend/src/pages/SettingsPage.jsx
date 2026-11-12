@@ -400,7 +400,6 @@ export default function SettingsPage() {
         <PasswordSection />
         <WithdrawSection />
       </div>
-      <p><Link to="/">← 오늘 할 것으로</Link></p>
     </main>
   )
 }
