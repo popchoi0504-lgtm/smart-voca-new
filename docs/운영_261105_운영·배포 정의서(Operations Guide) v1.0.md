@@ -43,7 +43,7 @@
 4. **표 만들기**: `cd src\backend` 후 `.\.venv\Scripts\python.exe -m alembic upgrade head` (표 5개 + 버전 표)
 5. **단어 2,000개 넣기**: `.\.venv\Scripts\python.exe ..\..\ai-agent\scripts\seed_words.py` → "추가 2000" 이 나오면 정상. 다시 실행해도 "추가 0".
 6. **(시연용) 데모 계정**: `.\.venv\Scripts\python.exe ..\..\ai-agent\scripts\seed_demo.py demo` (5장)
-7. **테스트로 확인**: `.\.venv\Scripts\python.exe -m pytest -q` → 275개 통과.
+7. **테스트로 확인**: `.\.venv\Scripts\python.exe -m pytest -q` → 433개 통과 (2026-11-18 기준).
 
 ## 4. 설정 키 (`.env`)
 
@@ -165,7 +165,7 @@ cd src\backend
 | 요구사항 | 충족 근거 |
 |---|---|
 | FR-SYS-04 실행 문서 | 3~5장 |
-| FR-SYS-05 핵심 로직 자동 테스트 | SM-2, 힌트, 결제 검증, 인증 등 275개 (`pytest`) |
+| FR-SYS-05 핵심 로직 자동 테스트 | SM-2, 힌트, 결제 검증, 인증 등 433개 (`pytest`, 2026-11-18 기준) |
 | NFR-SEC-01~03 | Argon2·JWT·검증·ORM, `.env` 분리, 로그 검사 테스트 |
 | NFR-DATA-01 | 6장 (복원 연습 결과 포함) |
 | NFR-MNT-01 | 모든 소스 파일 헤더 |
