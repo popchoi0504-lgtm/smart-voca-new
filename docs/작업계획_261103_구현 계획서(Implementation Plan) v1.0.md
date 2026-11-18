@@ -1,6 +1,6 @@
 # 구현 계획서 (Implementation Plan)
 
-**파일 위치**: `ai-agent/claude/작업계획_261103_구현 계획서(Implementation Plan) v1.0.md`
+**파일 위치**: `docs/작업계획_261103_구현 계획서(Implementation Plan) v1.0.md`
 **작성일**: 2026-11-03
 **버전**: v1.0 (초안)
 **설명**: smart-voca 를 세로 방식(기능 하나씩 끝까지)으로 만드는 순서, 하루 단위 일정, 준비물, 완료 기준, 지연 대응을 정리한 문서
