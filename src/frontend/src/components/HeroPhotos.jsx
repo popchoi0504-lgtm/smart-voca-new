@@ -10,17 +10,17 @@ export const PHOTO_CREDITS = [
 ]
 
 export function ListeningScene() {
-  return <img src="/photos/listening.jpg" alt="헤드폰을 쓰고 듣고 있는 여성" loading="lazy" />
+  return <img src="photos/listening.jpg" alt="헤드폰을 쓰고 듣고 있는 여성" loading="lazy" />
 }
 
 export function MeetingScene() {
-  return <img src="/photos/meeting.jpg" alt="악수하는 두 사업가" loading="lazy" />
+  return <img src="photos/meeting.jpg" alt="악수하는 두 사업가" loading="lazy" />
 }
 
 export function AnswerSheetScene() {
-  return <img src="/photos/answer-sheet.jpg" alt="OMR 답안지에 연필로 쓰는 손" loading="lazy" />
+  return <img src="photos/answer-sheet.jpg" alt="OMR 답안지에 연필로 쓰는 손" loading="lazy" />
 }
 
 export function TripScene() {
-  return <img src="/photos/trip.jpg" alt="공항에서 짐을 든 사람의 실루엣" loading="lazy" />
+  return <img src="photos/trip.jpg" alt="공항에서 짐을 든 사람의 실루엣" loading="lazy" />
 }

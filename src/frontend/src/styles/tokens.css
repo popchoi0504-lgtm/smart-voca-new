@@ -1,5 +1,6 @@
 /* 2026-11-03 - smart-voca - 디자인 토큰: 색·간격·글자 크기를 한곳에 모아 둔다 (바꾸면 전체 화면에 반영). 2026-11-06 화면 디자인 개편: 흰 패널·알약 버튼·민트/라벤더 포인트; 어두운 모드는 쓰지 않기로 함(2026-11-06 대표 결정) */
 /* 파일 위치: src/frontend/src/styles/tokens.css */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap');
 :root {
   /* 색: 바탕(canvas) 위에 큰 흰 패널(panel)이 놓이고, 그 안의 카드는 card 색 */
   --color-bg: #eceef3;

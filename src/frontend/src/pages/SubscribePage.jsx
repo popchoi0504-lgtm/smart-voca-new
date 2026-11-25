@@ -100,8 +100,8 @@ export default function SubscribePage() {
       await widgets.requestPayment({
         orderId: order.order_id,
         orderName: order.order_name,
-        successUrl: `${window.location.origin}/payment/success`,
-        failUrl: `${window.location.origin}/payment/fail`,
+        successUrl: `${window.location.origin}${window.location.pathname}#/payment/success`,
+        failUrl: `${window.location.origin}${window.location.pathname}#/payment/fail`,
       })
     } catch (error) {
       // 구매자가 결제창을 닫은 경우 등
@@ -113,7 +113,7 @@ export default function SubscribePage() {
   // 가짜 결제: 토스와 같은 모양의 주소로 이동시켜서 이후 흐름(승인 확인)은 똑같이 지나가게 한다
   function payWithFake() {
     const query = new URLSearchParams({ paymentKey: `fake_${order.order_id}`, orderId: order.order_id, amount: String(order.amount) })
-    window.location.assign(`/payment/success?${query}`)
+    window.location.assign(`#/payment/success?${query}`)
   }
 
   if (!subscription) {

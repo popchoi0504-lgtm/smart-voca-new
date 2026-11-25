@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
+  base: './', // 파일 주소를 상대 경로로 만든다 (서버가 /2026/voca-학번/ 아래로 옮겨도 동작)
   plugins: [react()],
   server: {
     port: 5173,

@@ -25,7 +25,7 @@ export async function apiFetch(path, { method = 'GET', body } = {}) {
 
   let response
   try {
-    response = await fetch(`/api${path}`, options)
+    response = await fetch(`api${path}`, options)
   } catch {
     // 서버가 꺼져 있거나 네트워크가 끊긴 경우
     throw new ApiError(0, 'NETWORK_ERROR', '서버에 연결할 수 없어요. 잠시 후 다시 시도해 주세요.')
