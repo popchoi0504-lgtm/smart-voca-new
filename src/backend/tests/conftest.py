@@ -1,52 +1,45 @@
 # -*- coding: utf-8 -*-
 # 2026-11-04 - smart-voca - 테스트 공통 준비물: 테스트 전용 DB 준비, 테스트마다 표 비우기, API 호출용 클라이언트
 # 파일 위치: src/backend/tests/conftest.py
+import os
+import tempfile
 from pathlib import Path
 
-import pytest
-from alembic import command
-from alembic.config import Config
-from fastapi.testclient import TestClient
-from sqlalchemy import create_engine, text
-from sqlalchemy.engine import make_url
-from sqlalchemy.orm import sessionmaker
+# 주의: app 을 불러오기 전에 설정해야 한다. 테스트는 임시 폴더의 SQLite 파일만 쓰고, 개발 DB(data/voca.db)는 건드리지 않는다.
+_TEST_DIR = tempfile.mkdtemp(prefix="smart_voca_test_")
+os.environ["DB_PATH"] = str(Path(_TEST_DIR) / "test.db")
+os.environ["SEED_WORDS_ON_START"] = "false"  # 단어 2,000개 자동 적재를 끈다(테스트가 필요한 단어만 직접 만든다)
+os.environ["LOG_DIR"] = str(Path(_TEST_DIR) / "logs")
 
-from app.core.config import get_settings
-from app.core.database import get_db
-from app.main import app
-from app.models import user  # noqa: F401  (모델을 불러와야 Base.metadata 에 표 목록이 채워진다)
-from app.models import word  # noqa: F401
-from app.models import ai_usage, favorite, payment, review_log, user_word  # noqa: F401
-from app.models.base import Base
+import pytest  # noqa: E402
+from fastapi.testclient import TestClient  # noqa: E402
+from sqlalchemy.orm import sessionmaker  # noqa: E402
+
+from app.core.config import get_settings  # noqa: E402
+from app.core.database import engine, get_db, init_db  # noqa: E402
+from app.main import app  # noqa: E402
+from app.models.base import Base  # noqa: E402
 
 BACKEND_DIR = Path(__file__).resolve().parents[1]
-TEST_DB_NAME = "smart_voca_test"
 
 
 @pytest.fixture(scope="session")
 def test_engine():
-    """테스트 전용 DB 를 Alembic 변경 파일로 처음부터 만든다. (변경 파일 자체도 함께 검증된다)"""
-    test_url = get_settings().test_database_url
-    # 안전장치: 실수로 개발용 DB(smart_voca)의 데이터를 지우는 일을 막는다
-    if not test_url or make_url(test_url).database != TEST_DB_NAME:
-        pytest.exit(f"TEST_DATABASE_URL 이 {TEST_DB_NAME} 를 가리키지 않아 테스트를 중단합니다.", returncode=2)
-
-    alembic_config = Config(str(BACKEND_DIR / "alembic.ini"))
-    alembic_config.set_main_option("sqlalchemy.url", test_url)
-    command.downgrade(alembic_config, "base")  # 이전 테스트가 남긴 표를 모두 지우고
-    command.upgrade(alembic_config, "head")  # 최신 구조로 다시 만든다
-
-    engine = create_engine(test_url)
+    """테스트 전용 SQLite 파일(임시 폴더)에 표를 처음부터 만든다."""
+    # 안전장치: 설정이 임시 폴더를 가리키지 않으면 개발 DB 를 지울 수 있으므로 중단한다
+    if Path(get_settings().db_path).parent != Path(_TEST_DIR):
+        pytest.exit("DB_PATH 가 테스트용 임시 폴더를 가리키지 않아 테스트를 중단합니다.", returncode=2)
+    init_db(engine)
     yield engine
     engine.dispose()
 
 
 @pytest.fixture
 def db_session_factory(test_engine):
-    """테스트 시작 때마다 모든 표를 비워서, 테스트끼리 데이터가 섞이지 않게 한다."""
-    table_names = ", ".join(table.name for table in Base.metadata.sorted_tables)
+    """테스트 시작 때마다 모든 표를 비워서, 테스트끼리 데이터가 섞이지 않게 한다. 번호표(id)도 1부터 다시 시작한다."""
     with test_engine.begin() as connection:
-        connection.execute(text(f"TRUNCATE TABLE {table_names} RESTART IDENTITY CASCADE"))
+        for table in reversed(Base.metadata.sorted_tables):  # 자식 표부터 지워야 외래 키에 걸리지 않는다
+            connection.execute(table.delete())
     return sessionmaker(bind=test_engine, autoflush=False)
 
 

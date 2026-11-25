@@ -3,10 +3,11 @@
 # 파일 위치: src/backend/app/models/payment.py
 from datetime import datetime
 
-from sqlalchemy import BigInteger, CheckConstraint, DateTime, ForeignKey, Identity, Index, Integer, SmallInteger, Text, func
+from sqlalchemy import BigInteger, CheckConstraint, ForeignKey, Index, Integer, SmallInteger, Text, func
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.models.base import Base
+from app.core.timeutil import now_utc
+from app.models.base import Base, BigIntId, UtcDateTime
 
 
 class Payment(Base):
@@ -14,7 +15,7 @@ class Payment(Base):
 
     __tablename__ = "payments"
 
-    id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
+    id: Mapped[int] = mapped_column(BigIntId, primary_key=True)
     # ondelete 를 지정하지 않음: 회원을 지워도 결제 기록은 남기는 방향(DD-6). 기록이 있으면 회원 삭제가 막힌다.
     user_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.id"))
 
@@ -29,8 +30,8 @@ class Payment(Base):
     pass_days: Mapped[int] = mapped_column(SmallInteger)
 
     status: Mapped[str] = mapped_column(Text, server_default="pending")
-    requested_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    approved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    requested_at: Mapped[datetime] = mapped_column(UtcDateTime(), default=now_utc, server_default=func.now())
+    approved_at: Mapped[datetime | None] = mapped_column(UtcDateTime())
     # 실패했을 때 결제사 오류 코드
     failure_code: Mapped[str | None] = mapped_column(Text)
 

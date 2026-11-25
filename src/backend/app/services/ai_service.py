@@ -4,8 +4,8 @@
 import logging
 import time
 
-from sqlalchemy import func, select, update
-from sqlalchemy.dialects.postgresql import insert
+from sqlalchemy import case, select, update
+from sqlalchemy.dialects.sqlite import insert
 from sqlalchemy.orm import Session
 
 from app.ai.prompts import SYSTEM_INSTRUCTION, build_user_message
@@ -58,7 +58,7 @@ def _refund_call(db: Session, user_id: int, usage_date) -> None:
     db.execute(
         update(AiUsage)
         .where(AiUsage.user_id == user_id, AiUsage.usage_date == usage_date)
-        .values(call_count=func.greatest(AiUsage.call_count - 1, 0))
+        .values(call_count=case((AiUsage.call_count > 0, AiUsage.call_count - 1), else_=0))  # 0 아래로 내려가지 않게
     )
     db.commit()
 

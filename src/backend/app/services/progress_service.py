@@ -39,7 +39,7 @@ def get_summary(db: Session, user: User) -> ProgressSummaryResponse:
         ).where(ReviewLog.user_id == user.id, ReviewLog.study_date == today)
     ).one()
 
-    study_dates = db.scalars(select(func.distinct(ReviewLog.study_date)).where(ReviewLog.user_id == user.id)).all()
+    study_dates = db.scalars(select(ReviewLog.study_date).distinct().where(ReviewLog.user_id == user.id)).all()
 
     total_learned_count, familiar_count = db.execute(
         select(
@@ -97,7 +97,7 @@ def get_calendar(db: Session, user: User, days: int) -> CalendarResponse:
         .group_by(ReviewLog.study_date)
         .order_by(ReviewLog.study_date)
     ).all()
-    all_dates = db.scalars(select(func.distinct(ReviewLog.study_date)).where(ReviewLog.user_id == user.id)).all()
+    all_dates = db.scalars(select(ReviewLog.study_date).distinct().where(ReviewLog.user_id == user.id)).all()
     return CalendarResponse(
         start_date=start,
         end_date=today,

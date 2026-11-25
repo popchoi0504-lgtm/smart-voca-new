@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 # 2026-11-04 - smart-voca - words 표(단어) 모델 (데이터 설계서 4.2, FR-WORD-01~06, DD-5)
 # 파일 위치: src/backend/app/models/word.py
-from sqlalchemy import BigInteger, CheckConstraint, Identity, Integer, Text
+from sqlalchemy import BigInteger, CheckConstraint, Integer, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.models.base import Base
+from app.models.base import Base, BigIntId
 
 
 class Word(Base):
     __tablename__ = "words"
 
     # 번호표(기본 키). 나중에 user_words 가 이 번호로 단어를 가리킨다
-    id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
+    id: Mapped[int] = mapped_column(BigIntId, primary_key=True)
 
     # 영단어(소문자). UNIQUE: 시드를 다시 실행할 때 "이미 있는 단어인가"를 이 값으로 판단한다
     headword: Mapped[str] = mapped_column(Text, unique=True)

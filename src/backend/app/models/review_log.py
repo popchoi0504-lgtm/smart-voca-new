@@ -3,10 +3,11 @@
 # 파일 위치: src/backend/app/models/review_log.py
 from datetime import date, datetime
 
-from sqlalchemy import BigInteger, CheckConstraint, Date, DateTime, ForeignKey, Identity, Index, SmallInteger, Text, func
+from sqlalchemy import BigInteger, CheckConstraint, Date, ForeignKey, Index, SmallInteger, Text, func
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.models.base import Base
+from app.core.timeutil import now_utc
+from app.models.base import Base, BigIntId, UtcDateTime
 
 
 class ReviewLog(Base):
@@ -14,7 +15,7 @@ class ReviewLog(Base):
 
     __tablename__ = "review_logs"
 
-    id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
+    id: Mapped[int] = mapped_column(BigIntId, primary_key=True)
     user_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.id", ondelete="CASCADE"))
     word_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("words.id"))
 
@@ -27,7 +28,7 @@ class ReviewLog(Base):
     # SM-2 에 반영한 점수. 변환 규칙이 나중에 바뀌어도 "그때 점수"를 확인할 수 있다
     sm2_quality: Mapped[int] = mapped_column(SmallInteger)
 
-    reviewed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    reviewed_at: Mapped[datetime] = mapped_column(UtcDateTime(), default=now_utc, server_default=func.now())
     # 학습한 한국 날짜 (연속 학습일 계산용)
     study_date: Mapped[date] = mapped_column(Date)
 

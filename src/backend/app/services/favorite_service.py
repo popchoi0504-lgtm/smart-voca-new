@@ -4,7 +4,7 @@
 import logging
 
 from sqlalchemy import func, select
-from sqlalchemy.dialects.postgresql import insert
+from sqlalchemy.dialects.sqlite import insert
 from sqlalchemy.orm import Session
 
 from app.core.errors import AppError

@@ -3,14 +3,34 @@
 # 파일 위치: src/backend/app/main.py
 import logging
 import time
+from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
+from app.core.config import PROJECT_ROOT, get_settings
+from app.core.database import SessionLocal, init_db
 from app.core.errors import register_exception_handlers
 from app.core.logging import setup_logging
+from app.core.seed import seed_words_if_empty
 from app.routers import ai, auth, favorite, health, profile, progress, quiz, study, subscription
 
 request_logger = logging.getLogger("smart_voca.request")
+
+# 화면(React)을 빌드한 결과물 위치. 서버 하나가 화면과 API 를 함께 내보낸다 (포트 8080 하나만 열기 때문)
+FRONTEND_DIST = PROJECT_ROOT / "src" / "frontend" / "dist"
+
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    """서버가 켜질 때 한 번: 표를 만들고, 단어가 비어 있으면 기본 단어를 넣는다."""
+    init_db()
+    if get_settings().seed_words_on_start:
+        with SessionLocal() as session:
+            seed_words_if_empty(session)
+    yield
 
 
 def create_app() -> FastAPI:
@@ -23,6 +43,7 @@ def create_app() -> FastAPI:
         docs_url="/api/docs",
         openapi_url="/api/openapi.json",
         redoc_url=None,
+        lifespan=lifespan,
     )
 
     register_exception_handlers(app)
@@ -48,7 +69,24 @@ def create_app() -> FastAPI:
     app.include_router(favorite.router, prefix="/api")
     app.include_router(subscription.subscription_router, prefix="/api")
     app.include_router(subscription.payments_router, prefix="/api")
+    _mount_frontend(app, FRONTEND_DIST)
     return app
+
+
+def _mount_frontend(app: FastAPI, dist_dir: Path) -> None:
+    """빌드된 화면 파일이 있으면 같이 내보낸다. 없으면(개발 중) API 만 동작한다.
+
+    화면 주소는 # 뒤에 붙는 방식(HashRouter)이라 서버는 첫 화면(index.html)과 정적 파일만 주면 된다.
+    """
+    index_file = dist_dir / "index.html"
+    if not index_file.is_file():
+        return
+
+    @app.get("/", include_in_schema=False)
+    def frontend_index():
+        return FileResponse(index_file)
+
+    app.mount("/", StaticFiles(directory=dist_dir), name="frontend")
 
 
 app = create_app()

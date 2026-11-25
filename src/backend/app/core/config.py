@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # 2026-11-03 - smart-voca - .env 에서 설정을 읽어 오는 모듈 (코드에 비밀값을 쓰지 않기 위함)
 # 파일 위치: src/backend/app/core/config.py
+import secrets
 from functools import lru_cache
 from pathlib import Path
 
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # 프로젝트 루트(.env 가 있는 곳). 이 파일은 src/backend/app/core/ 아래에 있으므로 4단계 위
@@ -19,12 +21,14 @@ class Settings(BaseSettings):
         extra="ignore",  # .env 에 이 클래스가 모르는 키(POSTGRES_* 등)가 있어도 무시
     )
 
-    # DB (기본값 없음: 없으면 서버가 시작할 때 바로 오류를 낸다)
-    database_url: str
-    test_database_url: str = ""
+    # DB: SQLite 파일 위치. 서버에서는 환경변수 DB_PATH=/data/voca.db 로 준다 (교수 요건 VOCA-NFR-002, R-06)
+    db_path: Path = PROJECT_ROOT / "data" / "voca.db"
+    # 처음 실행해서 words 표가 비어 있으면 data/words/toeic_2000.csv 를 자동으로 넣는다 (테스트에서는 끈다)
+    seed_words_on_start: bool = True
 
-    # 로그인 토큰 (VS-1 에서 사용)
-    jwt_secret: str
+    # 로그인 토큰 서명 비밀값. 환경변수 SECRET_KEY(서버 규칙 R-08), 예전 이름 JWT_SECRET 도 받는다.
+    # 둘 다 없으면 서버가 켜질 때 무작위로 만든다(서버를 다시 켜면 로그인 상태가 풀릴 뿐 기능에는 문제 없음).
+    jwt_secret: str = Field(default="", validation_alias=AliasChoices("SECRET_KEY", "JWT_SECRET"))
     jwt_expire_days: int = 7
     cookie_secure: bool = False  # https 로 배포할 때는 반드시 True
 
@@ -49,11 +53,19 @@ class Settings(BaseSettings):
     ai_free_daily_limit: int = 10  # 대표 결정 2026-11-06
     ai_premium_daily_limit: int = 50
 
-    # 로그 파일 위치
+    # 로그 파일 위치. 서버에서는 쓰기가 /data·/tmp 에만 되므로 환경변수 LOG_DIR=/tmp/logs 로 바꾼다
     log_dir: Path = PROJECT_ROOT / "logs"
+
+    @property
+    def database_url(self) -> str:
+        """SQLAlchemy 가 쓰는 DB 주소. 파일 경로(DB_PATH)에서 만든다."""
+        return f"sqlite:///{Path(self.db_path).as_posix()}"
 
 
 @lru_cache
 def get_settings() -> Settings:
     """설정을 한 번만 읽어 재사용한다."""
-    return Settings()
+    settings = Settings()
+    if not settings.jwt_secret:
+        settings.jwt_secret = secrets.token_urlsafe(48)
+    return settings

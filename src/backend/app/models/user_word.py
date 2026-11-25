@@ -4,10 +4,10 @@
 from datetime import date, datetime
 from decimal import Decimal
 
-from sqlalchemy import BigInteger, CheckConstraint, Date, DateTime, ForeignKey, Index, Integer, Numeric, SmallInteger
+from sqlalchemy import BigInteger, CheckConstraint, Date, ForeignKey, Index, Integer, Numeric, SmallInteger
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.models.base import Base
+from app.models.base import Base, UtcDateTime
 
 
 class UserWord(Base):
@@ -27,8 +27,8 @@ class UserWord(Base):
     # 다음 복습 날짜 (한국 날짜 기준, DD-8)
     next_review_date: Mapped[date] = mapped_column(Date)
 
-    first_learned_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
-    last_reviewed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    first_learned_at: Mapped[datetime] = mapped_column(UtcDateTime())
+    last_reviewed_at: Mapped[datetime] = mapped_column(UtcDateTime())
 
     __table_args__ = (
         # "오늘 복습할 단어 찾기"를 빠르게 하는 색인 (이름: ix_user_words_user_id_next_review_date)
