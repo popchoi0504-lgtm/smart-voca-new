@@ -35,3 +35,7 @@ Thumbs.db
 
 # Claude Code 로컬 설정
 .claude/settings.local.json
+
+# 개발 서버 실행 로그와 발표 자료(개인 파일)
+*-run.log
+*.pptx

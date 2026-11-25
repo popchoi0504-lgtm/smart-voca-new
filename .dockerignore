@@ -1,0 +1,26 @@
+# 이미지에 넣지 않을 것들 (용량·비밀값·개인정보)
+.git
+.gitignore
+.gitattributes
+.github
+.env
+.env.*
+.venv
+venv
+node_modules
+__pycache__
+*.pyc
+*.db
+*.sqlite3
+.pytest_cache
+.vscode
+.idea
+logs
+backups
+docs
+ai-agent
+*.log
+*.pptx
+src/frontend/dist
+src/backend/tests
+data/raw
