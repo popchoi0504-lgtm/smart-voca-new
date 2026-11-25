@@ -47,7 +47,7 @@ def get_db() -> Generator[Session, None, None]:
 
 def init_db(target_engine: Engine | None = None) -> None:
     """처음 실행할 때 필요한 표를 모두 만든다. 이미 있는 표는 건드리지 않는다. (VOCA-NFR-003: 빈 DB 에서 시작 가능)"""
-    from app.models import ai_usage, favorite, payment, review_log, user, user_word, word  # noqa: F401  (표 목록을 채우기 위해)
+    from app.models import ai_usage, favorite, my_word, payment, review_log, user, user_word, word  # noqa: F401  (표 목록을 채우기 위해)
     from app.models.base import Base
 
     Base.metadata.create_all(target_engine or engine)

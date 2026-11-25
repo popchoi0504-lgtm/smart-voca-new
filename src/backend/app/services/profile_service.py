@@ -10,6 +10,7 @@ from app.core.errors import AppError
 from app.core.security import hash_password, verify_password
 from app.core.timeutil import now_utc, to_kst
 from app.models.ai_usage import AiUsage
+from app.models.my_word import MyWord
 from app.models.review_log import ReviewLog
 from app.models.user import User
 from app.models.user_word import UserWord
@@ -81,6 +82,7 @@ def withdraw(db: Session, user: User, password: str) -> None:
     db.execute(delete(UserWord).where(UserWord.user_id == user_id))
     db.execute(delete(ReviewLog).where(ReviewLog.user_id == user_id))
     db.execute(delete(AiUsage).where(AiUsage.user_id == user_id))
+    db.execute(delete(MyWord).where(MyWord.user_id == user_id))  # 직접 등록한 내 단어도 개인 데이터라 함께 지운다
     user.email = f"deleted-{user_id}@{DELETED_EMAIL_DOMAIN}"  # UNIQUE 를 지키려 회원마다 다르게
     user.password_hash = UNUSABLE_PASSWORD_HASH
     user.nickname = None
