@@ -11,6 +11,8 @@ import FavoriteStudyPage from './pages/FavoriteStudyPage'
 import FlashcardPage from './pages/FlashcardPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
+import MyWordsPage from './pages/MyWordsPage'
+import MyWordsStudyPage from './pages/MyWordsStudyPage'
 import NotFoundPage from './pages/NotFoundPage'
 import PaymentFailPage from './pages/PaymentFailPage'
 import PaymentSuccessPage from './pages/PaymentSuccessPage'
@@ -32,6 +34,8 @@ export default function App() {
         <Route path="/quiz/check" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
         <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
         <Route path="/favorites/study" element={<ProtectedRoute><FavoriteStudyPage /></ProtectedRoute>} />
+        <Route path="/my-words" element={<ProtectedRoute><MyWordsPage /></ProtectedRoute>} />
+        <Route path="/my-words/study" element={<ProtectedRoute><MyWordsStudyPage /></ProtectedRoute>} />
         <Route path="/progress"element={<ProtectedRoute><ProgressPage /></ProtectedRoute>} />
         <Route path="/settings"element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
         <Route path="/subscribe" element={<ProtectedRoute><SubscribePage /></ProtectedRoute>} />

@@ -791,3 +791,8 @@ a.btn-primary {
 .favorite-item.is-locked {
   opacity: 0.6;
 }
+
+/* 내 단어 화면 (이슈 #24) */
+.my-word-form, .my-word-csv { margin-bottom: 16px; }
+.my-word-search { display: flex; gap: 8px; margin: 16px 0; }
+.my-word-search input { flex: 1; min-width: 0; }

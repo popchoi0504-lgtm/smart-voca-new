@@ -9,6 +9,7 @@ import TeacherWidget from '../teacher/TeacherWidget'
 
 const MENU = [
   { to: '/', label: '홈', end: true },
+  { to: '/my-words', label: '내 단어' },
   { to: '/favorites', label: '즐겨찾기' },
   { to: '/progress', label: '학습 기록' },
   { to: '/subscribe', label: '프리미엄' },
